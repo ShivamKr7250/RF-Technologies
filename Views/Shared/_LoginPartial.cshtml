@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RF_Technologies.Model
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <li class="scroll-to-section">
+            <a class="" href="#">Hello, @UserManager.GetUserName(User)</a>
+        </li>
+    <li class="scroll-to-section">
+            <a class="" asp-controller="Account" asp-action="Logout">Logout</a>
+        </li>
+    }
+
+    else
+    {
+    <li class="scroll-to-section">
+            <a class="" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+    <li class="scroll-to-section">
+            <a class="" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }

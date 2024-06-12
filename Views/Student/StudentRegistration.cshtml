@@ -1,0 +1,146 @@
+﻿@using RF_Technologies.Model
+@model RegistrationForm
+
+<section class="h-100 bg-dark">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <form method="post">
+                    <div class="card card-registration my-4">
+                        <div class="row g-0">
+                            <div class="col-xl-6 d-none d-xl-block">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
+                                     alt="Sample photo" class="img-fluid"
+                                     style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+                            </div>
+                            <div class="col-xl-6">
+                                <div asp-validation-summary="All"></div>
+                                <div class="card-body p-md-5 text-black">
+                                    <h3 class="mb-5 text-uppercase">Student registration form</h3>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input asp-for="Name" type="text" id="form3Example1m" class="form-control form-control-lg" />
+                                                <label class="form-label" for="form3Example1m">Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input asp-for="Email" type="text" id="form3Example1n" class="form-control form-control-lg" />
+                                                <label class="form-label" for="form3Example1n">Email</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input asp-for="GitHub" type="text" id="form3Example1m1" class="form-control form-control-lg" />
+                                                <label class="form-label" for="form3Example1m1">GitHub Link</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input asp-for="Linkedin" type="text" id="form3Example1n1" class="form-control form-control-lg" />
+                                                <label class="form-label" for="form3Example1n1">Linkedin Link</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input asp-for="Skill" type="text" id="form3Example8" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example8">Skill</label>
+                                    </div>
+
+                                    @*                                 <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                    <h6 class="mb-0 me-4">Gender: </h6>
+
+                                    <div class="form-check form-check-inline mb-0 me-4">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                                    value="option1" />
+                                    <label class="form-check-label" for="femaleGender">Female</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline mb-0 me-4">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                                    value="option2" />
+                                    <label class="form-check-label" for="maleGender">Male</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                                    value="option3" />
+                                    <label class="form-check-label" for="otherGender">Other</label>
+                                    </div>
+
+                                    </div> *@
+
+                                    <div class="row">
+                                        <div class="col-md-12 mb-8">
+
+                                            <select asp-for="Domain" data-mdb-select-init>
+                                                <option disabled>--Select Domain--</option>
+                                                <option value="Full Stack">Full Stack</option>
+                                                <option value="Frontend">Frontend</option>
+                                                <option value="Backend">Backend</option>
+                                                <option value="Mobile Applicaton">Mobile Applications</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input asp-for="DateOfBirth" type="text" id="form3Example9" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example9">DOB</label>
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input asp-for="ContactNo" type="text" id="form3Example90" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example90">Contact No</label>
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input asp-for="Education" type="text" id="form3Example99" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example99">Education</label>
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input asp-for="CollegeName" type="text" id="form3Example97" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example97">College Name</label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end pt-3">
+                                        @*  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-lg">Reset all</button> *@
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Submit form</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+    }
+
+    .card-registration .select-arrow {
+        top: 13px;
+    }
+</style>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
