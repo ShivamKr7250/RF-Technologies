@@ -1,8 +1,4 @@
-﻿@using RF_Technologies.Utility
-@model IEnumerable<RegistrationForm>
-
-
-
+﻿@model IEnumerable<RegistrationForm>
 @{
     var status = Context.Request.Query["status"];
 
@@ -45,61 +41,44 @@
     <div class="card-body border p-4">
         <div class="d-flex justify-content-end pb-4 pt-2">
             <ul class="list-group list-group-horizontal-sm">
-                <a style="text-decoration:none;" asp-controller="Booking" asp-action="Index" asp-route-status="@SD.StatusPending">
+                <a style="text-decoration:none;" asp-controller="Student" asp-action="Index" asp-route-status="@SD.StatusPending">
                 <li class="list-group-item @pending"> @SD.StatusPending</li>
                 </a>
-                <a style="text-decoration:none;" asp-controller="Booking" asp-action="Index" asp-route-status="@SD.StatusApproved">
+                <a style="text-decoration:none;" asp-controller="Student" asp-action="Index" asp-route-status="@SD.StatusApproved">
                 <li class="list-group-item @approved"> @SD.StatusApproved</li>
                 </a>
-                <a style="text-decoration:none;" asp-controller="Booking" asp-action="Index" asp-route-status="@SD.StatusCheckedIn">
+                <a style="text-decoration:none;" asp-controller="Student" asp-action="Index" asp-route-status="@SD.StatusCheckedIn">
                 <li class="list-group-item @checkedIn"> @SD.StatusCheckedIn</li>
                 </a>
-                <a style="text-decoration:none;" asp-controller="Booking" asp-action="Index" asp-route-status="@SD.StatusCompleted">
+                <a style="text-decoration:none;" asp-controller="Student" asp-action="Index" asp-route-status="@SD.StatusCompleted">
                 <li class="list-group-item @completed"> @SD.StatusCompleted</li>
                 </a>
-                <a style="text-decoration:none;" asp-controller="Booking" asp-action="Index" asp-route-status="@SD.StatusCancelled">
+                <a style="text-decoration:none;" asp-controller="Student" asp-action="Index" asp-route-status="@SD.StatusCancelled">
                 <li class="list-group-item @cancelled"> @SD.StatusCancelled</li>
                 </a>
             </ul>
         </div>
-        <table class="table table-bordered table-striped">
+        <table id="tblBookings" class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Domain</th>
                     <th>College Name</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model)
-                {
-                    <tr>
-                        <td>@obj.Name</td>
-                        <td>@obj.Email</td>
-                        <td>@obj.Domain</td>
-                        <td>@obj.CollegeName</td>
-                        <td>@obj.Status</td>
-                        <td>
-                            <div class="w-75 btn-group" role="group">
-                                <a asp-controller="Student" asp-action="RegistrationUpdate" asp-route-registrationId="@obj.ID"
-                                   class="btn btn-success mx-2">
-                                    <i class="bi bi-pencil-square"></i> Edit
-                                </a>
-                                <a asp-controller="Student" asp-action="Delete" asp-route-registrationId="@obj.ID"
-                                   class="btn btn-danger mx-2">
-                                    <i class="bi bi-trash-fill"></i> Delete
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
             </tbody>
         </table>
     </div>
 </div>
 
 
-
+@section Scripts {
+    <script src="~/js/student.js"></script>
+}

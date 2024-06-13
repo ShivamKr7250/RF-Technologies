@@ -82,6 +82,26 @@
                         <label asp-for="Status" class="ms-2"></label>
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
+                    @if(Model.Status == SD.StatusApproved)
+                    {
+                        <form method="post">
+                            <div class="row pt-1 mb-3" style="border-radius:20px;">
+                                <div class="col-12 text-center">
+                                    <button asp-action="GenerateOfferLetter" asp-route-id="@Model.ID" asp-route-downloaadType="word" type="submit"
+                                            class="btn btn-sm btn-secondary my-1">
+                                        <i class="bi bi-file-earmark-word"></i> Generate Offer Letter (word)
+                                    </button>
+
+                                    <button asp-action="GenerateOfferLetter" asp-route-id="@Model.ID" asp-route-downloaadType="pdf" type="submit"
+                                            class="btn btn-sm btn-secondary my-1">
+                                        <i class="bi bi-file-earmark-pdf"></i> Generate Offer Letter (pdf)
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    }
+                    
                     <div class="row pt-2">
                         @if (User.IsInRole(SD.Role_Admin))
                         {
@@ -94,12 +114,16 @@
                                 </div>
                             }
 
-                            @if (Model.Status == SD.StatusCheckedIn)
+                        }
+                        @if(User.IsInRole(SD.Role_Student)){
+                            @if (Model.Status == SD.StatusApproved)
                             {
-                                <button type="submit" asp-controller="Booking" asp-action="CheckOut" class="btn btn-success form-control my-1">
-                                    <i class="bi bi-clipboard2-check"></i>
-                                    &nbsp; Check Out / Complete Booking
+                            <div class="col-6 col-md-3">
+                                    <button type="submit" asp-controller="Student" asp-action="CheckIn" class="btn btn-warning form-control my-1">
+                                    <i class="bi bi-check2-square"></i>
+                                    &nbsp; Check In
                                 </button>
+                                </div>
                             }
                         }
                         <div class="col-6 col-md-3">

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -21,6 +22,9 @@
     <link rel="stylesheet" href="~/assets/css/owl.css">
     <link rel="stylesheet" href="~/assets/css/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css" />
+    <link href="~/css/apexcharts.css" rel="stylesheet" />
+    <script src="~/js/apexcharts.js"></script>
 </head>
 <body>
       <!-- ***** Preloader Start ***** -->
@@ -80,7 +84,12 @@
             <ul class="nav">
               <li class="scroll-to-section"><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
               <li class="scroll-to-section"><a asp-action="Internship" asp-controller="Home">Internship</a></li>
-              <li class="scroll-to-section"><a href="#projects">Projects</a></li>
+                            @if (User.IsInRole(SD.Role_Student))
+                            {
+                                <li class="scroll-to-section"><a asp-controller="Student" asp-action="Index">Manage Internship</a></li>
+                            }
+                           
+
               <li class="has-sub">
                 <a href="javascript:void(0)">Pages</a>
                 <ul class="sub-menu">
@@ -126,6 +135,8 @@
     <script src="~/assets/js/tabs.js"></script>
     <script src="~/assets/js/popup.js"></script>
     <script src="~/assets/js/custom.js"></script>
+
+    <script src="//cdn.datatables.net/2.0.7/js/dataTables.min.js" asp-append-version="true"></script>
 
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

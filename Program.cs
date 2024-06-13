@@ -4,6 +4,7 @@ using RF_Technologies.Data_Access.Data;
 using RF_Technologies.Data_Access.Repository;
 using RF_Technologies.Data_Access.Repository.IRepository;
 using RF_Technologies.Model;
+using Syncfusion.Licensing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,7 @@ builder.Services.Configure<IdentityOptions>(option =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
-
+SyncfusionLicenseProvider.RegisterLicense(builder.Configuration.GetSection("Syncfusion:LicenseKey").Get<string>());
 
 var app = builder.Build();
 
