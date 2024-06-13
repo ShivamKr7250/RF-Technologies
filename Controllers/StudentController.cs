@@ -44,7 +44,7 @@ namespace RF_Technologies.Controllers
 
             ApplicationUser user = _unitOfWork.User.Get(u => u.Id == userId);
             obj.UserId = userId;
-
+            obj.RegistrationDate = DateTime.Now;
             obj.Status = SD.StatusPending;
 
             _unitOfWork.RegistrationForm.Add(obj);
