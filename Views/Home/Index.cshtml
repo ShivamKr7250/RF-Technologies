@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model Contact
 
 <div class="main-banner" id="top">
     <div class="container">
@@ -95,42 +96,42 @@
                         <img src="assets/images/projects-01.jpg" alt="">
                         <div class="down-content">
                             <h4>Resort Management System</h4>
-                            <a href="#"><i class="fa fa-link"></i></a>
+                            <a href="https://github.com/ShivamKr7250/ResortManagement.git"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="item">
                         <img src="assets/images/projects-02.jpg" alt="">
                         <div class="down-content">
                             <h4>E-Book Website</h4>
-                            <a href="#"><i class="fa fa-link"></i></a>
+                            <a href="https://github.com/ShivamKr7250/E-Commerce-MVC.git"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="item">
                         <img src="assets/images/projects-03.jpg" alt="">
                         <div class="down-content">
                             <h4>Expense Tracker</h4>
-                            <a href="#"><i class="fa fa-link"></i></a>
+                            <a href="https://github.com/ShivamKr7250/Expence-Tracker.git"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="item">
                         <img src="assets/images/projects-04.jpg" alt="">
                         <div class="down-content">
                             <h4>Super Market Management System</h4>
-                            <a href="#"><i class="fa fa-link"></i></a>
+                            <a href="https://github.com/ShivamKr7250/SuperMarketManagement.git"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="item">
                         <img src="assets/images/projects-02.jpg" alt="">
                         <div class="down-content">
                             <h4>Event Organizer Websites</h4>
-                            <a href="#"><i class="fa fa-link"></i></a>
+                            <a href="https://github.com/ShivamKr7250/CODEx-MVC.git"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="item">
                         <img src="assets/images/projects-03.jpg" alt="">
                         <div class="down-content">
                             <h4>Quiz Website</h4>
-                            <a href="#"><i class="fa fa-link"></i></a>
+                            <a href="https://github.com/ShivamKr7250/Quiz-APP_ASP.NET_REACT.git"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                 </div>
@@ -209,34 +210,34 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <fieldset>
-                                            <input type="name" name="name" id="name" placeholder="Your Name..." autocomplete="on" required>
+                                            <input type="name" asp-for="Name" placeholder="Your Name..." autocomplete="on" required>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-6">
                                         <fieldset>
-                                            <input type="surname" name="surname" id="surname" placeholder="Your Surname..."
+                                            <input type="surname" asp-for="ContactNo" placeholder="Your Surname..."
                                                    autocomplete="on" required>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-6">
                                         <fieldset>
-                                            <input type="text" name="email" id="email" pattern="" placeholder="Your E-mail..."
+                                            <input type="text" asp-for="Email" placeholder="Your E-mail..."
                                                    required="">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-6">
                                         <fieldset>
-                                            <input type="subject" name="subject" id="subject" placeholder="Subject..." autocomplete="on">
+                                            <input type="subject" asp-for="Subject" placeholder="Subject..." autocomplete="on">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
-                                            <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                                            <textarea asp-for="Message" placeholder="Your Message"></textarea>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
-                                            <button type="submit" id="form-submit" class="orange-button">Send Message Now</button>
+                                            <button type="submit" asp-controller="Home" asp-action="Contact" class="orange-button">Send Message Now</button>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -246,20 +247,19 @@
                                     <div class="col-lg-4">
                                         <div class="info-item">
                                             <i class="fa fa-phone"></i>
-                                            <h4><a href="#">010-020-0340</a></h4>
+                                            <h4><a href="#">+91-9905942199</a></h4>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="info-item">
                                             <i class="fa fa-envelope"></i>
-                                            <h4><a href="#">info@company.com</a></h4>
-                                            <h4><a href="#">hello@company.com</a></h4>
+                                            <h4><a href="#">rftechnologiesltd@gmail.com</a></h4>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="info-item">
                                             <i class="fa fa-map-marker"></i>
-                                            <h4><a href="#">Sunny Isles Beach, FL 33160, United States</a></h4>
+                                            <h4><a href="#">Khagual, Patna, Bihar 801105</a></h4>
                                         </div>
                                     </div>
                                 </div>
