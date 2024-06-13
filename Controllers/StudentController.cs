@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RF_Technologies.Data_Access.Repository.IRepository;
 using RF_Technologies.Model;
+using RF_Technologies.Utility;
+
 
 namespace RF_Technologies.Controllers
 {
@@ -32,6 +34,7 @@ namespace RF_Technologies.Controllers
         {
             if (ModelState.IsValid)
             {
+                obj.Status = SD.StatusPending;
                 _unitOfWork.RegistrationForm.Add(obj);
                 _unitOfWork.Save();
             }
@@ -53,6 +56,14 @@ namespace RF_Technologies.Controllers
         {
             if (ModelState.IsValid && obj.ID > 0)
             {
+                if(obj.Status == SD.StatusApproved)
+                {
+                    DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+                    obj.StartDate = currentDate.AddDays(2);
+
+                    DateOnly starDate = DateOnly.FromDateTime(DateTime.Now);
+                    obj.EndDate = starDate.AddMonths(1);
+                }
                 _unitOfWork.RegistrationForm.Update(obj);
                 _unitOfWork.Save();
                 return RedirectToAction("Index", "Home");
@@ -86,6 +97,16 @@ namespace RF_Technologies.Controllers
             }
             TempData["error"] = "The Registration has could not be deleted.";
             return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
+        public IActionResult Approve(RegistrationForm obj)
+        {
+            _unitOfWork.RegistrationForm.UpdateStatus(obj.ID, SD.StatusApproved);
+            _unitOfWork.Save();
+            TempData["success"] = "Registration Updated Successfully";
+            return RedirectToAction(nameof(RegistrationUpdate), new { registrationId = obj.ID });
         }
 
 

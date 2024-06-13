@@ -1,4 +1,5 @@
-﻿@model RegistrationForm
+﻿@using RF_Technologies.Utility
+@model RegistrationForm
 
 <div class="w-100 card border-0 p-4">
     <div class="card-header bg-success bg-gradient ml-0 py-3">
@@ -12,6 +13,7 @@
     <div class="card-body border p-4">
         <form method="post" class="row" enctype="multipart/form-data">
             <input asp-for="ID" hidden />
+
             <div class="col-10">
                 <div class="p-3">
                     <div asp-validation-summary="All"></div>
@@ -81,14 +83,28 @@
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
                     <div class="row pt-2">
-                        <div class="col-6 col-md-3">
-                            <button type="submit" class="btn btn-success w-100">
-                                <i class="bi bi-check-circle"></i> Update
-                            </button>
-                        </div>
+                        @if (User.IsInRole(SD.Role_Admin))
+                        {
+                            @if (Model.Status == SD.StatusPending)
+                            {
+                                <div class="col-6 col-md-3">
+                                    <button type="submit" asp-controller="Student" asp-action="Approve" class="btn btn-success w-100">
+                                        <i class="bi bi-check-circle"></i> Approve
+                                    </button>
+                                </div>
+                            }
+
+                            @if (Model.Status == SD.StatusCheckedIn)
+                            {
+                                <button type="submit" asp-controller="Booking" asp-action="CheckOut" class="btn btn-success form-control my-1">
+                                    <i class="bi bi-clipboard2-check"></i>
+                                    &nbsp; Check Out / Complete Booking
+                                </button>
+                            }
+                        }
                         <div class="col-6 col-md-3">
                             <a asp-controller="Student" asp-action="Index" class="btn btn-secondary w-100">
-                                <i class="bi bi-x-circle"></i> Cancel
+                                <i class="bi bi-x-circle"></i> Back
                             </a>
                         </div>
                     </div>
