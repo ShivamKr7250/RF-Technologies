@@ -130,6 +130,44 @@ namespace RF_Technologies.Controllers
             return RedirectToAction(nameof(RegistrationUpdate), new { registrationId = obj.ID });
         }
 
+        //[HttpPost]
+        //[Authorize(Roles = SD.Role_Student)]
+        //public IActionResult InternshipApproval(RegistrationForm obj)
+        //{
+        //    _unitOfWork.RegistrationForm.UpdateStatus(obj.ID, SD);
+        //    _unitOfWork.Save();
+        //    TempData["success"] = "Registration Updated Successfully";
+        //    return RedirectToAction(nameof(RegistrationUpdate), new { registrationId = obj.ID });
+        //}
+
+        public IActionResult SubmitInternshipPage(int internshipId)
+        {
+            var registrationForm = _unitOfWork.RegistrationForm.Get(r => r.ID == internshipId);
+            return View(registrationForm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Student)]
+        public IActionResult SubmitInternship(InternshipSubmit obj)
+        {
+                if (obj.Image != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(obj.Image.FileName);
+                    string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"images\payment");
+
+                    using var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create);
+                    obj.Image.CopyTo(fileStream);
+
+                    obj.PaymentScreenShot = @"\images\payment\" + fileName;
+                }
+                obj.RegistrationForm.Status = SD.StatusInternshipSubmited;
+                _unitOfWork.InternshipSubmit.Update(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "The villa has been Created successfully.";
+                return RedirectToAction("Index", "Student");
+        }
+
+
         [HttpPost]
         [Authorize]
         public IActionResult GenerateOfferLetter(int id, string downloadType)

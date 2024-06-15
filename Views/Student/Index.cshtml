@@ -6,6 +6,7 @@
     var approved = "";
     var pending = "";
     var checkedIn = "";
+    var internshipApproval = "";
     var completed = "";
     var cancelled = "";
 
@@ -19,6 +20,9 @@
             break;
         case SD.StatusCheckedIn:
             checkedIn = "text-white bg-success";
+            break;
+        case SD.StatusInternshipSubmited:
+            internshipApproval = "text-white bg-success";
             break;
         case SD.StatusCompleted:
             completed = "text-white bg-success";
@@ -50,6 +54,9 @@
                 </a>
                 <a style="text-decoration:none;" asp-controller="Student" asp-action="Index" asp-route-status="@SD.StatusCheckedIn">
                 <li class="list-group-item @checkedIn"> @SD.StatusCheckedIn</li>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Student" asp-action="Index" asp-route-status="@SD.StatusInternshipSubmited">
+                <li class="list-group-item @internshipApproval"> @SD.StatusInternshipSubmited</li>
                 </a>
                 <a style="text-decoration:none;" asp-controller="Student" asp-action="Index" asp-route-status="@SD.StatusCompleted">
                 <li class="list-group-item @completed"> @SD.StatusCompleted</li>

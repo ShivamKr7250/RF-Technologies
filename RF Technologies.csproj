@@ -31,4 +31,8 @@
     <ProjectReference Include="..\RF Technologies.Utility\RF Technologies.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\payment\" />
+  </ItemGroup>
+
 </Project>
