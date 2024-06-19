@@ -1,4 +1,5 @@
-﻿@model InternshipSubmit
+﻿@using RF_Technologies.Model.VM
+@model RegistrationVM
 
 <div class="w-100 card border-0 p-4">
     <div class="card-header bg-success bg-gradient ml-0 py-3">
@@ -11,77 +12,85 @@
 
     <div class="card-body border p-4">
         <form method="post" class="row" enctype="multipart/form-data">
-            <input asp-for="ID" hidden />
+            <input asp-for="@Model.InternshipCompelet.ID" hidden />
 
             <div class="col-10">
                 <div class="p-3">
                     <div asp-validation-summary="All"></div>
                     <div class="form-floating py-1 col-12">
-                        <input disabled asp-for="RegistrationForm.Name" class="form-control border shadow" />
-                        <label asp-for="RegistrationForm.Name" class="ms-2"></label>
+                        <input disabled asp-for="RegistrationList.Name" class="form-control border shadow" />
+                        <label asp-for="RegistrationList.Name" class="ms-2"></label>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input disabled asp-for="RegistrationForm.Email" class="form-control border shadow" />
-                        <label asp-for="RegistrationForm.Email" class="ms-2"></label>
+                        <input disabled asp-for="RegistrationList.Email" class="form-control border shadow" />
+                        <label asp-for="RegistrationList.Email" class="ms-2"></label>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input disabled asp-for="RegistrationForm.Domain" class="form-control border shadow" />
-                        <label asp-for="RegistrationForm.Domain" class="ms-2"></label>
+                        <input disabled asp-for="RegistrationList.Domain" class="form-control border shadow" />
+                        <label asp-for="RegistrationList.Domain" class="ms-2"></label>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input asp-for="LinkedinLink1" class="form-control border shadow" />
+                        <input asp-for="InternshipCompelet.LinkedinLink1" class="form-control border shadow" />
                         <label class="ms-2">Minor Task 1 Linkedin Link</label>
-                        <span asp-validation-for="LinkedinLink1" class="text-danger"></span>
+                        <span asp-validation-for="InternshipCompelet.LinkedinLink1" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input asp-for="GitHubLink1" class="form-control border shadow" />
+                        <input asp-for="InternshipCompelet.GitHubLink1" class="form-control border shadow" />
                         <label class="ms-2">Minor Task 1 GitHub Link</label>
-                        <span asp-validation-for="GitHubLink1" class="text-danger"></span>
+                        <span asp-validation-for="InternshipCompelet.GitHubLink1" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input asp-for="LinkedinLink2" class="form-control border shadow" />
+                        <input asp-for="InternshipCompelet.LinkedinLink2" class="form-control border shadow" />
                         <label class="ms-2">Minor Task 2 Linkedin Link</label>
-                        <span asp-validation-for="LinkedinLink2" class="text-danger"></span>
+                        <span asp-validation-for="InternshipCompelet.LinkedinLink2" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input asp-for="GitHubLink2" class="form-control border shadow" />
+                        <input asp-for="InternshipCompelet.GitHubLink2" class="form-control border shadow" />
                         <label class="ms-2">Minor Task 2 GitHub Link</label>
-                        <span asp-validation-for="GitHubLink2" class="text-danger"></span>
+                        <span asp-validation-for="InternshipCompelet.GitHubLink2" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input asp-for="LinkedinLink3" class="form-control border shadow" />
+                        <input asp-for="InternshipCompelet.LinkedinLink3" class="form-control border shadow" />
                         <label class="ms-2">Major Task 1 Linkedin Link</label>
-                        <span asp-validation-for="LinkedinLink3" class="text-danger"></span>
+                        <span asp-validation-for="InternshipCompelet.LinkedinLink3" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input asp-for="GitHubLink3" class="form-control border shadow" />
+                        <input asp-for="InternshipCompelet.GitHubLink3" class="form-control border shadow" />
                         <label class="ms-2">Major Task 1 GitHub Link</label>
-                        <span asp-validation-for="GitHubLink3" class="text-danger"></span>
+                        <span asp-validation-for="InternshipCompelet.GitHubLink3" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-1 col-12">
-                        <input asp-for="Image" class="form-control border shadow" />
-                        <input asp-for="PaymentScreenShot" hidden class="form-control border shadow" />
+                        <input asp-for="InternshipCompelet.Image" type="file" class="form-control border shadow" />
+                        <input asp-for="InternshipCompelet.PaymentScreenShot" hidden class="form-control border shadow" />
                         <label class="ms-2">Payment Screen Shot Upload</label>
                     </div>
+
+                    <!-- Section to view the PaymentScreenShot image -->
+                    @if (!string.IsNullOrEmpty(Model.InternshipCompelet.PaymentScreenShot))
+                    {
+                        <div class="form-floating py-1 col-12">
+                            <img src="@Model.InternshipCompelet.PaymentScreenShot" alt="Payment Screenshot" class="img-fluid" style="width: 800px; height: 400px;" />
+                        </div>
+                    }
+
                     <div class="row pt-2">
                         @if (User.IsInRole(SD.Role_Admin))
                         {
-                            @if (Model.RegistrationForm.Status == SD.StatusInternshipSubmited)
+                            @if (Model.RegistrationList.Status == SD.StatusInternshipSubmited)
                             {
                                 <div class="col-6 col-md-3">
-                                    <button type="submit" asp-controller="Student" asp-action="InternshipComplete" class="btn btn-success w-100">
-                                        <i class="bi bi-check-circle"></i> Compelete
+                                    <button type="submit" asp-controller="Student" asp-action="InternshipComplete" asp-route-internshipId="@Model.RegistrationList.ID" class="btn btn-success w-100">
+                                        <i class="bi bi-check-circle"></i> Complete
                                     </button>
                                 </div>
                             }
-
                         }
                         @if (User.IsInRole(SD.Role_Student))
                         {
-                            @if (Model.RegistrationForm.Status == SD.StatusCheckedIn)
+                            @if (Model.RegistrationList.Status == SD.StatusCheckedIn)
                             {
                                 <div class="col-6 col-md-3">
-                                    <button type="submit" asp-controller="Student" asp-action="SubmitInternship" class="btn btn-warning form-control my-1">
+                                    <button type="submit" asp-controller="Student" asp-action="SubmitInternship" asp-route-internshipId="@Model.RegistrationList.ID" class="btn btn-warning form-control my-1">
                                         <i class="bi bi-check2-square"></i>
                                         &nbsp; Submit
                                     </button>
@@ -100,10 +109,8 @@
     </div>
 </div>
 
-
 @section Scripts {
     @{
         <partial name="_ValidationScriptsPartial" />
     }
 }
-

@@ -10,6 +10,8 @@ using Syncfusion.DocIO;
 using Syncfusion.DocIORenderer;
 using Syncfusion.Pdf;
 using System.Security.Claims;
+using RF_Technologies.Model.VM;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 namespace RF_Technologies.Controllers
@@ -19,6 +21,8 @@ namespace RF_Technologies.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        [BindProperty]
+        public RegistrationVM RegistrationVM { get; set; }
         public StudentController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
@@ -121,6 +125,22 @@ namespace RF_Technologies.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
+        public IActionResult InternshipComplete(RegistrationForm obj, int internshipId)
+        {
+            var registration = _unitOfWork.RegistrationForm.Get(u => u.ID == internshipId);
+            if (registration is not null)
+            {
+                registration.Status = SD.StatusCompleted;
+            }
+            _unitOfWork.RegistrationForm.Update(registration);
+            _unitOfWork.Save();
+            TempData["success"] = "Registration Updated Successfully";
+            return View("Index", "Student");
+            //return RedirectToAction(nameof(RegistrationUpdate), new { registrationId = obj.ID });
+        }
+
+        [HttpPost]
         [Authorize(Roles = SD.Role_Student)]
         public IActionResult CheckIn(RegistrationForm obj)
         {
@@ -130,42 +150,64 @@ namespace RF_Technologies.Controllers
             return RedirectToAction(nameof(RegistrationUpdate), new { registrationId = obj.ID });
         }
 
-        //[HttpPost]
-        //[Authorize(Roles = SD.Role_Student)]
-        //public IActionResult InternshipApproval(RegistrationForm obj)
-        //{
-        //    _unitOfWork.RegistrationForm.UpdateStatus(obj.ID, SD);
-        //    _unitOfWork.Save();
-        //    TempData["success"] = "Registration Updated Successfully";
-        //    return RedirectToAction(nameof(RegistrationUpdate), new { registrationId = obj.ID });
-        //}
-
         public IActionResult SubmitInternshipPage(int internshipId)
         {
-            var registrationForm = _unitOfWork.RegistrationForm.Get(r => r.ID == internshipId);
-            return View(registrationForm);
+            var registrationForm = _unitOfWork.RegistrationForm.Get(u => u.ID == internshipId);
+            var internshipComplete = _unitOfWork.InternshipSubmit.Get(u => u.IntenshipId == internshipId) ?? new InternshipSubmit();
+
+            RegistrationVM = new RegistrationVM
+            {
+                RegistrationList = registrationForm,
+                InternshipCompelet = internshipComplete
+            };
+
+            return View(RegistrationVM);
         }
+
 
         [HttpPost]
         [Authorize(Roles = SD.Role_Student)]
-        public IActionResult SubmitInternship(InternshipSubmit obj)
+        public IActionResult SubmitInternship(RegistrationVM obj, int internshipId)
         {
-                if (obj.Image != null)
-                {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(obj.Image.FileName);
-                    string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"images\payment");
+            if (obj.InternshipCompelet.Image != null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(obj.InternshipCompelet.Image.FileName);
+                string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"images\payment");
 
-                    using var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create);
-                    obj.Image.CopyTo(fileStream);
+                using var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create);
+                obj.InternshipCompelet.Image.CopyTo(fileStream);
 
-                    obj.PaymentScreenShot = @"\images\payment\" + fileName;
-                }
-                obj.RegistrationForm.Status = SD.StatusInternshipSubmited;
-                _unitOfWork.InternshipSubmit.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "The villa has been Created successfully.";
-                return RedirectToAction("Index", "Student");
+                obj.InternshipCompelet.PaymentScreenShot = @"\images\payment\" + fileName;
+            }
+
+            obj.InternshipCompelet.IntenshipId = internshipId;
+
+            // Fetch the existing InternshipComplete record if it exists
+            var existingInternshipComplete = _unitOfWork.InternshipSubmit.Get(u => u.IntenshipId == internshipId);
+
+            if (existingInternshipComplete != null)
+            {
+                // Update the existing record
+                existingInternshipComplete.PaymentScreenShot = obj.InternshipCompelet.PaymentScreenShot;
+                // Update other fields as necessary
+                _unitOfWork.InternshipSubmit.Update(existingInternshipComplete);
+            }
+            else
+            {
+                // Add a new record
+                _unitOfWork.InternshipSubmit.Add(obj.InternshipCompelet);
+            }
+
+            var registration = _unitOfWork.RegistrationForm.Get(u => u.ID == internshipId);
+            registration.Status = SD.StatusInternshipSubmited;
+
+            _unitOfWork.RegistrationForm.Update(registration);
+            _unitOfWork.Save();
+
+            TempData["success"] = "The internship has been submitted successfully.";
+            return RedirectToAction("Index", "Student");
         }
+
 
 
         [HttpPost]

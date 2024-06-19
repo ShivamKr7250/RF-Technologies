@@ -81,42 +81,6 @@
                         <label asp-for="Status" class="ms-2"></label>
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
-                    @if (User.IsInRole(SD.Role_Admin))
-                    {
-                        @if(Model.Status == SD.StatusInternshipSubmited)
-                        {
-@*                             <div class="form-floating py-1 col-12">
-                            <input asp-for="InternshipSubmit.LinkedinLink1" class="form-control border shadow" />
-                            <label class="ms-2">Minor Task 1 Linkedin Link</label>
-                            <span asp-validation-for="InternshipSubmit.LinkedinLink1" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-1 col-12">
-                            <input asp-for="InternshipSubmit.GitHubLink1" class="form-control border shadow" />
-                            <label class="ms-2">Minor Task 1 GitHub Link</label>
-                            <span asp-validation-for="InternshipSubmit.GitHubLink1" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-1 col-12">
-                            <input asp-for="InternshipSubmit.LinkedinLink2" class="form-control border shadow" />
-                            <label class="ms-2">Minor Task 2 Linkedin Link</label>
-                            <span asp-validation-for="InternshipSubmit.LinkedinLink2" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-1 col-12">
-                            <input asp-for="InternshipSubmit.GitHubLink2" class="form-control border shadow" />
-                            <label class="ms-2">Minor Task 2 GitHub Link</label>
-                            <span asp-validation-for="InternshipSubmit.GitHubLink2" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-1 col-12">
-                            <input asp-for="InternshipSubmit.LinkedinLink3" class="form-control border shadow" />
-                            <label class="ms-2">Major Task 1 Linkedin Link</label>
-                            <span asp-validation-for="InternshipSubmit.LinkedinLink3" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-1 col-12">
-                            <input asp-for="InternshipSubmit.GitHubLink3" class="form-control border shadow" />
-                            <label class="ms-2">Major Task 1 GitHub Link</label>
-                            <span asp-validation-for="InternshipSubmit.GitHubLink3" class="text-danger"></span>
-                        </div> *@
-                        }
-                    }
                     @if(Model.Status == SD.StatusApproved)
                     {
                         <form method="post">
@@ -146,6 +110,15 @@
                                     <button type="submit" asp-controller="Student" asp-action="Approve" class="btn btn-success w-100">
                                         <i class="bi bi-check-circle"></i> Approve
                                     </button>
+                                </div>
+                            }
+                            @if (Model.Status == SD.StatusInternshipSubmited)
+                            {
+                                <div class="col-6 col-md-3">
+                                    <a type="submit" asp-controller="Student" asp-action="SubmitInternshipPage" asp-route-internshipId="@Model.ID" class="btn btn-warning form-control my-1">
+                                        <i class="bi bi-check2-square"></i>
+                                        &nbsp; Check Submited Internship
+                                    </a>
                                 </div>
                             }
 
