@@ -53,6 +53,7 @@ namespace RF_Technologies.Controllers
 
             _unitOfWork.RegistrationForm.Add(obj);
             _unitOfWork.Save();
+            TempData["success"] = "The Registration has been done successfully.";
             return RedirectToAction("Index", "Home");
         }
 
@@ -81,6 +82,7 @@ namespace RF_Technologies.Controllers
                 }
                 _unitOfWork.RegistrationForm.Update(obj);
                 _unitOfWork.Save();
+                TempData["success"] = "The Registration has been Updated done successfully.";
                 return RedirectToAction("Index", "Home");
             }
             return View(obj);
