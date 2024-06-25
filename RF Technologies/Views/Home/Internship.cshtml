@@ -1,0 +1,323 @@
+﻿<style>
+    .counter{
+    background: #fff;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: center;
+    width: 210px;
+    padding: 0 0 25px;
+    margin: 0 auto 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+.counter:before{
+    content: "";
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px 0;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.07);
+    transform: translateX(-50%) rotate(45deg);
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+}
+.counter .counter-value{
+    color: #fff;
+    background: linear-gradient(to right, #19bbd2, #2778ee);
+    font-size: 38px;
+    font-weight: 300;
+    padding: 0 0 3px;
+    margin: 0 0 25px;
+    border-radius: 10px 10px 0 0;
+    display: block;
+}
+.counter h3{
+    color: #2778ee;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    margin: 0 0 25px;
+}
+.counter .counter-icon{
+    color: #fff;
+    background: linear-gradient(to right, #19bbd2, #2778ee);
+    font-size: 40px;
+    line-height: 60px;
+    width: 65px;
+    height: 65px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+.counter.purple .counter-value,
+.counter.purple .counter-icon{
+    background: linear-gradient(to right, #8f70e7, #c452ef);
+}
+.counter.purple h3{ color: #c452ef; }
+.counter.magenta .counter-value,
+.counter.magenta .counter-icon{
+    background: linear-gradient(to right, #e84a94, #ae379b);
+}
+.counter.magenta h3{ color: #ae379b; }
+.counter.yellow .counter-value,
+.counter.yellow .counter-icon{
+    background: linear-gradient(to right, #fecb4b, #e69814);
+}
+.counter.yellow h3{ color: #e69814; }
+
+/* media screen and (max-width:990px){
+    .counter{ margin-bottom: 45px; }
+} */
+</style>
+
+
+
+<div class="services section" id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-6">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-heading">
+                            <h2>
+                                We Provide <em>Internship On Various</em>
+                                <span>Domain</span> For Your Improving Your Skill
+                            </h2>
+                            <div class="line-dec"></div>
+                            <p>We have an Different Domain of Internship that will Help out in Learning the Industry Level Work</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="service-item">
+                            <div class="icon">
+                                <img src="~/assets/images/services-01.jpg" alt="discover SEO" class="templatemo-feature">
+                            </div>
+                            <h4>Full Stack Developer</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="service-item">
+                            <div class="icon">
+                                <img src="~/assets/images/services-02.jpg" alt="data analysis" class="templatemo-feature">
+                            </div>
+                            <h4>Frontend Developer</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="service-item">
+                            <div class="icon">
+                                <img src="~/assets/images/services-03.jpg" alt="precise data" class="templatemo-feature">
+                            </div>
+                            <h4>Backend Developer</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="service-item">
+                            <div class="icon">
+                                <img src="~/assets/images/services-04.jpg" alt="SEO marketing" class="templatemo-feature">
+                            </div>
+                            <h4>App Developer</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-6">
+            <div class="counter" id="counter-web-designing">
+                <span class="counter-value">0</span>
+                <h3>Web Designing</h3>
+                <div class="counter-icon">
+                    <i class="fa fa-briefcase"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="counter purple" id="counter-web-development">
+                <span class="counter-value">0</span>
+                <h3>Web Development</h3>
+                <div class="counter-icon">
+                    <i class="fa fa-globe"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="counter" id="counter-backend">
+                <span class="counter-value">0</span>
+                <h3>Backend</h3>
+                <div class="counter-icon">
+                    <i class="fa fa-database"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="counter purple" id="counter-mobile-applications">
+                <span class="counter-value">0</span>
+                <h3>Mobile Applications</h3>
+                <div class="counter-icon">
+                    <i class="fa fa-mobile"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="infos section" id="infos">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="left-image">
+                                <img src="assets/images/left-infos.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="section-heading">
+                                <h2>More <em>About Us</em> &amp; What <span>We Offer</span></h2>
+                                <div class="line-dec"></div>
+                                <p>
+                                    Our mission is to empower you with the tools and support necessary to thrive in a competitive market. Whether you need robust software solutions, mobile applications, or expert technological guidance, our dedicated team is here to help you achieve your goals.
+                                </p>
+                            </div>
+                            <div class="skills">
+                                <div class="skill-slide marketing">
+                                    <div class="fill"></div>
+                                    <h6>Website Development</h6>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill-slide digital">
+                                    <div class="fill"></div>
+                                    <h6>Mobile Application</h6>
+                                    <span>80%</span>
+                                </div>
+                                <div class="skill-slide media">
+                                    <div class="fill"></div>
+                                    <h6>CRM Solutions</h6>
+                                    <span>95%</span>
+                                </div>
+                            </div>
+                            <p class="more-info">
+                                At RF Technologies, we understand the challenges you face and are committed to transforming your business vision into reality. Let's build a brighter future together!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="internship section" id="internship">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="left-image">
+                                <img src="~/assets/images/projects-01.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="section-heading">
+                                <h2>Internship <em>Program</em> &amp; How to <span>Apply</span></h2>
+                                <div class="line-dec"></div>
+                                <p>
+                                    We are excited to offer a comprehensive internship program designed to provide hands-on experience in the tech industry. Our internship program covers various domains such as software development, mobile applications, and CRM solutions. This is a perfect opportunity to enhance your skills and work alongside industry experts.
+                                </p>
+                            </div>
+                            <p class="more-info">
+                                Join us as an intern and kickstart your career in technology. To apply, please visit the link below and fill out the application form.
+                            </p>
+                            <div class="apply-button">
+                                <a asp-controller="Student" asp-action="StudentRegistration" class="btn btn-primary">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function updateCounters(data) {
+            console.log('Data received:', data); // Print the data to the console
+
+            // Check if elements exist before updating
+            if ($('#counter-web-designing .counter-value').length) {
+                $('#counter-web-designing .counter-value').text(data.Domain1);
+                console.log('Updated Web Designing counter:', data.Domain1);
+            } else {
+                console.error('Element for Web Designing not found');
+            }
+
+            if ($('#counter-web-development .counter-value').length) {
+                $('#counter-web-development .counter-value').text(data.Domain2);
+                console.log('Updated Web Development counter:', data.Domain2);
+            } else {
+                console.error('Element for Web Development not found');
+            }
+
+            if ($('#counter-backend .counter-value').length) {
+                $('#counter-backend .counter-value').text(data.Domain3);
+                console.log('Updated Backend counter:', data.Domain3);
+            } else {
+                console.error('Element for Backend not found');
+            }
+
+            if ($('#counter-mobile-applications .counter-value').length) {
+                $('#counter-mobile-applications .counter-value').text(data.Domain4);
+                console.log('Updated Mobile Applications counter:', data.Domain4);
+            } else {
+                console.error('Element for Mobile Applications not found');
+            }
+
+            // Animate the counters
+            $('.counter-value').each(function () {
+                $(this).prop('Counter', 0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 3500,
+                    easing: 'swing',
+                    step: function (now) {
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });
+        }
+
+        function fetchData() {
+            $.ajax({
+                url: '@Url.Action("DisplayCounter", "Home")',
+                type: 'GET',
+                success: function (response) {
+                    console.log('Response from server:', response); // Print the response to the console
+                    updateCounters(response.data);
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+
+        // Fetch data initially and set interval to fetch it periodically
+        fetchData();
+        setInterval(fetchData, 10000); // Fetch data every 10 seconds
+    });
+</script>
+
+
+
+

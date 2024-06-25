@@ -1,0 +1,113 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Website Project\\RF Technologies\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|e:\\website project\\rf technologies\\views\\home\\internship.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|solutionrelative:views\\home\\internship.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|e:\\website project\\rf technologies\\views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|solutionrelative:views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|e:\\website project\\rf technologies\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|e:\\website project\\rf technologies\\wwwroot\\js\\student.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|solutionrelative:wwwroot\\js\\student.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|e:\\website project\\rf technologies\\wwwroot\\js\\dashboard\\radialchart.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9E50E80A-583C-4766-82D8-A8CA7AD53B00}|RF Technologies.csproj|solutionrelative:wwwroot\\js\\dashboard\\radialchart.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\Website Project\\RF Technologies\\Views\\Student\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\Index.cshtml",
+              "ToolTip": "E:\\Website Project\\RF Technologies\\Views\\Student\\Index.cshtml",
+              "RelativeToolTip": "Views\\Student\\Index.cshtml",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-25T10:31:57.96Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "student.js",
+              "DocumentMoniker": "E:\\Website Project\\RF Technologies\\wwwroot\\js\\student.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\student.js",
+              "ToolTip": "E:\\Website Project\\RF Technologies\\wwwroot\\js\\student.js",
+              "RelativeToolTip": "wwwroot\\js\\student.js",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-06-25T10:07:32.149Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "radialChart.js",
+              "DocumentMoniker": "E:\\Website Project\\RF Technologies\\wwwroot\\js\\dashboard\\radialChart.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\dashboard\\radialChart.js",
+              "ToolTip": "E:\\Website Project\\RF Technologies\\wwwroot\\js\\dashboard\\radialChart.js",
+              "RelativeToolTip": "wwwroot\\js\\dashboard\\radialChart.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-06-25T10:07:29.348Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "E:\\Website Project\\RF Technologies\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "E:\\Website Project\\RF Technologies\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AQIAADAAAAAAAAAAAAAAADYAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-25T09:51:00.231Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Internship.cshtml",
+              "DocumentMoniker": "E:\\Website Project\\RF Technologies\\Views\\Home\\Internship.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Internship.cshtml",
+              "ToolTip": "E:\\Website Project\\RF Technologies\\Views\\Home\\Internship.cshtml",
+              "RelativeToolTip": "Views\\Home\\Internship.cshtml",
+              "ViewState": "AQIAAHAAAAAAAAAAAAAiwAIBAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-25T09:38:13.218Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
