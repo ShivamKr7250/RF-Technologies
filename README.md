@@ -31,7 +31,7 @@ This project is an Internship Management System built using ASP.NET Core MVC and
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/internship-management-system.git
+   git clone https://github.com/ShivamKr7250/RF-Technologies.git
    ```
    
 2. **Set up the database:**
