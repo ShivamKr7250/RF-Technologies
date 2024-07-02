@@ -84,18 +84,17 @@ namespace RF_Technologies.Data_Access.Data
 
         public async Task<PieChartDto> GetBookingPieChartData()
         {
-            var totalregistration = _unitOfWork.RegistrationForm.GetAll(u => u.RegistrationDate >= DateTime.Now.AddDays(-30) &&
-           (u.Status != SD.StatusPending || u.Status == SD.StatusCancelled));
+            var totalregistration = _unitOfWork.RegistrationForm.GetAll(u => (u.Status != SD.StatusPending || u.Status == SD.StatusCancelled));
 
-            var studentWithOneRegistration = totalregistration.GroupBy(b => b.UserId).Where(x => x.Count() == 1).Select(x => x.Key).ToList();
-
-            int registrationByNewStudent = studentWithOneRegistration.Count();
-            int registrationByReturingStudent = totalregistration.Count() - registrationByNewStudent;
+            var totalFullStackCount = totalregistration.Count(u => u.Domain == "Full Stack");
+            var totalFronendCount = totalregistration.Count(u => u.Domain == "Frontend");
+            var totalBackendCount = totalregistration.Count(u => u.Domain == "Backend");
+            var totalAppCount = totalregistration.Count(u => u.Domain == "Mobile Application");
 
             PieChartDto pieChartDto = new()
             {
-                Labels = new string[] { "New Student Registration", "Returing Student Registration" },
-                Series = new decimal[] { registrationByNewStudent, registrationByReturingStudent }
+                Labels = new string[] { "Full Stack Developement", "Frontend Devlopment", "Backend Development", "App Development" },
+                Series = new decimal[] { totalFullStackCount, totalFronendCount, totalBackendCount, totalAppCount }
             };
             return pieChartDto;
         }

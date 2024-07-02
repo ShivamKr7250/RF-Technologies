@@ -31,7 +31,7 @@ function loadPieChart(id, data) {
             width: 380
         },
         stroke: {
-            show: false
+            show: true
         },
         legend: {
             position: 'bottom',

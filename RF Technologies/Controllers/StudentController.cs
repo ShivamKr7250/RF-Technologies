@@ -54,7 +54,14 @@ namespace RF_Technologies.Controllers
             _unitOfWork.RegistrationForm.Add(obj);
             _unitOfWork.Save();
             TempData["success"] = "The Registration has been done successfully.";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("RedirectPage", "Student", new { registrationId = obj.ID });
+
+        }
+
+        public IActionResult RedirectPage(int registrationId)
+        {
+            var applicationId = "RFIN" + DateTime.Now.Year + registrationId.ToString();
+            return View((object)applicationId);
         }
 
         public IActionResult RegistrationUpdate(int registrationId)

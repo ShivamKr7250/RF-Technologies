@@ -10,3 +10,16 @@ E:\Website Project\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.
 E:\Website Project\RF Technologies.Model\obj\Debug\net8.0\refint\RF Technologies.Model.dll
 E:\Website Project\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.pdb
 E:\Website Project\RF Technologies.Model\obj\Debug\net8.0\ref\RF Technologies.Model.dll
+E:\Website Project\RF Technologies\RF Technologies.Model\bin\Debug\net8.0\RF Technologies.Model.deps.json
+E:\Website Project\RF Technologies\RF Technologies.Model\bin\Debug\net8.0\RF Technologies.Model.dll
+E:\Website Project\RF Technologies\RF Technologies.Model\bin\Debug\net8.0\RF Technologies.Model.pdb
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.csproj.AssemblyReference.cache
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.GeneratedMSBuildEditorConfig.editorconfig
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.AssemblyInfoInputs.cache
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.AssemblyInfo.cs
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.csproj.CoreCompileInputs.cache
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.sourcelink.json
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.dll
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\refint\RF Technologies.Model.dll
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\RF Technologies.Model.pdb
+E:\Website Project\RF Technologies\RF Technologies.Model\obj\Debug\net8.0\ref\RF Technologies.Model.dll

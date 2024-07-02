@@ -15,3 +15,21 @@ E:\Website Project\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.
 E:\Website Project\RF Technologies.Data Access\obj\Debug\net8.0\refint\RF Technologies.Data Access.dll
 E:\Website Project\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.pdb
 E:\Website Project\RF Technologies.Data Access\obj\Debug\net8.0\ref\RF Technologies.Data Access.dll
+E:\Website Project\RF Technologies\RF Technologies.Data Access\bin\Debug\net8.0\RF Technologies.Data Access.deps.json
+E:\Website Project\RF Technologies\RF Technologies.Data Access\bin\Debug\net8.0\RF Technologies.Data Access.dll
+E:\Website Project\RF Technologies\RF Technologies.Data Access\bin\Debug\net8.0\RF Technologies.Data Access.pdb
+E:\Website Project\RF Technologies\RF Technologies.Data Access\bin\Debug\net8.0\RF Technologies.Model.dll
+E:\Website Project\RF Technologies\RF Technologies.Data Access\bin\Debug\net8.0\RF Technologies.Utility.dll
+E:\Website Project\RF Technologies\RF Technologies.Data Access\bin\Debug\net8.0\RF Technologies.Model.pdb
+E:\Website Project\RF Technologies\RF Technologies.Data Access\bin\Debug\net8.0\RF Technologies.Utility.pdb
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.csproj.AssemblyReference.cache
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.GeneratedMSBuildEditorConfig.editorconfig
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.AssemblyInfoInputs.cache
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.AssemblyInfo.cs
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.csproj.CoreCompileInputs.cache
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.sourcelink.json
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Techn.434204A4.Up2Date
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.dll
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\refint\RF Technologies.Data Access.dll
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\RF Technologies.Data Access.pdb
+E:\Website Project\RF Technologies\RF Technologies.Data Access\obj\Debug\net8.0\ref\RF Technologies.Data Access.dll

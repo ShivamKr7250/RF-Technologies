@@ -1,0 +1,23 @@
+﻿@model string
+
+<div class="container pt-4" style="margin-top: 7rem;">
+    <div class="col-12 text-center">
+        <h1 class="text-success text-center">Your Internship Request is Submitted!</h1>
+        Your Registration Id is : @Model <br />
+        <p>You can view all your internship requests in the <a asp-controller="Student" asp-action="Index">Manage Internship</a> Section.</p>
+        <img src="~/assets/img/thanks.jpg" style="border-radius:20px" width="30%" />
+    </div>
+    <div class="col-12 text-center text-dark">
+        <p class="pt-1" style="text-align: left; margin: 0 auto; display: inline-block;">
+            <b>Steps to check your internship update:</b>
+            <br />1. After submission of the request, your request will be in the pending section.
+            <br />2. After approval from the company, it will be updated to approved.
+            <br />3. You need to open the approved internship request and click on the "Check-in" button to start your internship. The internship will be counted from the day you click the "Check-in" button.
+            <br />4. After one month, when all your work is ready, open the check-in section from the manage internship section and click on the "Submit Internship" button.
+            <br />5. Fill in all the details and wait for approval from the company.
+            <br />6. After approval from the company, check the completed section of the internship manage section. You will get all your certificates and LOR from there.
+            <br /><br /> <b>Best Regards</b><br /> <b>RF Technologies!</b>
+        </p>
+    </div>
+</div>
+
