@@ -22,6 +22,22 @@ namespace RF_Technologies.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index(Contact obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Contact.Add(obj);
+                _unitOfWork.Save();
+                TempData["MessageSent"] = true;
+                return View();
+            }
+            else
+            {
+                return View();
+            }
+        }
+
         public IActionResult Internship()
         {
             return View();
@@ -47,19 +63,20 @@ namespace RF_Technologies.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Contact(Contact obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Contact.Add(obj);
-                _unitOfWork.Save();
-                return RedirectToAction("Index", "Home");
-            }
-            else { 
-                return View();
-            }
-        }
+        //[HttpPost]
+        //public IActionResult Contact(Contact obj)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _unitOfWork.Contact.Add(obj);
+        //        _unitOfWork.Save();
+        //        ViewBag.Message = "Your message has been sent. Thank you!";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    else { 
+        //        return View();
+        //    }
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

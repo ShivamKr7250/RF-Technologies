@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var messageSent = TempData["MessageSent"] != null && (bool)TempData["MessageSent"];
 }
+
 @model Contact
 
 <!-- Hero Section -->
@@ -13,7 +15,7 @@
                 <p data-aos="fade-up" data-aos-delay="100">We are team of talented developers making websites with Robust Technology</p>
                 <div class="d-flex flex-column flex-md-row" data-aos="fade-up" data-aos-delay="200">
                     <a href="#about" class="btn-get-started">Get Started <i class="bi bi-arrow-right"></i></a>
-                    <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center justify-content-center ms-0 ms-md-4 mt-4 mt-md-0"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                    <a href="https://youtu.be/2Y1z9ideC4Q" class="glightbox btn-watch-video d-flex align-items-center justify-content-center ms-0 ms-md-4 mt-4 mt-md-0"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
                 </div>
             </div>
             <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out">
@@ -362,7 +364,7 @@
 
 </section><!-- /Services Section -->
 <!-- Pricing Section -->
-<section id="pricing" class="pricing section">
+@* <section id="pricing" class="pricing section">
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
@@ -451,7 +453,7 @@
 
     </div>
 
-</section><!-- /Pricing Section -->
+</section> *@<!-- /Pricing Section -->
 <!-- Faq Section -->
 <section id="faq" class="faq section">
 
@@ -549,10 +551,10 @@
 
             <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
                 <li data-filter="*" class="filter-active">All</li>
-                <li data-filter=".filter-app">App</li>
-                <li data-filter=".filter-product">Product</li>
-                <li data-filter=".filter-branding">Branding</li>
-                <li data-filter=".filter-books">Books</li>
+                <li data-filter=".filter-app">E-Commerce</li>
+                <li data-filter=".filter-product">CRM</li>
+                <li data-filter=".filter-branding">Personal Finance</li>
+                <li data-filter=".filter-books">Business Website</li>
             </ul><!-- End Portfolio Filters -->
 
             <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
@@ -561,7 +563,7 @@
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
-                            <h4>App 1</h4>
+                            <h4>Book Selling Website</h4>
                             <p>Lorem ipsum, dolor sit amet consectetur</p>
                             <a href="assets/img/portfolio/app-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
@@ -573,7 +575,7 @@
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
-                            <h4>Product 1</h4>
+                            <h4>Super Market Management System</h4>
                             <p>Lorem ipsum, dolor sit amet consectetur</p>
                             <a href="assets/img/portfolio/product-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
@@ -585,7 +587,7 @@
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
-                            <h4>Branding 1</h4>
+                            <h4>Expense Tracker</h4>
                             <p>Lorem ipsum, dolor sit amet consectetur</p>
                             <a href="assets/img/portfolio/branding-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
@@ -597,7 +599,7 @@
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
-                            <h4>Books 1</h4>
+                            <h4>Resort Management System</h4>
                             <p>Lorem ipsum, dolor sit amet consectetur</p>
                             <a href="assets/img/portfolio/books-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
@@ -609,7 +611,7 @@
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
-                            <h4>App 2</h4>
+                            <h4>Food Ordering Website</h4>
                             <p>Lorem ipsum, dolor sit amet consectetur</p>
                             <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
@@ -617,7 +619,7 @@
                     </div>
                 </div><!-- End Portfolio Item -->
 
-                <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+                @* <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
@@ -627,9 +629,9 @@
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
-                </div><!-- End Portfolio Item -->
+                </div> *@<!-- End Portfolio Item -->
 
-                <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+                @* <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
@@ -639,9 +641,9 @@
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
-                </div><!-- End Portfolio Item -->
+                </div> *@<!-- End Portfolio Item -->
 
-                <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+                @* <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
@@ -651,9 +653,9 @@
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
-                </div><!-- End Portfolio Item -->
+                </div> *@<!-- End Portfolio Item -->
 
-                <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+                @* <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
@@ -663,9 +665,9 @@
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
-                </div><!-- End Portfolio Item -->
+                </div> *@<!-- End Portfolio Item -->
 
-                <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+                @* <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
@@ -675,9 +677,9 @@
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
-                </div><!-- End Portfolio Item -->
+                </div> *@<!-- End Portfolio Item -->
 
-                <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+                @* <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
@@ -687,9 +689,9 @@
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
-                </div><!-- End Portfolio Item -->
+                </div> *@<!-- End Portfolio Item -->
 
-                <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+                @* <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
                     <div class="portfolio-content h-100">
                         <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
                         <div class="portfolio-info">
@@ -699,7 +701,7 @@
                             <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
-                </div><!-- End Portfolio Item -->
+                </div> *@<!-- End Portfolio Item -->
 
             </div><!-- End Portfolio Container -->
 
@@ -709,7 +711,7 @@
 
 </section><!-- /Portfolio Section -->
 <!-- Testimonials Section -->
-<section id="testimonials" class="testimonials section">
+@* <section id="testimonials" class="testimonials section">
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
@@ -833,9 +835,9 @@
 
     </div>
 
-</section><!-- /Testimonials Section -->
+</section> *@<!-- /Testimonials Section -->
 <!-- Team Section -->
-<section id="team" class="team section">
+@* <section id="team" class="team section">
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
@@ -927,8 +929,7 @@
 
     </div>
 
-</section><!-- /Team Section -->
-<!-- Clients Section -->
+</section> *@<!-- /Team Section -->
 <!-- Tech Stack Section -->
 <section id="tech-stack" class="tech-stack section">
 
@@ -977,9 +978,9 @@
             <div class="swiper-wrapper align-items-center">
                 <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" class="img-fluid" alt="Java"></div>
                 <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/.NET_Core_Logo.svg" class="img-fluid" alt=".NET Core"></div>
-                <div class="swiper-slide"><img src="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)#/media/File:C_Sharp_Logo_2023.svg" class="img-fluid" alt="C#"></div>
+                <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/C_Sharp_Icon.png/640px-C_Sharp_Icon.png" class="img-fluid" alt="C#"></div>
                 <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" class="img-fluid" alt="PostgreSQL"></div>
-                <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/en/f/fd/Microsoft_SQL_Server_Logo.svg" class="img-fluid" alt="MSSQL Server"></div>
+                <div class="swiper-slide"><img src="https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg" class="img-fluid" alt="MSSQL Server"></div>
                 <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/MySQL_textlogo.svg" class="img-fluid" alt="MySQL"></div>
                 <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Microsoft_Azure_Logo.svg" class="img-fluid" alt="Azure"></div>
                 <div class="swiper-slide"><img src="https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/001/292/full/syncfusion.png" class="img-fluid" alt="Syncfusion"></div>
@@ -991,7 +992,7 @@
 
 </section><!-- /Tech Stack Section -->
 <!-- Recent Posts Section -->
-<section id="recent-posts" class="recent-posts section">
+@* <section id="recent-posts" class="recent-posts section">
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
@@ -1100,29 +1101,25 @@
 
     </div>
 
-</section><!-- /Recent Posts Section -->
+</section> *@<!-- /Recent Posts Section -->
 <!-- Contact Section -->
 <section id="contact" class="contact section">
-
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
         <p>Contact Us</p>
     </div><!-- End Section Title -->
-
     <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row gy-4">
-
             <div class="col-lg-6">
-
                 <div class="row gy-4">
                     <div class="col-md-6">
                         <div class="info-item" data-aos="fade" data-aos-delay="200">
                             <i class="bi bi-geo-alt"></i>
                             <h3>Address</h3>
-                            <p>A108 Adam Street</p>
-                            <p>New York, NY 535022</p>
+                            <p>Bari Khagual, Danapur</p>
+                            <p>Patna, Bihar 801105</p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -1130,8 +1127,8 @@
                         <div class="info-item" data-aos="fade" data-aos-delay="300">
                             <i class="bi bi-telephone"></i>
                             <h3>Call Us</h3>
-                            <p>+1 5589 55488 55</p>
-                            <p>+1 6678 254445 41</p>
+                            <p>+91-9905942199</p>
+                            <p>+91-9304961453</p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -1139,8 +1136,8 @@
                         <div class="info-item" data-aos="fade" data-aos-delay="400">
                             <i class="bi bi-envelope"></i>
                             <h3>Email Us</h3>
-                            <p>info@example.com</p>
-                            <p>contact@example.com</p>
+                            <p>rftechnologiesltd@gmail.com</p>
+                            <p></p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -1152,45 +1149,59 @@
                             <p>9:00AM - 05:00PM</p>
                         </div>
                     </div><!-- End Info Item -->
-
                 </div>
-
             </div>
 
             <div class="col-lg-6">
-                <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                <form class="contact-form" asp-action="Index" method="post" style="display: block;">
                     <div class="row gy-4">
 
                         <div class="col-md-6">
-                            <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Your Name" required="" style="display: block;">
                         </div>
 
-                        <div class="col-md-6 ">
-                            <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                        <div class="col-md-6">
+                            <input type="email" asp-for="Email" class="form-control" placeholder="Your Email" required="" style="display: block;">
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="tel" asp-for="ContactNo" class="form-control" placeholder="Your Phone" required="" style="display: block;">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" asp-for="Subject" class="form-control" placeholder="Subject" required="" style="display: block;">
                         </div>
 
                         <div class="col-12">
-                            <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                        </div>
-
-                        <div class="col-12">
-                            <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                            <textarea class="form-control" asp-for="Message" rows="6" placeholder="Message" required="" style="display: block;"></textarea>
                         </div>
 
                         <div class="col-12 text-center">
-                            <div class="loading">Loading</div>
-                            <div class="error-message"></div>
-                            <div class="sent-message">Your message has been sent. Thank you!</div>
-
+                            <div class="sent-message" style="display: none; color: #ffffff; background: #059652; text-align: center; padding: 15px; margin-bottom: 24px; font-weight: 600;">
+                                @ViewBag.Message
+                            </div>
                             <button type="submit">Send Message</button>
                         </div>
-
                     </div>
                 </form>
-            </div><!-- End Contact Form -->
+            </div>
+
+            @if (messageSent)
+            {
+                <script>
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Your message has been sent successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                </script>
+            }
 
         </div>
 
     </div>
 
 </section><!-- /Contact Section -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
