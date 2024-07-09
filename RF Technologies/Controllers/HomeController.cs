@@ -38,6 +38,13 @@ namespace RF_Technologies.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            var contact = _unitOfWork.Contact.GetAll();
+            return View(contact);
+        }
+
         public IActionResult Internship()
         {
             return View();

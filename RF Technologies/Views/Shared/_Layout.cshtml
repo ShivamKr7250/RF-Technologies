@@ -56,7 +56,7 @@
                     <li><a asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-controller="Home" asp-action="Services">Services</a></li>
                     <li><a asp-controller="Home" asp-action="Portfolio">Portfolio</a></li>
-                    <li><a asp-controller="Home" asp-action="Team">Team</a></li>
+                   @*  <li><a asp-controller="Home" asp-action="Team">Team</a></li> *@
                     <li><a asp-controller="Home" asp-action="Internship">Internship</a></li>
                     <li><a asp-controller="Student" asp-action="Index">Manage Internship</a></li>
                     @* <li class="dropdown">
@@ -157,10 +157,10 @@
                 <div class="col-lg-2 col-md-3 footer-links">
                     <h4>Useful Links</h4>
                     <ul>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a asp-controller="Home" asp-action="About">About us</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a asp-controller="Home" asp-action="Services">Services</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a asp-controller="Home" asp-action="Internship">Internship</a></li>
                     </ul>
                 </div>
 
@@ -178,10 +178,10 @@
                     <h4>Follow Us</h4>
                     <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
                     <div class="social-links d-flex">
-                        <a href=""><i class="bi bi-twitter-x"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
+                        <a href="https://t.me/rf_technologies"><i class="bi bi-telegram"></i></a>
+                        <a href="http://www.youtube.com/@@rf-technologies"><i class="bi bi-youtube"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/rf-technology-ltd"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
 
@@ -191,7 +191,7 @@
         <div class="container copyright text-center mt-4">
             <p>© <span>Copyright</span> <strong class="px-1 sitename">RF Technologies</strong> <span>All Rights Reserved</span></p>
             <div class="credits">
-                Managed BY by <a href="#">RF Technologies</a>
+                Managed BY <a href="https://www.linkedin.com/company/rf-technology-ltd">RF Technologies</a>
             </div>
         </div>
 

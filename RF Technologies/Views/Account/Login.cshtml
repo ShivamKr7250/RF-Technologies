@@ -2,8 +2,8 @@
 @model LoginVM
 
 <div class="container pt-5">
-    <div class="card shadow border">
-        <div class="card-header bg-success bg-gradient ml-0 py-4">
+    <div class="card shadow border" style="margin-top: 7rem;">
+        <div class="card-header" style="background-color: #4154f1;">
             <div class="row">
                 <div class="col-12 text-center">
                     <h2 class="py-2 text-white">Login</h2>
@@ -27,10 +27,9 @@
                                 <label asp-for="Password" class="form-label">Password</label>
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
-                            <div class="checkbox mb-3">
-                                <input asp-for="RemeberMe" class="form-check-input" />
-
-                                <label asp-for="RemeberMe" class="form-label">
+                            <div class="form-check mb-3">
+                                <input asp-for="RemeberMe" class="form-check-input" id="rememberMe" />
+                                <label asp-for="RemeberMe" class="form-check-label" for="rememberMe">
                                     Remember Me
                                 </label>
                             </div>
@@ -39,22 +38,29 @@
                             </div>
                             <div class="d-flex justify-content-between pt-2">
                                 <p>
-                                    <a asp-action="ForgotPassword">Forgot your password?</a>
+                                    <a asp-action="ForgotPassword" class="text-decoration-none text-muted">Forgot your password?</a>
                                 </p>
                                 <p>
-                                    <a asp-action="Register" asp-route-returnUrl="@Model.RedirectUrl" >Register as a new user</a>
+                                    <a asp-action="Register" asp-route-returnUrl="@Model.RedirectUrl" class="text-decoration-none text-muted">Register as a new user</a>
                                 </p>
                             </div>
                         </form>
                     </section>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 
-@section Scripts{
+@section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
 
+<!-- Additional Styles -->
+<style>
+    .btn-outline-success:hover {
+        background-color: #4154f1;
+        border-color: #4154f1;
+        color: #ffffff;
+    }
+</style>

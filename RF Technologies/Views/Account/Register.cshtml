@@ -2,8 +2,8 @@
 @model RegisterVM
 
 <div class="container pt-5">
-    <div class="card shadow border ">
-        <div class="card-header bg-success bg-gradient ml-0 py-4">
+    <div class="card shadow border" style="margin-top: 7rem;">
+        <div class="card-header" style="background-color: #4154f1;">
             <div class="row">
                 <div class="col-12 text-center">
                     <h2 class="py-2 text-white">Register</h2>
@@ -18,7 +18,7 @@
                         <div class="form-floating mb-3 col-md-12">
                             <input asp-for="Email" class="form-control" aria-required="true" />
                             <label asp-for="Email" class="ms-2 text-muted"></label>
-                            <span asp-validation-for="Email" class="text-danger" ></span>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3 col-md-6">
                             <input asp-for="Name" class="form-control" />
@@ -56,7 +56,15 @@
     </div>
 </div>
 
-
-@section Scripts{
+@section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<!-- Additional Styles -->
+<style>
+    .btn-outline-success:hover {
+        background-color: #4154f1;
+        border-color: #4154f1;
+        color: #ffffff;
+    }
+</style>
