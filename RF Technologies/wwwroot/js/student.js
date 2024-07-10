@@ -12,7 +12,6 @@ function loadDataTable(status) {
             url: '/student/getall?status=' + status
         },
         "columns": [
-            { data: 'id', "width": "5%" },
             { data: 'name', "width": "15%" },
             { data: 'email', "width": "10%" },
             { data: 'domain', "width": "15%" },

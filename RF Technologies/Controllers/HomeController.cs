@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RF_Technologies.Data_Access.Repository.IRepository;
 using RF_Technologies.Model;
 using RF_Technologies.Models;
+using RF_Technologies.Utility;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace RF_Technologies.Controllers
 {
@@ -38,7 +41,6 @@ namespace RF_Technologies.Controllers
             }
         }
 
-        [HttpGet]
         public IActionResult Contact()
         {
             var contact = _unitOfWork.Contact.GetAll();
@@ -107,6 +109,15 @@ namespace RF_Technologies.Controllers
             };
 
             return Json(new { data = domainCounts });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAll(Contact obj)
+        {
+            IEnumerable<Contact> objRegistration;
+            objRegistration = _unitOfWork.Contact.GetAll();
+            return Json(new { data = objRegistration });
         }
 
         #endregion
