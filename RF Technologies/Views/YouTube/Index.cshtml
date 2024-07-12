@@ -1,0 +1,121 @@
+﻿@model YouTubeViewModel
+
+@{
+    ViewData["Title"] = "YouTube Channel Details";
+}
+
+<style>
+    .channel-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .channel-header h2 {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+    .channel-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 30px;
+    }
+
+        .channel-stats p {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+    .section {
+        margin-bottom: 40px;
+    }
+
+        .section h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+    .video-list, .playlist-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .video-list li, .playlist-list li {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+    .embed-responsive {
+        width: 320px; /* Fixed width */
+        height: 180px; /* Fixed height */
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .embed-responsive-item {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .video-title {
+        font-size: 1.1em;
+        margin-left: 20px;
+    }
+
+    .about-section {
+        margin: 20px auto;
+        text-align: center;
+    }
+
+        .about-section p {
+            font-size: 1.2em;
+        }
+</style>
+<div class="container pt-4" style="margin-top: 7rem;">
+    <div class="channel-header">
+        <h2>@Model.ChannelTitle</h2>
+        <div class="channel-stats">
+            <p>Subscribers: @Model.SubscriberCount</p>
+            <p>Total Views: @Model.TotalViews</p>
+        </div>
+    </div>
+
+    <div class="about-section">
+        <p>Welcome to @Model.ChannelTitle! Here you'll find the latest videos and playlists from our channel. Stay tuned and subscribe for more updates.</p>
+    </div>
+
+    <div class="section">
+        <h3>Latest Videos</h3>
+        <ul class="video-list">
+            @foreach (var video in Model.LatestVideos)
+            {
+                <li>
+                    <div class="embed-responsive">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@video.Id.VideoId" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-title">
+                        @video.Snippet.Title
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Playlists</h3>
+        <ul class="playlist-list">
+            @foreach (var playlist in Model.Playlists)
+            {
+                <li>
+                    <a href="https://www.youtube.com/playlist?list=@playlist.Id" target="_blank">
+                        <img src="@playlist.Snippet.Thumbnails.Default__.Url" alt="@playlist.Snippet.Title" />
+                        @playlist.Snippet.Title
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+</div>

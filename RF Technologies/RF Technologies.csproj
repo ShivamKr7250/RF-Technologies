@@ -16,6 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="Google.Apis.YouTube.v3" Version="1.68.0.3421" />
+    <PackageReference Include="MailKit" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
