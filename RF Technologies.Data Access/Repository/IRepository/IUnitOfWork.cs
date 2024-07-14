@@ -12,6 +12,9 @@ namespace RF_Technologies.Data_Access.Repository.IRepository
         IApplicationUserRepository User { get; }
         IContactRepository Contact { get; }
         IInternshipSubmitRepository InternshipSubmit { get; }
+        IBlogPostRepository BlogPost { get; }
+        IBlogCommentRepository BlogComment { get; }
+        IInteractionRepository Interaction { get; }
         void Save();
     }
 }

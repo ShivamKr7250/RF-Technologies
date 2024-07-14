@@ -2,8 +2,8 @@
 
 namespace RF_Technologies.Data_Access.Repository.IRepository
 {
-    public interface IContactRepository : IRepository<Contact>
+    public interface IBlogPostRepository : IRepository<BlogPost>
     {
-        void Update(Contact entity);
+        void Update(BlogPost entity);
     }
 }

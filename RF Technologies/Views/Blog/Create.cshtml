@@ -1,0 +1,31 @@
+﻿@model BlogPost
+
+@{
+    ViewData["Title"] = "Create Blog Post";
+}
+
+<h1>Create Blog Post</h1>
+
+<form method="post" asp-action="Create">
+    <div>
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" type="text" name="Title" />
+    </div>
+    <div>
+        <label asp-for="Content">Content</label>
+        <textarea asp-for="Content" name="Content"></textarea>
+    </div>
+    <div>
+        <label asp-for="Category">Category</label>
+        <input asp-for="Content" type="text" name="Category" />
+    </div>
+    <div>
+        <label asp-for="PublicationDate">Publication Date</label>
+        <input asp-for="PublicationDate" type="date" name="PublicationDate" />
+    </div>
+    <div>
+        <label asp-for="Tags" for="Tags">Tags</label>
+        <input asp-for="Tags" type="text" name="Tags" />
+    </div>
+    <button type="submit">Submit</button>
+</form>
