@@ -16,13 +16,13 @@ namespace RF_Technologies.Controllers
     public class AccountController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(IUnitOfWork unitOfWork,
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager)
         {
             _unitOfWork = unitOfWork;
@@ -191,39 +191,49 @@ namespace RF_Technologies.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM loginVM)
+        public async Task<IActionResult> Login(LoginVM model)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager
-                    .PasswordSignInAsync(loginVM.Email, loginVM.Password, loginVM.RemeberMe, lockoutOnFailure: false);
-
-                if (result.Succeeded)
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
                 {
-                    var user = await _userManager.FindByEmailAsync(loginVM.Email);
-                    if (await _userManager.IsInRoleAsync(user, SD.Role_Admin))
+                    if (user.LockoutEnd != null && user.LockoutEnd > DateTime.Now)
                     {
-                        return RedirectToAction("Index", "Dashboard");
+                        model.LockoutMessage = "Your account is locked. Please contact the administrator.";
+                        return View(model);
                     }
-                    else
+
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RemeberMe, lockoutOnFailure: true);
+
+                    if (result.Succeeded)
                     {
-                        if (string.IsNullOrEmpty(loginVM.RedirectUrl))
+                        if (!string.IsNullOrEmpty(model.RedirectUrl) && Url.IsLocalUrl(model.RedirectUrl))
                         {
-                            return RedirectToAction("Index", "Home");
+                            return Redirect(model.RedirectUrl);
                         }
-                        else
-                        {
-                            return LocalRedirect(loginVM.RedirectUrl);
-                        }
+
+                        return RedirectToAction("Index", "Home");
                     }
+
+                    if (result.IsLockedOut)
+                    {
+                        model.LockoutMessage = "Your account is locked. Please contact the administrator.";
+                        return View(model);
+                    }
+
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid Login Attempt");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 }
             }
-            return View(loginVM);
+
+            return View(model);
         }
+
+
 
         public IActionResult ForgotPassword()
         {

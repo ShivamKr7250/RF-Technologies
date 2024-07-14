@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,8 @@ namespace RF_Technologies.Model
         public string Name { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        [NotMapped]
+        public string Role {  get; set; }
     }
 }

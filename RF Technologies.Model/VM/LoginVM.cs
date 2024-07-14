@@ -13,5 +13,7 @@ namespace RF_Technologies.Model.VM
         public bool RemeberMe { get; set; }
 
         public string? RedirectUrl { get; set; }
+
+        public string? LockoutMessage { get; set; } // Add this property
     }
 }

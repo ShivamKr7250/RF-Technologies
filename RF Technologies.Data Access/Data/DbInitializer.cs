@@ -10,10 +10,13 @@ namespace RF_Technologies.Data_Access.Data
     public class DbInitializer : IDbInitializer
     {
         private readonly ApplicationDbContext _db;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DbInitializer(ApplicationDbContext db, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public DbInitializer(
+            ApplicationDbContext db,
+            RoleManager<IdentityRole> roleManager,
+            UserManager<IdentityUser> userManager)
         {
             _db = db;
             _roleManager = roleManager;

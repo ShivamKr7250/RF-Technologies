@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using RF_Technologies.Data_Access.Data;
 using RF_Technologies.Data_Access.Repository;
 using RF_Technologies.Data_Access.Repository.IRepository;
@@ -12,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedEmail = true; // Require email confirmation
 })
@@ -21,13 +22,22 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 builder.Services.ConfigureApplicationCookie(option =>
 {
-    option.AccessDeniedPath = "/Account/AccessDenied";
-    option.LogoutPath = "/Account/Login";
+    option.AccessDeniedPath = $"/Account/AccessDenied";
+    option.LogoutPath = $"/Account/Login";
+    option.AccessDeniedPath = $"/Account/AccessDenied";
 });
 
 builder.Services.Configure<IdentityOptions>(option =>
 {
     option.Password.RequiredLength = 6;
+});
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -55,7 +65,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSession();
 SeedDatabase();
 app.MapControllerRoute(
     name: "default",

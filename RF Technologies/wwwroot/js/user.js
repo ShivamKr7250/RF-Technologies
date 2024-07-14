@@ -5,6 +5,10 @@ $(document).ready(function () {
 });
 
 function loadDataTable() {
+    if (dataTable) {
+        dataTable.destroy();
+    }
+
     dataTable = $('#tblData').DataTable({
         "ajax": { url: '/user/getall' },
         "columns": [
@@ -21,7 +25,7 @@ function loadDataTable() {
                     if (lockout > today) {
                         return `
                         <div class="text-center">
-                            <a onclick=LockUnlock('${data.id}') class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
+                            <a onclick="LockUnlock('${data.id}')" class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
                                 <i class="bi bi-lock-fill"></i> Lock
                             </a>
                         </div>
@@ -33,7 +37,7 @@ function loadDataTable() {
                     } else {
                         return `
                         <div class="text-center">
-                            <a onclick=LockUnlock('${data.id}') class="btn btn-success text-white" style="cursor:pointer; width:150px;">
+                            <a onclick="LockUnlock('${data.id}')" class="btn btn-success text-white" style="cursor:pointer; width:150px;">
                                 <i class="bi bi-unlock-fill"></i> Unlock
                             </a>
                         </div>
@@ -51,20 +55,23 @@ function loadDataTable() {
 }
 
 function LockUnlock(id) {
+    console.log("LockUnlock called with id:", id);
     $.ajax({
         type: "POST",
         url: '/User/LockUnlock',
         data: JSON.stringify({ id: id }),
         contentType: "application/json",
         success: function (data) {
+            console.log("LockUnlock success:", data);
             if (data.success) {
                 toastr.success(data.message);
-                dataTable.ajax.reload();
+                dataTable.ajax.reload(null, false); // Reload data without resetting paging
             } else {
                 toastr.error(data.message);
             }
         },
         error: function (err) {
+            console.error("LockUnlock error:", err);
             toastr.error("Something went wrong!");
         }
     });

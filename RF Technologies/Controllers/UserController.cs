@@ -21,6 +21,10 @@ namespace RF_Technologies.Controllers
             _roleManager = roleManager;
             _userManager = userManager;
         }
+        public class LockUnlockRequest
+        {
+            public string Id { get; set; }
+        }
         public IActionResult Index()
         {
             return View();
@@ -45,9 +49,9 @@ namespace RF_Technologies.Controllers
         }
 
         [HttpPost]
-        public IActionResult LockUnlock([FromBody] string id)
+        public IActionResult LockUnlock([FromBody] LockUnlockRequest request)
         {
-            var objFromDb = _unitOfWork.User.Get(u => u.Id == id);
+            var objFromDb = _unitOfWork.User.Get(u => u.Id == request.Id);
             if (objFromDb == null)
             {
                 return Json(new { success = false, message = "Error while Locking/Unlocking" });
