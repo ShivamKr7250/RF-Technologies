@@ -17,5 +17,10 @@ namespace RF_Technologies.Data_Access.Repository
         {
             _db = db;
         }
+
+        public void Update(ApplicationUser applicationUser)
+        {
+            _db.Users.Update(applicationUser);
+        }
     }
 }
