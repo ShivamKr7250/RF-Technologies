@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace RF_Technologies.Model
 {
@@ -16,11 +17,16 @@ namespace RF_Technologies.Model
         [StringLength(200)]
         public string Bio { get; set; }
 
+        [NotMapped]
+        public IFormFile? Image { get; set; }
+        [Display(Name = "Profile Picture")]
         public string ProfilePicture { get; set; }
 
         [NotMapped]
         public ICollection<BlogComment> Comments { get; set; }
         [NotMapped]
         public ICollection<Interaction> Interactions { get; set; }
+        [NotMapped]
+        public ICollection<BlogPost> Posts { get; set; }
     }
 }

@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Blog";
 }
+<div style="margin-top: 7rem;">
+
 
 <!-- Page Title -->
 <div class="page-title">
@@ -33,40 +35,39 @@
             <section id="blog-posts" class="blog-posts section">
                 <div class="container">
                     <div class="row gy-4">
-                        @foreach (var item in Model)
-                        {
-                            <div class="col-12">
-                                <article>
-                                    <div class="post-img">
-                                        <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
-                                    </div>
-
-                                    <h2 class="title">
-                                        <a href="@Url.Action("Details", "Blog", new { id = item.PostId })">@item.Title</a>
-                                    </h2>
-
-                                    <div class="meta-top">
-                                        <ul>
-                                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">Shivam Kumar</a></li>
-                                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="2022-01-01">@item.PublicationDate.ToShortDateString()</time></a></li>
-                                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#">@item.Comments?.Count() ?? 0 Comments</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="content">
-                                        <p>
-                                            @item.Content
-                                        </p>
-
-                                        <div class="read-more">
-                                            <a href="@Url.Action("Details", "Blog", new { id = item.PostId })">Read More</a>
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-12">
+                                    <article>
+                                        <div class="post-img">
+                                            <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
                                         </div>
-                                    </div>
-                                </article>
-                            </div>
 
-                            <!-- End post list item -->
-                        }
+                                        <h2 class="title">
+                                            <a href="@Url.Action("Details", "Blog", new { id = item.PostId })">@item.Title</a>
+                                        </h2>
+
+                                        <div class="meta-top">
+                                            <ul>
+                                                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">@item.ApplicationUser?.Name</a></li>
+                                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="2022-01-01">@item.PublicationDate.ToShortDateString()</time></a></li>
+                                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#">@item.Comments?.Count() Comments</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="content">
+                                            <p>
+                                                @item.Content
+                                            </p>
+
+                                            <div class="read-more">
+                                                <a asp-controller="Blog" asp-action="Details" asp-route-blogId="@item.PostId">Read More</a>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+
                     </div><!-- End blog posts list -->
                 </div>
             </section><!-- /Blog Posts Section -->
@@ -175,4 +176,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

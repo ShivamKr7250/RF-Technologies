@@ -6,16 +6,15 @@ using RF_Technologies.Data_Access.Repository.IRepository;
 using RF_Technologies.Model;
 using RF_Technologies.Model.VM;
 using RF_Technologies.Utility;
-using System.Net;
 using MailKit.Net.Smtp;
-using MimeKit;
-using System.Threading.Tasks;
+
 
 namespace RF_Technologies.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -23,12 +22,14 @@ namespace RF_Technologies.Controllers
         public AccountController(IUnitOfWork unitOfWork,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Login(string returnUrl = null)
@@ -233,8 +234,6 @@ namespace RF_Technologies.Controllers
             return View(model);
         }
 
-
-
         public IActionResult ForgotPassword()
         {
             return View();
@@ -327,5 +326,75 @@ namespace RF_Technologies.Controllers
                 await client.DisconnectAsync(true);
             }
         }
+
+        [HttpGet]
+        public IActionResult UserProfile()
+        {
+            var userId = _userManager.GetUserId(User);
+            ViewBag.UserId = userId;
+            var userDetail = _unitOfWork.User.Get(u => u.Id == userId);
+            return View(userDetail);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UserProfile(ApplicationUser userModel)
+        {
+            var user = _unitOfWork.User.Get(u => u.Id == userModel.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            string previousImagePath = user.ProfilePicture;
+
+            if (userModel.Image != null)
+            {
+                // Generate a unique filename for the new image
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(userModel.Image.FileName);
+                string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"images\userPhoto");
+
+
+                // Create the directory if it doesn't exist
+                if (!Directory.Exists(imagePath))
+                {
+                    Directory.CreateDirectory(imagePath);
+                }
+
+                // Delete the previous image if it exists
+                if (!string.IsNullOrEmpty(previousImagePath) && !previousImagePath.StartsWith("https://"))
+                {
+                    string previousImageFullPath = Path.Combine(wwwRootPath, previousImagePath.Replace('/', Path.DirectorySeparatorChar));
+                    if (System.IO.File.Exists(previousImageFullPath))
+                    {
+                        System.IO.File.Delete(previousImageFullPath);
+                    }
+                }
+
+                // Save the new image
+                string newImageFullPath = Path.Combine(imagePath, fileName);
+                using var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create);
+
+                userModel.Image.CopyTo(fileStream);
+
+                user.ProfilePicture = @"\images\userPhoto\" + fileName;
+            }
+            else
+            {
+                user.ProfilePicture = "https://placehold.co/600x400";
+            }
+
+            user.Name = userModel.Name;
+            user.Bio = userModel.Bio;
+            user.PhoneNumber = userModel.PhoneNumber;
+            // Update other fields if needed
+            _unitOfWork.User.Update(user);
+            _unitOfWork.Save();
+            TempData["success"] = "The Profile has been Updated successfully.";
+
+            return RedirectToAction("UserProfile", new { userId = user.Id });
+        }
+
+
     }
 }

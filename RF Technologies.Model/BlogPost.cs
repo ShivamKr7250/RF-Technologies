@@ -16,6 +16,11 @@ namespace RF_Technologies.Model
         public int PostId { get; set; }
 
         [Required]
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser? ApplicationUser { get; set; }
+
+        [Required]
         [StringLength(200)]
         public string Title { get; set; }
 
@@ -32,9 +37,13 @@ namespace RF_Technologies.Model
         [StringLength(100)]
         public string Tags { get; set; }
 
+
+
         [NotMapped]
         public ICollection<BlogComment>? Comments { get; set; }
         [NotMapped]
         public ICollection<Interaction>? Interactions { get; set; }
+
+
     }
 }

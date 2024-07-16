@@ -3,14 +3,19 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@{
+    var userId = ViewBag.UserId as string;
+}
+
     @if (SignInManager.IsSignedIn(User))
     {
     <li class="scroll-to-section">
-            <a class="" href="#">Hello, @UserManager.GetUserName(User)</a>
-        </li>
+        <a class="" asp-controller="Account" asp-action="UserProfile" asp-route-userId="@userId">My Profile</a>
+    </li>
     <li class="scroll-to-section">
-            <a class="" asp-controller="Account" asp-action="Logout">Logout</a>
-        </li>
+        <a class="" asp-controller="Account" asp-action="Logout">Logout</a>
+    </li>
+
     }
 
     else

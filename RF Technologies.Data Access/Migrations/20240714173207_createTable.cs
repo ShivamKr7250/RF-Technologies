@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RF_Technologies.Data_Access.Migrations
 {
-    /// <inheritdoc />
     public partial class createTable : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
@@ -30,6 +28,7 @@ namespace RF_Technologies.Data_Access.Migrations
                 {
                     PostId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -39,6 +38,12 @@ namespace RF_Technologies.Data_Access.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Blogs", x => x.PostId);
+                    table.ForeignKey(
+                        name: "FK_Blogs_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,7 +71,7 @@ namespace RF_Technologies.Data_Access.Migrations
                         column: x => x.PostId,
                         principalTable: "Blogs",
                         principalColumn: "PostId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);  // Change to NoAction
                 });
 
             migrationBuilder.CreateTable(
@@ -94,8 +99,13 @@ namespace RF_Technologies.Data_Access.Migrations
                         column: x => x.PostId,
                         principalTable: "Blogs",
                         principalColumn: "PostId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);  // Change to NoAction
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Blogs_UserId",
+                table: "Blogs",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BlogsComment_PostId",
@@ -118,7 +128,6 @@ namespace RF_Technologies.Data_Access.Migrations
                 column: "UserId");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RF_Technologies.Data_Access.Repository.IRepository;
 using RF_Technologies.Model;
+using System.Security.Claims;
 
 namespace RF_Technologies.Controllers
 {
@@ -14,7 +15,7 @@ namespace RF_Technologies.Controllers
 
         public IActionResult Index()
         {
-            var postFromDb = _unitOfWork.BlogPost.GetAll();
+            var postFromDb = _unitOfWork.BlogPost.GetAll(includeProperties: "ApplicationUser,Comments");
             return View(postFromDb);
         }
 
@@ -33,7 +34,13 @@ namespace RF_Technologies.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the logged-in user's ID
+            var model = new BlogPost
+            {
+                UserId = userId
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -51,6 +58,21 @@ namespace RF_Technologies.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpGet]
+        public IActionResult Details(int blogId)
+        {
+            var blogDetails = _unitOfWork.BlogPost.Get(u => u.PostId == blogId);
+            if(blogDetails == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return View(blogDetails);
+            }
+            
         }
     }
 }

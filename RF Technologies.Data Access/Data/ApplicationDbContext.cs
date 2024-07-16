@@ -24,9 +24,13 @@ namespace RF_Technologies.Data_Access.Data
         {
             base.OnModelCreating(modelBuilder);
 
-
             modelBuilder.Entity<BlogPost>()
                 .HasKey(p => p.PostId);
+
+            modelBuilder.Entity<BlogPost>()
+                .HasOne(p => p.ApplicationUser)
+                .WithMany(u => u.Posts)
+                .HasForeignKey(p => p.UserId);
 
             modelBuilder.Entity<BlogComment>()
                 .HasKey(c => c.CommentId);
@@ -53,6 +57,7 @@ namespace RF_Technologies.Data_Access.Data
                 .HasOne(i => i.ApplicationUser)
                 .WithMany(u => u.Interactions)
                 .HasForeignKey(i => i.UserId);
+
         }
 
 

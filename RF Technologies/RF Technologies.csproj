@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\payment\" />
+    <Folder Include="wwwroot\images\userPhoto\" />
   </ItemGroup>
 
   <ItemGroup>

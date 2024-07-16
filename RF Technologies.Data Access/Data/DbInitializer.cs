@@ -37,15 +37,16 @@ namespace RF_Technologies.Data_Access.Data
 
                     _userManager.CreateAsync(new ApplicationUser
                     {
-                        UserName = "Admin@gmail.com",
-                        Email = "Admin@gmail.com",
+                        UserName = "supshiv7250@gmail.com",
+                        Email = "supshiv7250@gmail.com",
                         Name = "Admin",
-                        NormalizedUserName = "ADMIN@GMAIL.COM",
-                        NormalizedEmail = "ADMIN@GMAIL.COM",
-                        PhoneNumber = "1234567890",
-                    }, "Admin@123").GetAwaiter().GetResult();
+                        NormalizedUserName = "SUPSHIV7250@GMAIL.COM",
+                        NormalizedEmail = "SUPSHIV7250@GMAIL.COM",
+                        PhoneNumber = "9304961453",
+                        EmailConfirmed = true,
+                    }, "Shivam@7250").GetAwaiter().GetResult();
 
-                    ApplicationUser user = _db.User.FirstOrDefault(u => u.Email == "Admin@gmail.com");
+                    ApplicationUser user = _db.User.FirstOrDefault(u => u.Email == "supshiv7250@gmail.com");
                     _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
                 }
             }
