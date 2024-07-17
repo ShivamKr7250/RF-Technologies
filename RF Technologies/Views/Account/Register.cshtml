@@ -34,7 +34,7 @@
                             <input asp-for="Password" class="form-control" aria-required="true" />
                             <label asp-for="Password" class="ms-2 text-muted"></label>
                             <span asp-validation-for="Password" class="text-danger"></span>
-                            <small class="form-text text-muted">
+                            <small class="form-text text-primary">
                                 Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character.
                             </small>
                         </div>
@@ -43,11 +43,11 @@
                             <label asp-for="ConfirmPassword" class="ms-2 text-muted"></label>
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </div>
-                        <div class="form-floating mb-3 col-md-6">
+                        @* <div class="form-floating mb-3 col-md-6">
                         <select asp-for="Role" asp-items="@Model.RoleList" class="form-select">
                         <option disabled selected>-Select Role-</option>
                         </select>
-                        </div>
+                        </div> *@
                         <div class="col-12">
                             <button type="submit" class="w-100 btn btn-lg btn-outline-success">Register</button>
                         </div>

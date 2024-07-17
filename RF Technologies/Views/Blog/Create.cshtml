@@ -3,31 +3,33 @@
 @{
     ViewData["Title"] = "Create Blog Post";
 }
+<div class="container" style="margin-top: 7rem;">
+    <h1>Create Blog Post</h1>
 
-<h1>Create Blog Post</h1>
+    <form method="post" asp-action="Create">
+        <input type="hidden" asp-for="UserId" />
 
-<form method="post" asp-action="Create">
-    <input type="hidden" asp-for="UserId" />
+        <div>
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" type="text" name="Title" />
+        </div>
+        <div>
+            <label asp-for="Content">Content</label>
+            <textarea asp-for="Content" name="Content"></textarea>
+        </div>
+        <div>
+            <label asp-for="Category">Category</label>
+            <input asp-for="Category" type="text" name="Category" />
+        </div>
+        <div>
+            <label asp-for="PublicationDate">Publication Date</label>
+            <input asp-for="PublicationDate" type="date" name="PublicationDate" />
+        </div>
+        <div>
+            <label asp-for="Tags">Tags</label>
+            <input asp-for="Tags" type="text" name="Tags" />
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
-    <div>
-        <label asp-for="Title">Title</label>
-        <input asp-for="Title" type="text" name="Title" />
-    </div>
-    <div>
-        <label asp-for="Content">Content</label>
-        <textarea asp-for="Content" name="Content"></textarea>
-    </div>
-    <div>
-        <label asp-for="Category">Category</label>
-        <input asp-for="Category" type="text" name="Category" />
-    </div>
-    <div>
-        <label asp-for="PublicationDate">Publication Date</label>
-        <input asp-for="PublicationDate" type="date" name="PublicationDate" />
-    </div>
-    <div>
-        <label asp-for="Tags">Tags</label>
-        <input asp-for="Tags" type="text" name="Tags" />
-    </div>
-    <button type="submit">Submit</button>
-</form>

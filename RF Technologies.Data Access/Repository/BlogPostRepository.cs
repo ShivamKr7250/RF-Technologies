@@ -21,5 +21,11 @@ namespace RF_Technologies.Data_Access.Repository
         {
             _db.Update(entity);
         }
+
+        public IEnumerable<BlogPost> GetPostsByDescendingPublicationDate()
+        {
+            return _db.Blogs.OrderByDescending(bp => bp.PublicationDate).ToList();
+        }
+
     }
 }

@@ -13,11 +13,18 @@ namespace RF_Technologies.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        //public IActionResult Index()
+        //{
+        //    var postFromDb = _unitOfWork.BlogPost.GetAll(includeProperties: "ApplicationUser,Comments");
+        //    return View(postFromDb);
+        //}
+
         public IActionResult Index()
         {
-            var postFromDb = _unitOfWork.BlogPost.GetAll(includeProperties: "ApplicationUser,Comments");
-            return View(postFromDb);
+            var blogPosts = _unitOfWork.BlogPost.GetPostsByDescendingPublicationDate().ToList();
+            return View(blogPosts);
         }
+
 
         public IActionResult Details(int? id)
         {
@@ -51,12 +58,12 @@ namespace RF_Technologies.Controllers
             {
                 _unitOfWork.BlogPost.Add(obj);
                 _unitOfWork.Save();
-                TempData["MessageSent"] = true;
+                TempData["success"] = "The Blog has been Created successfully.";
                 return View();
             }
             else
             {
-                return View();
+                return View("Index" ,"BlogContoller");
             }
         }
 
