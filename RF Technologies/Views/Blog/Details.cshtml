@@ -38,9 +38,9 @@
 
                             <div class="meta-top">
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#"></a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#"></a>@Model.ApplicationUser.Name</li>
                                     <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="@Model.PublicationDate.ToString("yyyy-MM-dd")">@Model.PublicationDate.ToString("MMM dd, yyyy")</time></a></li>
-                                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#"> Comments</a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#">@* @Model.Comments.Count()  *@Comments</a></li>
                                 </ul>
                             </div><!-- End meta top -->
 
@@ -69,9 +69,9 @@
                 <section id="blog-author" class="blog-author section">
                     <div class="container">
                         <div class="author-container d-flex align-items-center">
-                            <img src="~/assets/img/blog/blog-author.jpg" class="rounded-circle flex-shrink-0" alt="">
+                            <img src="@Model.ApplicationUser.ProfilePicture" class="rounded-circle flex-shrink-0" alt="">
                             <div>
-                                <h4>@* @Model.Author *@</h4>
+                                <h4>@Model.ApplicationUser.Name</h4>
                                 <div class="social-links">
                                     <a href="https://x.com/#"><i class="bi bi-twitter-x"></i></a>
                                     <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>

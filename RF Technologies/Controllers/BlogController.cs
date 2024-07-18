@@ -13,31 +13,42 @@ namespace RF_Technologies.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //public IActionResult Index()
-        //{
-        //    var postFromDb = _unitOfWork.BlogPost.GetAll(includeProperties: "ApplicationUser,Comments");
-        //    return View(postFromDb);
-        //}
-
         public IActionResult Index()
         {
-            var blogPosts = _unitOfWork.BlogPost.GetPostsByDescendingPublicationDate().ToList();
-            return View(blogPosts);
+            var postFromDb = _unitOfWork.BlogPost.GetAll(includeProperties: "ApplicationUser,Comments");
+            return View(postFromDb);
         }
 
+        //public IActionResult Index()
+        //{
+        //    var blogPosts = _unitOfWork.BlogPost.GetPostsByDescendingPublicationDate()
+        //                    .Select(bp => new BlogPost
+        //                    {
+        //                        PostId = bp.PostId,
+        //                        Title = bp.Title,
+        //                        Content = bp.Content,
+        //                        PublicationDate = bp.PublicationDate,
+        //                        AuthorName = bp.ApplicationUser?.Name ?? "Unknown",
+        //                        //CommentCount = bp.Comments?.Count() ?? 0
+        //                    })
+        //                    .ToList();
 
-        public IActionResult Details(int? id)
-        {
-            if (id == null) { 
-                return View();
-            }
-            var post = _unitOfWork.BlogPost.Get(u => u.PostId == id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-            return View(post);
-        }
+        //    return View(blogPosts);
+        //}
+
+
+        //public IActionResult Details(int? id)
+        //{
+        //    if (id == null) { 
+        //        return View();
+        //    }
+        //    var post = _unitOfWork.BlogPost.Get(u => u.PostId == id, includeProperties: "ApplicationUser");
+        //    if (post == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(post);
+        //}
 
         public IActionResult Create()
         {
@@ -54,8 +65,12 @@ namespace RF_Technologies.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(BlogPost obj)
         {
-            if (ModelState.IsValid)
+            var userdetail = _unitOfWork.User.Get(u => u.Id == obj.UserId);
+            obj.AuthorName = userdetail.Name;
+            obj.PublicationDate = DateTime.Now;
+            if (obj != null)
             {
+     
                 _unitOfWork.BlogPost.Add(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "The Blog has been Created successfully.";
@@ -63,15 +78,15 @@ namespace RF_Technologies.Controllers
             }
             else
             {
-                return View("Index" ,"BlogContoller");
+                return View("Index" ,"Home");
             }
         }
 
         [HttpGet]
         public IActionResult Details(int blogId)
         {
-            var blogDetails = _unitOfWork.BlogPost.Get(u => u.PostId == blogId);
-            if(blogDetails == null)
+            var blogDetails = _unitOfWork.BlogPost.Get(u => u.PostId == blogId, includeProperties: "ApplicationUser");
+            if (blogDetails == null)
             {
                 return BadRequest();
             }
@@ -79,7 +94,7 @@ namespace RF_Technologies.Controllers
             {
                 return View(blogDetails);
             }
-            
+
         }
     }
 }

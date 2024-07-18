@@ -21,8 +21,12 @@ namespace RF_Technologies.Model
         public ApplicationUser? ApplicationUser { get; set; }
 
         [Required]
-        [StringLength(200)]
+        [StringLength(100)]
         public string Title { get; set; }
+
+        //[Required]
+        //[StringLength(200)]
+        //public string ShortDescription { get; set; }
 
         [Required]
         public string Content { get; set; }
@@ -38,6 +42,8 @@ namespace RF_Technologies.Model
         public string Tags { get; set; }
 
 
+        [NotMapped]
+        public string AuthorName { get; set; }
 
         [NotMapped]
         public ICollection<BlogComment>? Comments { get; set; }
