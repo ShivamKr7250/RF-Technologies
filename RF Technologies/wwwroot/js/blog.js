@@ -1,78 +1,68 @@
 var dataTable;
 
 $(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
     loadDataTable();
 });
 
-function loadDataTable() {
-    if (dataTable) {
-        dataTable.destroy();
-    }
-
+function loadDataTable(status) {
     dataTable = $('#tblData').DataTable({
-        "ajax": { url: '/blog/getall' },
-        "columns": [
-            { data: 'title', "width": "15%" },
-            { data: 'authorName', "width": "15%" },
-            { data: 'publicationDate', "width": "10%" },
-            { data: 'category', "width": "20%" },
-            {
-                data: { id: 'id', lockoutEnd: 'lockoutEnd' },
-                "render": function (data) {
-                    var today = new Date().getTime();
-                    var lockout = new Date(data.lockoutEnd).getTime();
-
-                    if (lockout > today) {
-                        return `
-                        <div class="text-center">
-                            <a onclick="LockUnlock('${data.id}')" class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
-                                <i class="bi bi-lock-fill"></i> Lock
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a href="/Admin/User/RoleManagement?userId=${data.id}" class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
-                                <i class="bi bi-pencil-square"></i> Permission
-                            </a>
-                        </div>`;
-                    } else {
-                        return `
-                        <div class="text-center">
-                            <a onclick="LockUnlock('${data.id}')" class="btn btn-success text-white" style="cursor:pointer; width:150px;">
-                                <i class="bi bi-unlock-fill"></i> Unlock
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a href="/Admin/User/RoleManagement?userId=${data.id}" class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
-                                <i class="bi bi-pencil-square"></i> Permission
-                            </a>
-                        </div>`;
-                    }
-                },
-                "width": "25%"
+        "ajax": {
+            url: '/blog/getall',
+            error: function (xhr, error, thrown) {
+                console.error('Error loading data: ', error);
+                toastr.error('Failed to load data.');
             }
-        ]
+        },
+        "columns": [
+            { data: 'title', "width": "20%" },
+            { data: 'authorName', "width": "20%" },
+            { data: 'publicationDate', "width": "20%" },
+            { data: 'category', "width": "10%" },
+            {
+                data: 'postId',
+                "render": function (data) {
+                    return `<div class="w-75 btn-group" role="group">
+                        <a href="/student/registrationUpdate?registrationId=${data}" class="btn btn-outline-warning mx-2">
+                            <i class="bi bi-pencil-square"></i> Details
+                        </a>
+                        <a onClick=Delete('/blog/delete/${data}') class="btn btn-outline-danger mx-2">
+                            <i class="bi bi-trash-fill"></i> Delete
+                        </a>
+                    </div>`;
+                },
+                "width": "30%"
+            }
+        ],
+        "language": {
+            "emptyTable": "No Registration available"
+        }
     });
 }
 
-function LockUnlock(id) {
-    console.log("LockUnlock called with id:", id);
-    $.ajax({
-        type: "POST",
-        url: '/User/LockUnlock',
-        data: JSON.stringify({ id: id }),
-        contentType: "application/json",
-        success: function (data) {
-            console.log("LockUnlock success:", data);
-            if (data.success) {
-                toastr.success(data.message);
-                dataTable.ajax.reload(null, false); // Reload data without resetting paging
-            } else {
-                toastr.error(data.message);
-            }
-        },
-        error: function (err) {
-            console.error("LockUnlock error:", err);
-            toastr.error("Something went wrong!");
+function Delete(url) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                success: function (data) {
+                    dataTable.ajax.reload();
+                    toastr.success(data.message);
+                },
+                error: function (xhr, error, thrown) {
+                    console.error('Error deleting record: ', error);
+                    toastr.error('Failed to delete record.');
+                }
+            });
         }
     });
 }

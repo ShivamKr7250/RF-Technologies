@@ -15,13 +15,15 @@
         </div>
 
         <div class="mb-3">
-            <label asp-for="BlogPost.ShortDescription" class="form-label">Title</label>
-            <input asp-for="BlogPost.ShortDescription" class="form-control" type="text" name="BlogPost.ShortDescription" />
+            <label asp-for="BlogPost.ShortDescription" class="form-label">Short Description</label>
+            <input type="hidden" asp-for="BlogPost.ShortDescription" name="BlogPost.ShortDescription" />
+            <div id="shortDescriptionEditor" class="form-control" style="height: 150px;"></div>
         </div>
 
         <div class="mb-3">
             <label asp-for="BlogPost.Content" class="form-label">Content</label>
-            <textarea asp-for="BlogPost.Content" class="form-control" name="BlogPost.Content" rows="5"></textarea>
+            <input type="hidden" asp-for="BlogPost.Content" name="BlogPost.Content" />
+            <div id="contentEditor" class="form-control" style="height: 300px;"></div>
         </div>
 
         <div class="mb-3">
@@ -42,3 +44,36 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+<!-- Initialize Quill editor -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+    const shortDescriptionEditor = new Quill('#shortDescriptionEditor', {
+        modules: {
+            toolbar: [
+                ['bold', 'italic'],
+                ['link', 'blockquote', 'code-block', 'image'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+            ],
+        },
+        theme: 'snow',
+    });
+
+    const contentEditor = new Quill('#contentEditor', {
+        modules: {
+            toolbar: [
+                ['bold', 'italic'],
+                ['link', 'blockquote', 'code-block', 'image'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+            ],
+        },
+        theme: 'snow',
+    });
+
+    // Sync Quill editors with hidden input fields on form submit
+    document.querySelector('form').onsubmit = function () {
+        document.querySelector('input[name="BlogPost.ShortDescription"]').value = shortDescriptionEditor.root.innerHTML;
+        document.querySelector('input[name="BlogPost.Content"]').value = contentEditor.root.innerHTML;
+    };
+</script>

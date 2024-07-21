@@ -143,17 +143,32 @@ namespace RF_Technologies.Controllers
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            var BlogToBeDeleted = _unitOfWork.BlogPost.Get(u => u.PostId == id);
-            if (BlogToBeDeleted == null)
+            if (id == null)
             {
-                return Json(new { success = false, message = "Error while deleting" });
+                return Json(new { success = false, message = "Invalid blog post ID" });
             }
 
-            _unitOfWork.BlogPost.Remove(BlogToBeDeleted);
+            // Retrieve the blog post to be deleted
+            var blogToBeDeleted = _unitOfWork.BlogPost.Get(u => u.PostId == id);
+            if (blogToBeDeleted == null)
+            {
+                return Json(new { success = false, message = "Blog post not found" });
+            }
+
+            // Retrieve and delete all comments related to the blog post
+            var commentsToBeDeleted = _unitOfWork.BlogComment.GetAll(c => c.PostId == id).ToList();
+            foreach (var comment in commentsToBeDeleted)
+            {
+                _unitOfWork.BlogComment.Remove(comment);
+            }
+
+            // Delete the blog post
+            _unitOfWork.BlogPost.Remove(blogToBeDeleted);
             _unitOfWork.Save();
 
-            return Json(new { success = true, message = "Deleted Successful" });
+            return Json(new { success = true, message = "Deleted successfully" });
         }
+
         #endregion
     }
 }

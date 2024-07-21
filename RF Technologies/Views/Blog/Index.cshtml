@@ -64,8 +64,9 @@
 
                                         <div class="content">
                                             <p>
-                                                @item.Content
+                                                @Html.Raw(item.ShortDescription)
                                             </p>
+
 
                                             <div class="read-more">
                                                 <a asp-controller="Blog" asp-action="Details" asp-route-blogId="@item.PostId">Read More</a>
