@@ -17,6 +17,12 @@ namespace RF_Technologies.Model
         [StringLength(200)]
         public string Bio { get; set; }
 
+        public string FacebookLink { get; set; }
+        public string LinkedinLink { get; set; }
+        public string XLink { get; set; }
+        public string YouTubeLink { get; set; }
+        public string InstagramLink { get; set; }
+
         [NotMapped]
         public IFormFile? Image { get; set; }
         [Display(Name = "Profile Picture")]

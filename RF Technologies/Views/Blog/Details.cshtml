@@ -1,4 +1,4 @@
-﻿@model BlogPost
+﻿@model RF_Technologies.Model.VM.BlogVM
 
 <main class="main" style="margin-top: 7rem;">
     <!-- Page Title -->
@@ -7,8 +7,8 @@
             <div class="container">
                 <div class="row d-flex justify-content-center text-center">
                     <div class="col-lg-8">
-                        <h1>@Model.Title</h1>
-                        <p class="mb-0">@* @Model.ShortDescription *@</p>
+                        <h1>@Model.BlogPost.Title</h1>
+                        <p class="mb-0">@Model.BlogPost.ShortDescription</p>
                     </div>
                 </div>
             </div>
@@ -32,32 +32,32 @@
                     <div class="container">
                         <article class="article">
                             <div class="post-img">
-                                <img src="@* @Model.ImageUrl *@" alt="@Model.Title" class="img-fluid">
+                                <img src="@* @Model.BlogPost.ImageUrl *@" alt="@Model.BlogPost.Title" class="img-fluid">
                             </div>
-                            <h2 class="title">@Model.Title</h2>
+                            <h2 class="title">@Model.BlogPost.Title</h2>
 
                             <div class="meta-top">
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#"></a>@Model.ApplicationUser.Name</li>
-                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="@Model.PublicationDate.ToString("yyyy-MM-dd")">@Model.PublicationDate.ToString("MMM dd, yyyy")</time></a></li>
-                                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#">@* @Model.Comments.Count()  *@Comments</a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">@Model.BlogPost.ApplicationUser.Name</a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="@Model.BlogPost.PublicationDate.ToString("yyyy-MM-dd")">@Model.BlogPost.PublicationDate.ToString("MMM dd, yyyy")</time></a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#">@Model.BlogPost.Comments.Count() Comments</a></li>
                                 </ul>
                             </div><!-- End meta top -->
 
                             <div class="content">
-                                @Html.Raw(Model.Content)
+                                @Html.Raw(Model.BlogPost.Content)
                             </div><!-- End post content -->
 
                             <div class="meta-bottom">
                                 <i class="bi bi-folder"></i>
                                 <ul class="cats">
-                                    <li><a href="#">@Model.Category</a></li>
+                                    <li><a href="#">@Model.BlogPost.Category</a></li>
                                 </ul>
                                 <i class="bi bi-tags"></i>
                                 <ul class="tags">
-                                    @* @foreach (var tag in Model.Tags)
+                                    @* @foreach (var tag in Model.BlogPost.Tags)
                                     {
-                                        <li><a href="#">@tag</a></li>
+                                    <li><a href="#">@tag</a></li>
                                     } *@
                                 </ul>
                             </div><!-- End meta bottom -->
@@ -69,65 +69,53 @@
                 <section id="blog-author" class="blog-author section">
                     <div class="container">
                         <div class="author-container d-flex align-items-center">
-                            <img src="@Model.ApplicationUser.ProfilePicture" class="rounded-circle flex-shrink-0" alt="">
+                            <img src="@Model.BlogPost.ApplicationUser.ProfilePicture" class="rounded-circle flex-shrink-0" alt="User profile">
                             <div>
-                                <h4>@Model.ApplicationUser.Name</h4>
+                                <h4>@Model.BlogPost.ApplicationUser.Name</h4>
                                 <div class="social-links">
-                                    <a href="https://x.com/#"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
-                                    <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+                                    <a href="@Model.BlogPost.ApplicationUser.YouTubeLink"><i class="bi bi-youtube"></i></a>
+                                    <a href="@Model.BlogPost.ApplicationUser.XLink"><i class="bi bi-twitter-x"></i></a>
+                                    <a href="@Model.BlogPost.ApplicationUser.FacebookLink"><i class="bi bi-facebook"></i></a>
+                                    <a href="@Model.BlogPost.ApplicationUser.InstagramLink"><i class="biu bi-instagram"></i></a>
                                 </div>
-                                @* <p>@Model.AuthorBio</p> *@
+                                <p>@Model.BlogPost.ApplicationUser.Bio</p>
                             </div>
                         </div>
                     </div>
                 </section><!-- /Blog Author Section -->
                 <!-- Blog Comments Section -->
-                @* <section id="blog-comments" class="blog-comments section">
-                <div class="container">
-                <h4 class="comments-count">@Model.Comments.Count Comments</h4>
-                @foreach (var comment in Model.Comments)
-                {
-                <div id="comment-@comment.CommentId" class="comment">
-                <div class="d-flex">
-                <div class="comment-img"><img src="~/assets/img/blog/comments-1.jpg" alt=""></div>
-                <div>
-                <h5><a href="">@comment.UserName</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
-                <time datetime="@comment.CommentDate.ToString("yyyy-MM-dd")">@comment.CommentDate.ToString("MMM dd, yyyy")</time>
-                <p>@comment.Content</p>
-                </div>
-                </div>
-                </div>
-
-                <!-- End comment -->
-                }
-                </div>
-                </section><!-- /Blog Comments Section --> *@
+                <section id="blog-comments" class="blog-comments section">
+                    <div class="container">
+                        <h4 class="comments-count">@Model.BlogPost.Comments.Count() Comments</h4>
+                        @foreach (var comment in Model.BlogPost.Comments)
+                        {
+                            <div id="comment-@comment.CommentId" class="comment">
+                                <div class="d-flex">
+                                    <div class="comment-img"><img src="@comment.ApplicationUser.ProfilePicture" alt=""></div>
+                                    <div>
+                                        <h5><a href="">@comment.ApplicationUser.Name</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                                        <time datetime="@comment.Timestamp.ToString("yyyy-MM-dd")">@comment.Timestamp.ToString("MMM dd, yyyy")</time>
+                                        <p>@comment.Content</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End comment -->
+                        }
+                    </div>
+                </section><!-- /Blog Comments Section -->
                 <!-- Comment Form Section -->
                 <section id="comment-form" class="comment-form section">
                     <div class="container">
-                        <form action="">
+                        <form method="post" asp-action="AddComment" asp-controller="Blog">
 
                             <h4>Post Comment</h4>
-                            <p>Your email address will not be published. Required fields are marked *</p>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <input name="name" type="text" class="form-control" placeholder="Your Name*">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <input name="email" type="text" class="form-control" placeholder="Your Email*">
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col form-group">
-                                    <input name="website" type="text" class="form-control" placeholder="Your Website">
+                                    <textarea asp-for="BlogComment.Content" class="form-control" placeholder="Your Comment*"></textarea>
+                                    <span asp-validation-for="BlogComment.Content" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col form-group">
-                                    <textarea name="comment" class="form-control" placeholder="Your Comment*"></textarea>
-                                </div>
-                            </div>
+                            <input type="hidden" asp-for="BlogComment.PostId" value="@Model.BlogPost.PostId" />
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Post Comment</button>
                             </div>

@@ -1,4 +1,5 @@
 ﻿using Google.Apis.YouTube.v3.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,14 @@ namespace RF_Technologies.Model
         [StringLength(100)]
         public string Title { get; set; }
 
-        //[Required]
-        //[StringLength(200)]
-        //public string ShortDescription { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string ShortDescription { get; set; }
+
+        [NotMapped]
+        public IFormFile? Image { get; set; }
+        [Display(Name = "Blog Thubnail")]
+        public string BlogThumnail { get; set; }
 
         [Required]
         public string Content { get; set; }
@@ -46,9 +52,9 @@ namespace RF_Technologies.Model
         public string AuthorName { get; set; }
 
         [NotMapped]
-        public ICollection<BlogComment>? Comments { get; set; }
+        public ICollection<BlogComment> Comments { get; set; }
         [NotMapped]
-        public ICollection<Interaction>? Interactions { get; set; }
+        public ICollection<Interaction> Interactions { get; set; }
 
 
     }

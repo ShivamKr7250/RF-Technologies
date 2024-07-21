@@ -1,0 +1,30 @@
+﻿@model IEnumerable<BlogPost>
+
+<div class="w-100 card border-0 p-4" style="margin-top: 7rem;">
+    <div class="card-header" style="background-color: #4154f1; margin-left: 0; padding-top: 1rem; padding-bottom: 1rem;">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Blog Post List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body border p-4">
+        <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Published Date</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/blog.js"></script>
+}

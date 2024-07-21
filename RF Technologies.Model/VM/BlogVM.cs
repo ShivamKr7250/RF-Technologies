@@ -8,6 +8,7 @@ namespace RF_Technologies.Model.VM
 {
     public class BlogVM
     {
-
+        public BlogPost BlogPost { get; set; }
+        public BlogComment BlogComment { get; set; }
     }
 }

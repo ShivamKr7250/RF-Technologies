@@ -1,16 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RF_Technologies.Data_Access.Repository.IRepository;
 using RF_Technologies.Model;
+using Microsoft.AspNetCore.Authorization;
+using RF_Technologies.Model.VM;
 using System.Security.Claims;
+using System;
+using RF_Technologies.Data_Access.Repository.IRepository;
+using Microsoft.AspNetCore.Hosting;
+using static RF_Technologies.Controllers.UserController;
 
 namespace RF_Technologies.Controllers
 {
     public class BlogController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public BlogController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public BlogController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
+        }
+
+        public IActionResult BlogIndex()
+        {
+            return View();
         }
 
         public IActionResult Index()
@@ -19,82 +32,128 @@ namespace RF_Technologies.Controllers
             return View(postFromDb);
         }
 
-        //public IActionResult Index()
-        //{
-        //    var blogPosts = _unitOfWork.BlogPost.GetPostsByDescendingPublicationDate()
-        //                    .Select(bp => new BlogPost
-        //                    {
-        //                        PostId = bp.PostId,
-        //                        Title = bp.Title,
-        //                        Content = bp.Content,
-        //                        PublicationDate = bp.PublicationDate,
-        //                        AuthorName = bp.ApplicationUser?.Name ?? "Unknown",
-        //                        //CommentCount = bp.Comments?.Count() ?? 0
-        //                    })
-        //                    .ToList();
-
-        //    return View(blogPosts);
-        //}
-
-
-        //public IActionResult Details(int? id)
-        //{
-        //    if (id == null) { 
-        //        return View();
-        //    }
-        //    var post = _unitOfWork.BlogPost.Get(u => u.PostId == id, includeProperties: "ApplicationUser");
-        //    if (post == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(post);
-        //}
-
+        [Authorize]
         public IActionResult Create()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the logged-in user's ID
-            var model = new BlogPost
+            var model = new BlogVM
             {
-                UserId = userId
+                BlogPost = new BlogPost
+                {
+                    UserId = userId
+                }
             };
+
 
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(BlogPost obj)
+        public IActionResult Create(BlogVM model)
         {
-            var userdetail = _unitOfWork.User.Get(u => u.Id == obj.UserId);
-            obj.AuthorName = userdetail.Name;
-            obj.PublicationDate = DateTime.Now;
-            if (obj != null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userDetail = _unitOfWork.User.Get(u => u.Id == userId);
+            model.BlogPost.UserId = userDetail.Id;
+            model.BlogPost.AuthorName = userDetail.Name;
+            model.BlogPost.PublicationDate = DateTime.Now;
+            // Handle the blog thumbnail image
+            if (model.BlogPost.Image != null)
             {
-     
-                _unitOfWork.BlogPost.Add(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "The Blog has been Created successfully.";
-                return View();
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.BlogPost.Image.FileName);
+                string imagePath = Path.Combine(wwwRootPath, @"images\blogThumbnails");
+
+                // Create the directory if it doesn't exist
+                if (!Directory.Exists(imagePath))
+                {
+                    Directory.CreateDirectory(imagePath);
+                }
+
+                string fullImagePath = Path.Combine(imagePath, fileName);
+                using (var fileStream = new FileStream(fullImagePath, FileMode.Create))
+                {
+                    model.BlogPost.Image.CopyTo(fileStream);
+                }
+
+                model.BlogPost.BlogThumnail = @"\images\blogThumbnails\" + fileName;
             }
-            else
-            {
-                return View("Index" ,"Home");
-            }
+
+            _unitOfWork.BlogPost.Add(model.BlogPost);
+            _unitOfWork.Save();
+            TempData["success"] = "The Blog has been Created successfully.";
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Details(int blogId)
         {
-            var blogDetails = _unitOfWork.BlogPost.Get(u => u.PostId == blogId, includeProperties: "ApplicationUser");
+            // Include ApplicationUser for BlogPost and Comments
+            var blogDetails = _unitOfWork.BlogPost.Get(u => u.PostId == blogId, includeProperties: "ApplicationUser,Comments.ApplicationUser");
             if (blogDetails == null)
             {
                 return BadRequest();
             }
-            else
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userDetail = _unitOfWork.User.Get(u => u.Id == userId);
+
+            var model = new BlogVM
             {
-                return View(blogDetails);
+                BlogPost = blogDetails,
+                BlogComment = new BlogComment
+                {
+                    UserId = userId,
+                    ApplicationUser = userDetail,
+                    PostId = blogId
+                }
+            };
+
+            return View(model);
+        }
+
+
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddComment(BlogVM model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            model.BlogComment.UserId = userId;
+            model.BlogComment.Timestamp = DateTime.Now;
+            _unitOfWork.BlogComment.Add(model.BlogComment);
+            _unitOfWork.Save();
+            TempData["success"] = "The Comment has been added successfully.";
+            return RedirectToAction("Details", new { blogId = model.BlogComment.PostId });
+
+            //var blogDetails = _unitOfWork.BlogPost.Get(u => u.PostId == model.BlogComment.PostId, includeProperties: "ApplicationUser,Comments");
+            //model.BlogPost = blogDetails;
+            //return View("Details", model);
+        }
+
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<BlogPost> objUserList = _unitOfWork.BlogPost.GetAll().ToList();
+            return Json(new { data = objUserList });
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var BlogToBeDeleted = _unitOfWork.BlogPost.Get(u => u.PostId == id);
+            if (BlogToBeDeleted == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
             }
 
+            _unitOfWork.BlogPost.Remove(BlogToBeDeleted);
+            _unitOfWork.Save();
+
+            return Json(new { success = true, message = "Deleted Successful" });
         }
+        #endregion
     }
 }

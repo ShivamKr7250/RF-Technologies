@@ -1,31 +1,44 @@
-﻿@model RF_Technologies.Model.BlogPost
+﻿@model BlogVM
 
 @{
     ViewData["Title"] = "Create Blog Post";
 }
+
 <div class="container" style="margin-top: 7rem;">
-    <h1>Create Blog Post</h1>
+    <h1 class="mb-4">Create Blog Post</h1>
 
-    <form method="post" asp-action="Create">
-        <input type="hidden" asp-for="UserId" />
+    <form method="post" asp-action="Create" enctype="multipart/form-data">
 
-        <div>
-            <label asp-for="Title">Title</label>
-            <input asp-for="Title" type="text" name="Title" />
+        <div class="mb-3">
+            <label asp-for="BlogPost.Title" class="form-label">Title</label>
+            <input asp-for="BlogPost.Title" class="form-control" type="text" name="BlogPost.Title" />
         </div>
-        <div>
-            <label asp-for="Content">Content</label>
-            <textarea asp-for="Content" name="Content"></textarea>
+
+        <div class="mb-3">
+            <label asp-for="BlogPost.ShortDescription" class="form-label">Title</label>
+            <input asp-for="BlogPost.ShortDescription" class="form-control" type="text" name="BlogPost.ShortDescription" />
         </div>
-        <div>
-            <label asp-for="Category">Category</label>
-            <input asp-for="Category" type="text" name="Category" />
+
+        <div class="mb-3">
+            <label asp-for="BlogPost.Content" class="form-label">Content</label>
+            <textarea asp-for="BlogPost.Content" class="form-control" name="BlogPost.Content" rows="5"></textarea>
         </div>
-        <div>
-            <label asp-for="Tags">Tags</label>
-            <input asp-for="Tags" type="text" name="Tags" />
+
+        <div class="mb-3">
+            <label asp-for="BlogPost.Category" class="form-label">Category</label>
+            <input asp-for="BlogPost.Category" class="form-control" type="text" name="BlogPost.Category" />
         </div>
-        <button type="submit">Submit</button>
+
+        <div class="mb-3">
+            <label asp-for="BlogPost.Tags" class="form-label">Tags</label>
+            <input asp-for="BlogPost.Tags" class="form-control" type="text" name="BlogPost.Tags" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BlogPost.Image" class="form-label">Blog Thumbnail</label>
+            <input asp-for="BlogPost.Image" class="form-control" type="file" name="BlogPost.Image" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
