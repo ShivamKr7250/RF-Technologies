@@ -96,16 +96,25 @@ namespace RF_Technologies.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
 
         [HttpGet]
         public IActionResult Details(int blogId)
         {
             // Include ApplicationUser for BlogPost and Comments
-            var blogDetails = _unitOfWork.BlogPost.Get(u => u.PostId == blogId, includeProperties: "ApplicationUser,Comments.ApplicationUser");
+            var blogDetails = _unitOfWork.BlogPost.Get(
+                u => u.PostId == blogId,
+                includeProperties: "ApplicationUser,Comments,BlogCategory"
+            );
+
             if (blogDetails == null)
             {
                 return BadRequest();
+            }
+
+            // Ensure Comments is not null
+            if (blogDetails.Comments == null)
+            {
+                blogDetails.Comments = new List<BlogComment>();
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -124,8 +133,6 @@ namespace RF_Technologies.Controllers
 
             return View(model);
         }
-
-
 
         [HttpPost]
         [Authorize]

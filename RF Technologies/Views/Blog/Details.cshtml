@@ -1,4 +1,9 @@
-﻿@model RF_Technologies.Model.VM.BlogVM
+﻿@model BlogVM
+
+@{
+    // Assuming Model.BlogPosts contains the collection of blog posts you want to display in the sidebar.
+    var blogPosts = Model.BlogPost; // This should be an IEnumerable<BlogPost>
+}
 
 <main class="main" style="margin-top: 7rem;">
     <!-- Page Title -->
@@ -51,14 +56,16 @@
                             <div class="meta-bottom">
                                 <i class="bi bi-folder"></i>
                                 <ul class="cats">
-                                    <li><a href="#">@Model.BlogPost.CategoryId</a></li>
+                                    <li><a href="#">@(Model.BlogPost.BlogCategory != null ? Model.BlogPost.BlogCategory.Name : "Uncategorized")</a></li>
                                 </ul>
                                 <i class="bi bi-tags"></i>
                                 <ul class="tags">
-                                    <a>@Model.BlogPost.Tags</a>
-                                    @* @foreach (var tag in Model.BlogPost.Tags)
+                                    @* @if (Model.BlogPost.Tags != null)
                                     {
-                                    <li><a href="#">@tag</a></li>
+                                    foreach (var tag in Model.BlogPost.Tags.Split(','))
+                                    {
+                                    <li><a href="#">@tag.Trim()</a></li>
+                                    }
                                     } *@
                                 </ul>
                             </div><!-- End meta bottom -->
@@ -74,10 +81,10 @@
                             <div>
                                 <h4>@Model.BlogPost.ApplicationUser.Name</h4>
                                 <div class="social-links">
-                                    <a href="@Model.BlogPost.ApplicationUser.YouTubeLink"><i class="bi bi-youtube"></i></a>
-                                    <a href="@Model.BlogPost.ApplicationUser.XLink"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="@Model.BlogPost.ApplicationUser.FacebookLink"><i class="bi bi-facebook"></i></a>
-                                    <a href="@Model.BlogPost.ApplicationUser.InstagramLink"><i class="biu bi-instagram"></i></a>
+                                    <a href="@Model.BlogPost.ApplicationUser.YouTubeLink" target="_blank"><i class="bi bi-youtube"></i></a>
+                                    <a href="@Model.BlogPost.ApplicationUser.XLink" target="_blank"><i class="bi bi-twitter-x"></i></a>
+                                    <a href="@Model.BlogPost.ApplicationUser.FacebookLink" target="_blank"><i class="bi bi-facebook"></i></a>
+                                    <a href="@Model.BlogPost.ApplicationUser.InstagramLink" target="_blank"><i class="bi bi-instagram"></i></a>
                                 </div>
                                 <p>@Model.BlogPost.ApplicationUser.Bio</p>
                             </div>
@@ -90,17 +97,18 @@
                         <h4 class="comments-count">@Model.BlogPost.Comments.Count() Comments</h4>
                         @foreach (var comment in Model.BlogPost.Comments)
                         {
-                            <div id="comment-@comment.CommentId" class="comment">
-                                <div class="d-flex">
-                                    <div class="comment-img"><img src="@comment.ApplicationUser.ProfilePicture" alt=""></div>
-                                    <div>
-                                        <h5><a href="">@comment.ApplicationUser.Name</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
-                                        <time datetime="@comment.Timestamp.ToString("yyyy-MM-dd")">@comment.Timestamp.ToString("MMM dd, yyyy")</time>
-                                        <p>@comment.Content</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End comment -->
+                        <div id="comment-@comment.CommentId" class="comment">
+                        <div class="d-flex">
+                        <div class="comment-img"><img src="@comment.ApplicationUser.ProfilePicture" alt="User"></div>
+                        <div>
+                        <h5><a href="#">@comment.ApplicationUser.Name</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                        <time datetime="@comment.Timestamp.ToString("yyyy-MM-dd")">@comment.Timestamp.ToString("MMM dd, yyyy")</time>
+                        <p>@comment.Content</p>
+                        </div>
+                        </div>
+                        </div>
+
+                        <!-- End comment -->
                         }
                     </div>
                 </section><!-- /Blog Comments Section -->
@@ -108,7 +116,6 @@
                 <section id="comment-form" class="comment-form section">
                     <div class="container">
                         <form method="post" asp-action="AddComment" asp-controller="Blog">
-
                             <h4>Post Comment</h4>
                             <div class="row">
                                 <div class="col form-group">
@@ -116,7 +123,7 @@
                                     <span asp-validation-for="BlogComment.Content" class="text-danger"></span>
                                 </div>
                             </div>
-                            <input type="hidden" asp-for="BlogComment.PostId" value="@Model.BlogPost.PostId" />
+                            <input type="hidden" asp-for="BlogComment.PostId" />
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Post Comment</button>
                             </div>
@@ -125,7 +132,8 @@
                 </section><!-- /Comment Form Section -->
             </div>
 
-            <partial name="_BlogSideBar.cshtml" />
+            <!-- Blog Sidebar -->
+            <partial name="_BlogSideBar" />
 
         </div>
     </div>
