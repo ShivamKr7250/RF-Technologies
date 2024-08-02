@@ -7,5 +7,7 @@ namespace RF_Technologies.Data_Access.Repository.IRepository
         void Update(BlogPost entity);
 
         IEnumerable<BlogPost> GetPostsByDescendingPublicationDate();
+
+        IEnumerable<BlogPost> SearchBlogPosts(string searchTerm);
     }
 }

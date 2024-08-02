@@ -15,6 +15,7 @@ namespace RF_Technologies.Data_Access.Repository.IRepository
         IBlogPostRepository BlogPost { get; }
         IBlogCommentRepository BlogComment { get; }
         IInteractionRepository Interaction { get; }
+        IBlogCategoryRepository BlogCategory { get; }
         void Save();
     }
 }

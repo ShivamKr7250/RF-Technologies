@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RF_Technologies.Model.VM
 {
@@ -10,5 +6,7 @@ namespace RF_Technologies.Model.VM
     {
         public BlogPost BlogPost { get; set; }
         public BlogComment BlogComment { get; set; }
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

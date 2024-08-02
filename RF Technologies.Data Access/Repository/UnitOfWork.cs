@@ -15,6 +15,7 @@ namespace RF_Technologies.Data_Access.Repository
         public IBlogPostRepository BlogPost { get; private set; }
         public IBlogCommentRepository BlogComment { get; private set; }
         public IInteractionRepository Interaction { get; private set; }
+        public IBlogCategoryRepository BlogCategory { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -26,6 +27,7 @@ namespace RF_Technologies.Data_Access.Repository
             BlogPost = new BlogPostRepository(_db);
             BlogComment = new BlogCommentRepository(_db);
             Interaction = new InteractionRepository(_db);
+            BlogCategory = new BlogCategoryRepository(_db);
         }
 
         public void Save()

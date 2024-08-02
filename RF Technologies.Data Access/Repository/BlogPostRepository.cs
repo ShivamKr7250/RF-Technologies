@@ -31,6 +31,13 @@ namespace RF_Technologies.Data_Access.Repository
                            .ToList();
         }
 
+        public IEnumerable<BlogPost> SearchBlogPosts(string searchTerm)
+        {
+            return _db.Blogs
+                .Where(b => b.Title.Contains(searchTerm) || b.Content.Contains(searchTerm))
+                .ToList();
+        }
+
 
     }
 }

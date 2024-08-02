@@ -1,5 +1,4 @@
-﻿using Google.Apis.YouTube.v3.Data;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RF_Technologies.Model;
 
@@ -19,6 +18,7 @@ namespace RF_Technologies.Data_Access.Data
         public DbSet<BlogPost> Blogs { get; set; }
         public DbSet<BlogComment> BlogsComment { get; set; }
         public DbSet<Interaction> Interaction { get; set; }
+        public DbSet<BlogCategory> BlogCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

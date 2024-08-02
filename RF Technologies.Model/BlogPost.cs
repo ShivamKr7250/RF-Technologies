@@ -1,13 +1,6 @@
-﻿using Google.Apis.YouTube.v3.Data;
-using Microsoft.AspNetCore.Http;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RF_Technologies.Model
 {
@@ -20,6 +13,11 @@ namespace RF_Technologies.Model
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser? ApplicationUser { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public BlogCategory? BlogCategory { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -37,16 +35,11 @@ namespace RF_Technologies.Model
         [Required]
         public string Content { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Category { get; set; }
-
         [DataType(DataType.Date)]
         public DateTime PublicationDate { get; set; }
 
         [StringLength(100)]
         public string Tags { get; set; }
-
 
         [NotMapped]
         public string AuthorName { get; set; }
@@ -55,7 +48,6 @@ namespace RF_Technologies.Model
         public ICollection<BlogComment> Comments { get; set; }
         [NotMapped]
         public ICollection<Interaction> Interactions { get; set; }
-
 
     }
 }

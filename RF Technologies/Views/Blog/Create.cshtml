@@ -27,12 +27,14 @@
         </div>
 
         <div class="mb-3">
-            <label asp-for="BlogPost.Category" class="form-label">Category</label>
-            <input asp-for="BlogPost.Category" class="form-control" type="text" name="BlogPost.Category" />
+            <label asp-for="BlogPost.CategoryId" class="form-label">Category</label>
+            <select asp-for="BlogPost.CategoryId" class="form-control" asp-items="Model.CategoryList">
+                <option value="">-- Select a category --</option>
+            </select>
         </div>
 
         <div class="mb-3">
-            <label asp-for="BlogPost.Tags" class="form-label">Tags</label>
+            <label asp-for="Tags" class="form-label">Tags</label>
             <input asp-for="BlogPost.Tags" class="form-control" type="text" name="BlogPost.Tags" />
         </div>
 

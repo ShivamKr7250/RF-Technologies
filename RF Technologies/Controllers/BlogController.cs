@@ -7,6 +7,9 @@ using System;
 using RF_Technologies.Data_Access.Repository.IRepository;
 using Microsoft.AspNetCore.Hosting;
 using static RF_Technologies.Controllers.UserController;
+using RF_Technologies.Controllers.Service;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using RF_Technologies.Data_Access.Repository;
 
 namespace RF_Technologies.Controllers
 {
@@ -14,6 +17,7 @@ namespace RF_Technologies.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly BlogPostService _blogPostService;
 
         public BlogController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
@@ -35,17 +39,17 @@ namespace RF_Technologies.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the logged-in user's ID
-            var model = new BlogVM
+            BlogVM blogVM = new BlogVM()
             {
-                BlogPost = new BlogPost
+                BlogPost = new BlogPost(),
+                CategoryList = _unitOfWork.BlogCategory.GetAll().Select(i => new SelectListItem
                 {
-                    UserId = userId
-                }
+                    Text = i.Name,
+                    Value = i.CategoryId.ToString()
+                }),
+                Tags = new List<string>()
             };
-
-
-            return View(model);
+            return View(blogVM);
         }
 
         [HttpPost]
@@ -57,6 +61,7 @@ namespace RF_Technologies.Controllers
             model.BlogPost.UserId = userDetail.Id;
             model.BlogPost.AuthorName = userDetail.Name;
             model.BlogPost.PublicationDate = DateTime.Now;
+
             // Handle the blog thumbnail image
             if (model.BlogPost.Image != null)
             {
@@ -79,11 +84,19 @@ namespace RF_Technologies.Controllers
                 model.BlogPost.BlogThumnail = @"\images\blogThumbnails\" + fileName;
             }
 
+            // Handle tags functionality
+            if (!string.IsNullOrEmpty(model.BlogPost.Tags))
+            {
+                model.BlogPost.Tags = string.Join(",", model.BlogPost.Tags);
+            }
+
             _unitOfWork.BlogPost.Add(model.BlogPost);
             _unitOfWork.Save();
-            TempData["success"] = "The Blog has been Created successfully.";
+            TempData["success"] = "The Blog has been created successfully.";
             return RedirectToAction(nameof(Index));
         }
+
+        
 
         [HttpGet]
         public IActionResult Details(int blogId)
@@ -130,6 +143,27 @@ namespace RF_Technologies.Controllers
             //var blogDetails = _unitOfWork.BlogPost.Get(u => u.PostId == model.BlogComment.PostId, includeProperties: "ApplicationUser,Comments");
             //model.BlogPost = blogDetails;
             //return View("Details", model);
+        }
+
+        [HttpPost]
+        public IActionResult Search(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return Json(new { success = false });
+            }
+
+            var results = _unitOfWork.BlogPost.SearchBlogPosts(searchTerm)
+                .Select(b => new
+                {
+                    b.PostId,
+                    b.Title,
+                    b.ShortDescription,
+                    b.PublicationDate
+                })
+                .ToList();
+
+            return Json(new { success = true, data = results });
         }
 
         #region API CALLS

@@ -12,8 +12,8 @@ using RF_Technologies.Data_Access.Data;
 namespace RF_Technologies.Data_Access.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240720034445_addNewColumnInBlogPostAndUserTable")]
-    partial class addNewColumnInBlogPostAndUserTable
+    [Migration("20240723085225_removedCategoryCloun")]
+    partial class removedCategoryCloun
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,6 +232,23 @@ namespace RF_Technologies.Data_Access.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("RF_Technologies.Model.BlogCategory", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("BlogCategories");
+                });
+
             modelBuilder.Entity("RF_Technologies.Model.BlogComment", b =>
                 {
                     b.Property<int>("CommentId")
@@ -276,10 +293,8 @@ namespace RF_Technologies.Data_Access.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -308,6 +323,8 @@ namespace RF_Technologies.Data_Access.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("PostId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
 
@@ -616,6 +633,12 @@ namespace RF_Technologies.Data_Access.Migrations
 
             modelBuilder.Entity("RF_Technologies.Model.BlogPost", b =>
                 {
+                    b.HasOne("RF_Technologies.Model.BlogCategory", "BlogCategory")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("RF_Technologies.Model.ApplicationUser", "ApplicationUser")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
@@ -623,6 +646,8 @@ namespace RF_Technologies.Data_Access.Migrations
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
+
+                    b.Navigation("BlogCategory");
                 });
 
             modelBuilder.Entity("RF_Technologies.Model.Interaction", b =>
