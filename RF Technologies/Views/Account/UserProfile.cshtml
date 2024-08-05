@@ -75,8 +75,14 @@
 </style>
 
 <div class="container rounded bg-white mt-5 mb-5">
+    <div>
+        <a asp-controller="Blog" asp-action="Create" class="btn btn-primary mb-3">Create A Blog</a>
+    </div>
+    
     <form asp-action="UserProfile" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ProfilePicture" id="profile-picture-url" />
+
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -95,12 +101,13 @@
                         <div class="col-md-12">
                             <label class="labels">Name</label>
                             <input type="text" class="form-control" placeholder="first name" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-12">
                             <label asp-for="ProfilePicture" class="labels">Profile Picture</label>
-                            <input type="file" id="file-input" class="form-control" />
+                            <input asp-for="Image" type="file" id="file-input" class="form-control" />
                             <span asp-validation-for="ProfilePicture" class="text-danger"></span>
                         </div>
                     </div>
@@ -112,10 +119,12 @@
                         <div class="col-md-12">
                             <label class="labels">Mobile Number</label>
                             <input type="tel" class="form-control" placeholder="enter phone number" asp-for="PhoneNumber" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Bio</label>
                             <textarea class="form-control" placeholder="Enter Details about Yourself" asp-for="Bio"></textarea>
+                            <span asp-validation-for="Bio" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="mt-5 text-center">
@@ -125,7 +134,6 @@
             </div>
         </div>
     </form>
-    <a asp-controller="Blog" asp-action="Create">Create A Blog</a>
 </div>
 
 @section Scripts {
@@ -136,11 +144,11 @@
     <script>
         let cropper;
 
-        document.getElementById('file-input').addEventListener('change', function(event) {
+        document.getElementById('file-input').addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(event) {
+                reader.onload = function (event) {
                     document.getElementById('image-preview').src = event.target.result;
                     document.getElementById('cropper-container').style.display = 'block';
 
@@ -162,20 +170,22 @@
             }
         });
 
-        document.getElementById('crop-button').addEventListener('click', function() {
+        document.getElementById('crop-button').addEventListener('click', function () {
             const croppedCanvas = cropper.getCroppedCanvas({
                 width: 150,
                 height: 150,
             });
 
-            croppedCanvas.toBlob(function(blob) {
+            croppedCanvas.toBlob(function (blob) {
                 const fileInput = document.getElementById('file-input');
                 const file = new File([blob], 'profile-picture.png', { type: 'image/png' });
 
-                // Replace the file input with the cropped file
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                fileInput.files = dataTransfer.files;
+                // Update hidden input for form submission
+                const reader = new FileReader();
+                reader.onloadend = function () {
+                    document.getElementById('profile-picture-url').value = reader.result;
+                };
+                reader.readAsDataURL(blob);
 
                 document.getElementById('cropper-container').style.display = 'none';
                 document.getElementById('profile-image-preview').src = URL.createObjectURL(file);
