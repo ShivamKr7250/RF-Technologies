@@ -1,5 +1,9 @@
 ﻿@model ApplicationUser
 
+<!-- Include Cropper.js CSS and JS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
 <style>
     body {
         background: rgb(99, 39, 120);
@@ -57,6 +61,17 @@
         margin-top: -30px;
         margin-left: 120px;
     }
+
+    #image-preview {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+    }
+
+    .cropper-container {
+        max-width: 100%;
+        max-height: 400px;
+    }
 </style>
 
 <div class="container rounded bg-white mt-5 mb-5">
@@ -65,7 +80,7 @@
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" width="150px" src="@Model.ProfilePicture" />
+                    <img class="rounded-circle mt-5" width="150px" src="@Model.ProfilePicture" id="profile-image-preview" />
                     <span class="font-weight-bold">@Model.Name</span>
                     <span class="text-black-50">@Model.Email</span>
                     <span> </span>
@@ -85,9 +100,13 @@
                     <div class="row mt-2">
                         <div class="col-md-12">
                             <label asp-for="ProfilePicture" class="labels">Profile Picture</label>
-                            <input type="file" asp-for="Image" class="form-control" />
+                            <input type="file" id="file-input" class="form-control" />
                             <span asp-validation-for="ProfilePicture" class="text-danger"></span>
                         </div>
+                    </div>
+                    <div id="cropper-container" class="cropper-container mt-3" style="display: none;">
+                        <img id="image-preview" />
+                        <button type="button" class="btn btn-primary" id="crop-button">Crop</button>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-12">
@@ -109,9 +128,58 @@
     <a asp-controller="Blog" asp-action="Create">Create A Blog</a>
 </div>
 
-
 @section Scripts {
     @{
         <partial name="_ValidationScriptsPartial" />
     }
+
+    <script>
+        let cropper;
+
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('image-preview').src = event.target.result;
+                    document.getElementById('cropper-container').style.display = 'block';
+
+                    if (cropper) {
+                        cropper.destroy();
+                    }
+
+                    const image = document.getElementById('image-preview');
+                    cropper = new Cropper(image, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                        minContainerWidth: 400,
+                        minContainerHeight: 400,
+                        minCropBoxWidth: 150,
+                        minCropBoxHeight: 150,
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('crop-button').addEventListener('click', function() {
+            const croppedCanvas = cropper.getCroppedCanvas({
+                width: 150,
+                height: 150,
+            });
+
+            croppedCanvas.toBlob(function(blob) {
+                const fileInput = document.getElementById('file-input');
+                const file = new File([blob], 'profile-picture.png', { type: 'image/png' });
+
+                // Replace the file input with the cropped file
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+
+                document.getElementById('cropper-container').style.display = 'none';
+                document.getElementById('profile-image-preview').src = URL.createObjectURL(file);
+            });
+        });
+    </script>
 }
