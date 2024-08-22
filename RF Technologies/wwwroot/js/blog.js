@@ -18,7 +18,7 @@ function loadDataTable(status) {
             { data: 'title', "width": "20%" },
             { data: 'authorName', "width": "20%" },
             { data: 'publicationDate', "width": "20%" },
-            { data: 'category', "width": "10%" },
+            { data: 'categoryId', "width": "10%" },
             {
                 data: 'postId',
                 "render": function (data) {
