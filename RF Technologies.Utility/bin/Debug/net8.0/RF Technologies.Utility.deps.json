@@ -1911,7 +1911,10 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.1.38"
         },
         "runtime": {
-          "RF Technologies.Model.dll": {}
+          "RF Technologies.Model.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
