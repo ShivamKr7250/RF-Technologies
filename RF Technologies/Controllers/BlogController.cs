@@ -89,6 +89,14 @@ namespace RF_Technologies.Controllers
             return View(paginatedPosts);
         }
 
+        public IActionResult RecentPost()
+        {
+            var recentPosts = _unitOfWork.BlogPost.GetAll()
+                .OrderByDescending(post => post.PublicationDate) // Order by most recent date
+                .Take(5); // Take only the top 5 posts
+
+            return View(recentPosts);
+        }
 
         [Authorize]
         public IActionResult Create()
