@@ -162,10 +162,10 @@ namespace RF_Technologies.Controllers
         [HttpGet]
         public IActionResult Details(int blogId)
         {
-            // Include ApplicationUser for BlogPost and Comments
+            // Ensure ApplicationUser is included for both BlogPost and Comments
             var blogDetails = _unitOfWork.BlogPost.Get(
                 u => u.PostId == blogId,
-                includeProperties: "ApplicationUser,Comments,BlogCategory"
+                includeProperties: "ApplicationUser,Comments.ApplicationUser,BlogCategory"
             );
 
             if (blogDetails == null)
@@ -173,7 +173,7 @@ namespace RF_Technologies.Controllers
                 return BadRequest();
             }
 
-            // Ensure Comments is not null
+            // Ensure Comments is not null and initialize if necessary
             if (blogDetails.Comments == null)
             {
                 blogDetails.Comments = new List<BlogComment>();
@@ -190,11 +190,22 @@ namespace RF_Technologies.Controllers
                     UserId = userId,
                     ApplicationUser = userDetail,
                     PostId = blogId
-                }
+                },
+                // Map Comments including ApplicationUser data
+                Comments = blogDetails.Comments.Select(comment => new BlogComment
+                {
+                    UserId = comment.UserId,
+                    ApplicationUser = comment.ApplicationUser, // Load the ApplicationUser for each comment
+                    PostId = comment.PostId,
+                    Content = comment.Content, // Assuming you have a Content property
+                    Timestamp = comment.Timestamp // Assuming you have a Timestamp or similar property
+                }).ToList(), // Convert to List to fit IEnumerable<BlogComment>
+                User = userDetail
             };
 
             return View(model);
         }
+
 
         [HttpPost]
         [Authorize]
