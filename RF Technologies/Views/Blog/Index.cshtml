@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BlogPost>
+﻿@model PaginatedList<RF_Technologies.Model.BlogPost>
 
 @{
     ViewData["Title"] = "Blog";
@@ -36,6 +36,28 @@
     </div><!-- End Page Title -->
 
     <div class="container">
+        <!-- Search and Sort Section -->
+        @* <div class="row mb-4">
+            <div class="col-md-8">
+                <form asp-action="Index" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search blog posts..." name="searchString" value="@ViewData["CurrentFilter"]" />
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div> *@
+
+            <!-- Sorting links -->
+            <div class="col-md-4 text-end">
+                <p>
+                    Sort by:
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Title</a> |
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date</a> |
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Author</a>
+                </p>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-lg-8">
                 <!-- Blog Posts Section -->
@@ -67,7 +89,6 @@
                                                 @Html.Raw(item.ShortDescription)
                                             </p>
 
-
                                             <div class="read-more">
                                                 <a asp-controller="Blog" asp-action="Details" asp-route-blogId="@item.PostId">Read More</a>
                                             </div>
@@ -82,21 +103,38 @@
                 <section id="blog-pagination" class="blog-pagination section">
                     <div class="container">
                         <div class="d-flex justify-content-center">
-                            <ul>
-                                <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#" class="active">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li>...</li>
-                                <li><a href="#">10</a></li>
-                                <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
+                            <ul class="pagination">
+                                @if (Model.HasPreviousPage)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                                            <i class="bi bi-chevron-left"></i> Previous
+                                        </a>
+                                    </li>
+                                }
+
+                                @for (var i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@i</a>
+                                    </li>
+                                }
+
+                                @if (Model.HasNextPage)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                                            Next <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
                 </section><!-- /Blog Pagination Section -->
             </div>
 
+            <!-- Blog Sidebar Partial -->
             <partial name="_BlogSideBar.cshtml" />
         </div>
     </div>

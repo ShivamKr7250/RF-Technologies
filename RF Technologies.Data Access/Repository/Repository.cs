@@ -56,7 +56,7 @@ namespace RF_Technologies.Data_Access.Repository
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false)
+        public IQueryable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false)
         {
             IQueryable<T> query;
             if (tracked)
@@ -81,7 +81,7 @@ namespace RF_Technologies.Data_Access.Repository
                 }
             }
 
-            return query.ToList();
+            return query;
         }
 
         public void Remove(T entity)

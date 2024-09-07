@@ -4,8 +4,8 @@
         <!-- Search Widget -->
         <div class="search-widget widget-item">
             <h3 class="widget-title">Search</h3>
-            <form id="searchForm" action="javascript:void(0);">
-                <input type="text" id="searchTerm" class="form-control mb-2 mr-sm-2" placeholder="Search">
+            <form asp-controller="Blog" asp-action="Index" method="get">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Search" name="searchString" value="@ViewData["CurrentFilter"]">
                 <button type="submit" class="btn btn-primary mb-2" title="Search"><i class="bi bi-search"></i></button>
             </form>
         </div><!--/Search Widget -->

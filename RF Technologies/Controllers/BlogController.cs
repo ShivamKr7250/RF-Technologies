@@ -10,6 +10,8 @@ using static RF_Technologies.Controllers.UserController;
 using RF_Technologies.Controllers.Service;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RF_Technologies.Data_Access.Repository;
+using RF_Technologies.Utility;
+using Microsoft.EntityFrameworkCore;
 
 namespace RF_Technologies.Controllers
 {
@@ -30,11 +32,63 @@ namespace RF_Technologies.Controllers
             return View();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            var postFromDb = _unitOfWork.BlogPost.GetAll(includeProperties: "ApplicationUser,Comments");
-            return View(postFromDb);
+            // Retain the search string in pagination
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentSort"] = sortOrder;
+
+            // Sorting options
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+            ViewData["AuthorSortParm"] = sortOrder == "author" ? "author_desc" : "author";
+
+            var posts = _unitOfWork.BlogPost.GetAll(includeProperties: "ApplicationUser,Comments");
+
+            // Search functionality
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                posts = posts.Where(p => p.Title.Contains(searchString) || p.ShortDescription.Contains(searchString));
+            }
+
+            // Sorting functionality
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    posts = posts.OrderByDescending(p => p.Title);
+                    break;
+                case "date":
+                    posts = posts.OrderBy(p => p.PublicationDate);
+                    break;
+                case "date_desc":
+                    posts = posts.OrderByDescending(p => p.PublicationDate);
+                    break;
+                case "author":
+                    posts = posts.OrderBy(p => p.ApplicationUser.Name);
+                    break;
+                case "author_desc":
+                    posts = posts.OrderByDescending(p => p.ApplicationUser.Name);
+                    break;
+                default:
+                    posts = posts.OrderBy(p => p.Title);
+                    break;
+            }
+
+            int pageSize = 3;
+            var paginatedPosts = await PaginatedList<BlogPost>.CreateAsync(posts.AsNoTracking(), pageNumber ?? 1, pageSize);
+
+            return View(paginatedPosts);
         }
+
 
         [Authorize]
         public IActionResult Create()
