@@ -83,7 +83,7 @@ namespace RF_Technologies.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 5;
             var paginatedPosts = await PaginatedList<BlogPost>.CreateAsync(posts.AsNoTracking(), pageNumber ?? 1, pageSize);
 
             return View(paginatedPosts);
@@ -92,8 +92,7 @@ namespace RF_Technologies.Controllers
         public IActionResult RecentPost()
         {
             var recentPosts = _unitOfWork.BlogPost.GetAll()
-                .OrderByDescending(post => post.PublicationDate) // Order by most recent date
-                .Take(5); // Take only the top 5 posts
+                .OrderByDescending(post => post.PublicationDate); // Take only the top 5 posts
 
             return View(recentPosts);
         }
@@ -160,6 +159,7 @@ namespace RF_Technologies.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public IActionResult Details(int blogId)
         {
             // Ensure ApplicationUser is included for both BlogPost and Comments

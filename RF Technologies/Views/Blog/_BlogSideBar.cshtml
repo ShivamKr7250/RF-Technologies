@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model IEnumerable<BlogPost>
 
 <div class="col-lg-4 sidebar">
     <div class="widgets-container">
@@ -17,7 +17,7 @@
         <div class="recent-posts-widget widget-item">
             <h3 class="widget-title">Recent Posts</h3>
 
-            @foreach (var post in Model.Post)
+            @foreach (var post in Model)
             {
                 <div class="post-item">
                     <img src="@post.BlogThumnail" alt="@post.Title" class="flex-shrink-0" style="width: 100px; height: auto;">

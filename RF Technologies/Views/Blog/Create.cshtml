@@ -12,17 +12,20 @@
         <div class="mb-3">
             <label asp-for="BlogPost.Title" class="form-label">Title</label>
             <input asp-for="BlogPost.Title" class="form-control" type="text" name="BlogPost.Title" />
+            <span asp-validation-for="BlogPost.Title" />
         </div>
 
         <div class="mb-3">
             <label asp-for="BlogPost.ShortDescription" class="form-label">Short Description</label>
             <input type="hidden" asp-for="BlogPost.ShortDescription" name="BlogPost.ShortDescription" />
             <div id="shortDescriptionEditor" class="form-control" style="height: 150px;"></div>
+            <span asp-validation-for="BlogPost.ShortDescription" />
         </div>
 
         <div class="mb-3">
             <label asp-for="BlogPost.Content" class="form-label">Content</label>
             <input type="hidden" asp-for="BlogPost.Content" name="BlogPost.Content" />
+            <span asp-validation-for="BlogPost.Content" />
             <div id="contentEditor" class="form-control" style="height: 300px;"></div>
         </div>
 
