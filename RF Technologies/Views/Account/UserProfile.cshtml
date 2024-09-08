@@ -75,10 +75,6 @@
 </style>
 
 <div class="container rounded bg-white mt-5 mb-5">
-    <div>
-        <a asp-controller="Blog" asp-action="Create" class="btn btn-primary mb-3">Create A Blog</a>
-    </div>
-    
     <form asp-action="UserProfile" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="ProfilePicture" id="profile-picture-url" />
