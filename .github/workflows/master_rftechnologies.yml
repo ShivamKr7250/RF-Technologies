@@ -58,4 +58,4 @@ jobs:
         with:
           app-name: 'rftechnologies'
           slot-name: 'Production'
-          package: './RF Technologies/publish'
+          package: .
