@@ -116,7 +116,8 @@ namespace RF_Technologies.Controllers
 
                     // Generate email confirmation token
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var confirmationLink = $"https://rftechnologies.cloud/Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
+                    //var confirmationLink = $"https://rftechnologies.cloud/Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
+                    var confirmationLink = $"https://rftechnologies.azurewebsites.net/Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
 
                     // Send email
                     await SendEmailConfirmationAsync(user.Email, confirmationLink);
@@ -149,7 +150,33 @@ namespace RF_Technologies.Controllers
 
             var bodyBuilder = new BodyBuilder
             {
-                HtmlBody = $"Please confirm your account by clicking this link: <a href='{confirmationLink}'>link</a>"
+                HtmlBody = $@"
+    <html>
+    <body>
+        <h2>Welcome to RF Technologies!</h2>
+        <p>Thank you for signing up with RF Technologies. We're thrilled to have you on board!</p>
+        <p>RF Technologies specializes in innovative solutions to optimize and enhance RF (Radio Frequency) applications across various industries. We are committed to providing our clients with cutting-edge technology, superior customer support, and tailored solutions to meet your unique needs.</p>
+
+        <h3>Account Confirmation</h3>
+        <p>To activate your account and complete your registration, please confirm your email address by clicking on the link below:</p>
+        <p><a href='{confirmationLink}'>Confirm My Account</a></p>
+        <p>This link will take you directly to your account setup page, where you can finalize your profile and start exploring our services.</p>
+
+        <h3>Contact Us</h3>
+        <p>If you have any questions, feel free to reach out to us:</p>
+        <ul>
+            <li>Email: rftechnologiesltd@gmail.com</li>
+            <li>Phone: +91-9905942199</li>
+            <li>Address: Bari Khagual, Patna 801105</li>
+        </ul>
+
+        <p>We look forward to helping you harness the power of RF technology!</p>
+
+        <p>Best regards,</p>
+        <p><strong>The RF Technologies Team</strong></p>
+    </body>
+    </html>
+"
             };
             message.Body = bodyBuilder.ToMessageBody();
 
