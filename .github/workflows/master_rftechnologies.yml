@@ -19,16 +19,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build "RF Technologies/RF Technologies.sln" --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{runner.workspace}}/RF Technologies"
+        run: dotnet publish "RF Technologies/RF Technologies.sln" -c Release -o "${{runner.workspace}}/RF Technologies/publish"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{runner.workspace}}/RF Technologies
+          path: ${{runner.workspace}}/RF Technologies/publish
 
   deploy:
     runs-on: windows-latest
@@ -58,4 +58,4 @@ jobs:
         with:
           app-name: 'rftechnologies'
           slot-name: 'Production'
-          package: './RF Technologies'
+          package: './RF Technologies/publish'
