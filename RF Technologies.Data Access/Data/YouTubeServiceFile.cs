@@ -21,20 +21,17 @@ namespace RF_Technologies.Data_Access.Data
 
         public async Task<Channel> GetChannelDetailsAsync(string channelId)
         {
-            var request = _youtubeService.Channels.List("snippet,contentDetails,statistics");
+            var request = _youtubeService.Channels.List("snippet,contentDetails,statistics,brandingSettings");
             request.Id = channelId;
             var response = await request.ExecuteAsync();
 
-            // Check if response or Items is null or empty
             if (response?.Items == null || response.Items.Count == 0)
             {
-                // Handle the case where no channels are found
                 throw new Exception("No channels found with the provided channel ID.");
             }
 
             return response.Items[0];
         }
-
 
         public async Task<IList<Playlist>> GetPlaylistsAsync(string channelId)
         {
@@ -63,5 +60,24 @@ namespace RF_Technologies.Data_Access.Data
             var response = await request.ExecuteAsync();
             return response.Items;
         }
+
+        //public async Task<LiveBroadcast> GetLiveBroadcastDetailsAsync(string channelId)
+        //{
+        //    var request = _youtubeService.LiveBroadcasts.List("snippet,contentDetails,status");
+        //    request.BroadcastStatus = LiveBroadcastsResource.ListRequest.BroadcastStatusEnum.All; // Fetch all broadcasts
+        //    request.BroadcastType = LiveBroadcastsResource.ListRequest.BroadcastTypeEnum.All;    // Fetch all types (live, upcoming)
+        //    var response = await request.ExecuteAsync();
+
+        //    // Filter broadcasts by channelId if needed
+        //    var liveBroadcast = response.Items.FirstOrDefault(b => b.Snippet.ChannelId == channelId);
+
+        //    if (liveBroadcast == null)
+        //    {
+        //        throw new Exception("No live broadcasts found for the provided channel ID.");
+        //    }
+
+        //    return liveBroadcast;
+        //}
     }
+
 }

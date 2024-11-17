@@ -11,3 +11,5 @@ build_property.RootNamespace = RF_Technologies.Utility
 build_property.ProjectDir = E:\Website Project\RF Technologies\RF Technologies.Utility\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 

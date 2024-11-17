@@ -47,8 +47,8 @@
         }
 
     .embed-responsive {
-        width: 320px; /* Fixed width */
-        height: 180px; /* Fixed height */
+        width: 320px;
+        height: 180px;
         overflow: hidden;
         flex-shrink: 0;
     }
@@ -73,32 +73,47 @@
             font-size: 1.2em;
         }
 </style>
+
 <div class="container pt-4" style="margin-top: 7rem;">
     <div class="channel-header">
         <h2>@Model.ChannelTitle</h2>
+        <div>
+            <img src="@Model.ChannelThumbnails.High" alt="Channel Thumbnail" />
+        </div>
+        <p>@Model.Description</p>
         <div class="channel-stats">
             <p>Subscribers: @Model.SubscriberCount</p>
             <p>Total Views: @Model.TotalViews</p>
+            <p>Videos: @Model.VideoCount</p>
         </div>
     </div>
 
     <div class="about-section">
-        <p>Welcome to @Model.ChannelTitle! Here you'll find the latest videos and playlists from our channel. Stay tuned and subscribe for more updates.</p>
+        <p>Welcome to @Model.ChannelTitle! Stay tuned and subscribe for the latest updates. Keywords: @Model.Keywords</p>
     </div>
 
     <div class="section">
         <h3>Latest Videos</h3>
         <ul class="video-list">
-            @foreach (var video in Model.LatestVideos)
+            @if (Model.Videos != null && Model.Videos.Any())
             {
-                <li>
-                    <div class="embed-responsive">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@video.Id.VideoId" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-title">
-                        @video.Snippet.Title
-                    </div>
-                </li>
+                @foreach (var video in Model.Videos)
+                {
+                    <li>
+                        <div class="embed-responsive">
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@video.VideoId" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-title">
+                            <h4>@video.Title</h4>
+                            <p>@video.Description</p>
+                            <p>Published: @video.PublishedAt?.ToString("MMM dd, yyyy")</p>
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <p>No videos available.</p>
             }
         </ul>
     </div>
@@ -106,16 +121,41 @@
     <div class="section">
         <h3>Playlists</h3>
         <ul class="playlist-list">
-            @foreach (var playlist in Model.Playlists)
+            @if (Model.Playlists != null && Model.Playlists.Any())
             {
-                <li>
-                    <a href="https://www.youtube.com/playlist?list=@playlist.Id" target="_blank">
-                        <img src="@playlist.Snippet.Thumbnails.Default__.Url" alt="@playlist.Snippet.Title" />
-                        @playlist.Snippet.Title
-                    </a>
-                </li>
+                @foreach (var playlist in Model.Playlists)
+                {
+                    <li>
+                        <a href="https://www.youtube.com/playlist?list=@playlist.PlaylistId" target="_blank">
+                            <img src="@playlist.Thumbnails.Medium" alt="@playlist.Title" />
+                            <h4>@playlist.Title</h4>
+                            <p>@playlist.Description</p>
+                        </a>
+                    </li>
+                }
+            }
+            else
+            {
+                <p>No playlists available.</p>
             }
         </ul>
     </div>
 
+    <div class="section">
+        <h3>Live Broadcast</h3>
+        @if (Model.LiveBroadcastDetails != null)
+        {
+            <div>
+                <h4>@Model.LiveBroadcastDetails.Title</h4>
+                <p>@Model.LiveBroadcastDetails.Description</p>
+                <p>Scheduled Start: @Model.LiveBroadcastDetails.ScheduledStartTime?.ToString("MMM dd, yyyy hh:mm tt")</p>
+                <p>Actual Start: @Model.LiveBroadcastDetails.ActualStartTime?.ToString("MMM dd, yyyy hh:mm tt")</p>
+                <p>Status: @Model.LiveBroadcastDetails.StreamStatus</p>
+            </div>
+        }
+        else
+        {
+            <p>No live broadcast available.</p>
+        }
+    </div>
 </div>
