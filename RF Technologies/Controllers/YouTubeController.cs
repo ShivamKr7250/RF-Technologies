@@ -74,9 +74,9 @@ namespace RF_Technologies.Controllers
                             Medium = v.Snippet.Thumbnails.Medium.Url,
                             High = v.Snippet.Thumbnails.High.Url
                         },
-                        ViewCount = v.Snippet.Ch.ViewCount,
-                        LikeCount = v.Statistics?.LikeCount,
-                        CommentCount = v.Statistics?.CommentCount
+                       // ViewCount = v.S.ViewCount,
+                        //LikeCount = v.Statistics?.LikeCount,
+                        //CommentCount = v.Statistics?.CommentCount
                     }).ToList(),
                     //LiveBroadcastDetails = liveBroadcastDetails != null ? new LiveBroadcast
                     //{

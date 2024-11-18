@@ -80,6 +80,7 @@ namespace RF_Technologies.Model.VM
             public string Title { get; set; }
             public string Description { get; set; }
             public Thumbnails Thumbnails { get; set; }
+            public Statistics VideoStatistics { get; set; }
             public DateTime? PublishedAt { get; set; }
             public ulong? ViewCount { get; set; }
             public ulong? LikeCount { get; set; }
