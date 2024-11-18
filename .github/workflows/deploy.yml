@@ -47,7 +47,7 @@ jobs:
     - name: Restart application on Azure VM
       uses: appleboy/ssh-action@v0.1.6
       with:
-        host: ${{ secrets.AZURE_VM_IP }}
+        host: ${{ secrets.20.39.199.62 }}
         username: ${{ secrets.LinuxServer }}
         key: ${{ secrets.AZURE_VM_PRIVATE_KEY }}
         script: |
