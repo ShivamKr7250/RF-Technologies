@@ -35,7 +35,7 @@ jobs:
 
     # Step 6: Deploy files to Azure VM using SCP
     - name: Deploy to Azure VM
-      uses: appleboy/scp-action@v0.2.0
+      uses: appleboy/scp-action@v0.1.6
       with:
         host: ${{ secrets.AZURE_VM_IP }}             # Replace with your Azure VM IP secret
         username: ${{ secrets.AZURE_VM_USERNAME }}   # Replace with your Azure VM username secret
