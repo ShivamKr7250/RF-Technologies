@@ -23,14 +23,15 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
                                             <div data-mdb-input-init class="form-outline">
-                                                <input asp-for="Name" type="text" id="form3Example1m" class="form-control form-control-lg" />
                                                 <label class="form-label" for="form3Example1m">Name</label>
+                                                <input asp-for="Name" type="text" id="form3Example1m" class="form-control form-control-lg" />
+                                       
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div data-mdb-input-init class="form-outline">
-                                                <input asp-for="Email" type="text" id="form3Example1n" class="form-control form-control-lg" />
                                                 <label class="form-label" for="form3Example1n">Email</label>
+                                                <input asp-for="Email" type="text" id="form3Example1n" class="form-control form-control-lg" />
                                             </div>
                                         </div>
                                     </div>
@@ -38,80 +39,61 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
                                             <div data-mdb-input-init class="form-outline">
-                                                <input asp-for="GitHub" type="text" id="form3Example1m1" class="form-control form-control-lg" />
                                                 <label class="form-label" for="form3Example1m1">GitHub Link</label>
+                                                <input asp-for="GitHub" type="text" id="form3Example1m1" class="form-control form-control-lg" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div data-mdb-input-init class="form-outline">
-                                                <input asp-for="Linkedin" type="text" id="form3Example1n1" class="form-control form-control-lg" />
                                                 <label class="form-label" for="form3Example1n1">Linkedin Link</label>
+                                                <input asp-for="Linkedin" type="text" id="form3Example1n1" class="form-control form-control-lg" />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Skill" type="text" id="form3Example8" class="form-control form-control-lg" />
                                         <label class="form-label" for="form3Example8">Skill</label>
+                                        <input asp-for="Skill" type="text" id="form3Example8" class="form-control form-control-lg" />
                                     </div>
 
-                                    @*                                 <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
-                                    <h6 class="mb-0 me-4">Gender: </h6>
-
-                                    <div class="form-check form-check-inline mb-0 me-4">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                                    value="option1" />
-                                    <label class="form-check-label" for="femaleGender">Female</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline mb-0 me-4">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
-                                    value="option2" />
-                                    <label class="form-check-label" for="maleGender">Male</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
-                                    value="option3" />
-                                    <label class="form-check-label" for="otherGender">Other</label>
-                                    </div>
-
-                                    </div> *@
-
-                                    <div class="row">
+                                    <div class="form-outline mb-4">
                                         <div class="col-md-12 mb-8">
-
-                                            <select asp-for="Domain" data-mdb-select-init>
-                                                <option disabled>--Select Domain--</option>
+                                            <label asp-for="Domain" class="form-label">Select Domain</label>
+                                            <select asp-for="Domain" class="form-control form-control-lg" data-mdb-select-init>
+                                                <option value="" disabled selected>--Select Domain--</option>
                                                 <option value="Full Stack">Full Stack</option>
                                                 <option value="Frontend">Frontend</option>
                                                 <option value="Backend">Backend</option>
-                                                <option value="Mobile Application">Mobile Applications</option>
+                                                <option value="Mobile Application">Mobile Application</option>
                                                 <option value="Cloud">Cloud</option>
                                             </select>
-
+                                            <span asp-validation-for="Domain" class="text-danger"></span>
                                         </div>
                                     </div>
 
+
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="DateOfBirth" type="date" id="form3Example9" class="form-control form-control-lg" />
                                         <label class="form-label" for="form3Example9">DOB</label>
+                                        <input asp-for="DateOfBirth" type="date" id="form3Example9" class="form-control form-control-lg" />
+                                        
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="ContactNo" type="text" id="form3Example90" class="form-control form-control-lg" />
                                         <label class="form-label" for="form3Example90">Contact No</label>
+                                        <input asp-for="ContactNo" type="text" id="form3Example90" class="form-control form-control-lg" />
+                                        
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example99">Course Name</label>
                                         <input asp-for="Education" type="text" id="form3Example99" class="form-control form-control-lg" />
-                                        <label class="form-label" for="form3Example99">Education</label>
+                                        
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="CollegeName" type="text" id="form3Example97" class="form-control form-control-lg" />
                                         <label class="form-label" for="form3Example97">College Name</label>
+                                        <input asp-for="CollegeName" type="text" id="form3Example97" class="form-control form-control-lg" />
+                                        
                                     </div>
 
                                     <div class="d-flex justify-content-end pt-3">

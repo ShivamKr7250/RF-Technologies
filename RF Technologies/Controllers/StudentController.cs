@@ -546,6 +546,7 @@ Team RF Technologies</p>";
         }
 
         [HttpDelete]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult Delete(int? id)
         {
             var RegistrationToBeDeleted = _unitOfWork.RegistrationForm.Get(u => u.ID == id);
