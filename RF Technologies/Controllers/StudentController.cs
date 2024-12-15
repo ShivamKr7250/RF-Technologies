@@ -496,6 +496,13 @@ Team RF Technologies</p>";
                 textRange.Text = registrationFromDb.EndDate.ToString();
             }
 
+            // Replace all occurrences of "xx_issue_date"
+            while ((textSelection = document.Find("xx_issue_date", false, true)) != null)
+            {
+                textRange = textSelection.GetAsOneRange();
+                textRange.Text = registrationFromDb.EndDate.AddDays(5).ToString();
+            }
+
             // Replace all occurrences of "xx_intern_intern_id"
             while ((textSelection = document.Find("xx_intern_intern_id", false, true)) != null)
             {

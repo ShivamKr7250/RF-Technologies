@@ -10,45 +10,45 @@ namespace RF_Technologies.Model
         public int ID { get; set; }
 
         [Required]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         public string? Resume { get; set; }
 
         [Required]
-        public string? Domain { get; set; }
+        public string Domain { get; set; }
 
         [Required]
-        public string? ContactNo { get; set; }
+        public string ContactNo { get; set; }
 
         [Required]
-        public string? Linkedin { get; set; }
+        public string Linkedin { get; set; }
 
         [Required]
-        public string? GitHub { get; set; }
+        public string GitHub { get; set; }
 
         [Required]
-        public string? DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [Required]
-        public string? Education { get; set; }
+        public string Education { get; set; }
 
         [Required]
-        public string? CollegeName { get; set; }
+        public string CollegeName { get; set; }
 
         [Required]
-        public string? Skill { get; set; }
+        public string Skill { get; set; }
 
         public string? Status { get; set; }
 
         [Required]
         public DateTime RegistrationDate { get; set; }
 
-        public DateOnly? StartDate { get; set; }
+        public DateOnly StartDate { get; set; }
 
-        public DateOnly? EndDate { get; set; }
+        public DateOnly EndDate { get; set; }
 
         [Required]
         public string UserId { get; set; }
