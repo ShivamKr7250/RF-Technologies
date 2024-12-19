@@ -22,6 +22,18 @@ namespace RF_Technologies.Data_Access.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BlogCategory>().HasData(
+               new BlogCategory { CategoryId = 1, Name = "IT" },
+               new BlogCategory { CategoryId = 2, Name = "Software" },
+               new BlogCategory { CategoryId = 3, Name = "Web Development" },
+               new BlogCategory { CategoryId = 4, Name = "App Development" },
+               new BlogCategory { CategoryId = 5, Name = "AI & ML" },
+               new BlogCategory { CategoryId = 6, Name = "New Tech" },
+               new BlogCategory { CategoryId = 7, Name = "Blockchain" },
+               new BlogCategory { CategoryId = 8, Name = "Frontend Development" },
+               new BlogCategory { CategoryId = 9, Name = "Backend Development" }
+               );
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<BlogPost>()
