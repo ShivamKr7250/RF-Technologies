@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RF Technologies.Model")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d437202aeeaac637829a8198e653fc19689f0f6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55a2d2c49651b170f6bb3a7afffc48ab719fa9df")]
 [assembly: System.Reflection.AssemblyProductAttribute("RF Technologies.Model")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RF Technologies.Model")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

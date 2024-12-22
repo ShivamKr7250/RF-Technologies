@@ -78,9 +78,9 @@
     <div class="channel-header">
         <h2>@Model.ChannelTitle</h2>
         <div>
-            <img src="@Model.ChannelThumbnails.High" alt="Channel Thumbnail" />
+            <img src="@Model.ChannelThumbnails.Default" alt="Channel Thumbnail" />
         </div>
-        <p>@Model.Description</p>
+        @* <p>@Model.Description</p> *@
         <div class="channel-stats">
             <p>Subscribers: @Model.SubscriberCount</p>
             <p>Total Views: @Model.TotalViews</p>
@@ -89,11 +89,11 @@
     </div>
 
     <div class="about-section">
-        <p>Welcome to @Model.ChannelTitle! Stay tuned and subscribe for the latest updates. Keywords: @Model.Keywords</p>
+        <p>Welcome to @Model.ChannelTitle! Stay tuned and subscribe for the latest updates.@Model.Keywords</p>
     </div>
 
     <div class="section">
-        <h3>Latest Videos</h3>
+        <h1>Latest Videos</h1>
         <ul class="video-list">
             @if (Model.Videos != null && Model.Videos.Any())
             {
@@ -105,7 +105,7 @@
                         </div>
                         <div class="video-title">
                             <h4>@video.Title</h4>
-                            <p>@video.Description</p>
+                            @* <p>@video.Description</p> *@
                             <p>Published: @video.PublishedAt?.ToString("MMM dd, yyyy")</p>
                         </div>
                     </li>
@@ -119,7 +119,7 @@
     </div>
 
     <div class="section">
-        <h3>Playlists</h3>
+        <h1>Playlists</h1>
         <ul class="playlist-list">
             @if (Model.Playlists != null && Model.Playlists.Any())
             {
@@ -129,7 +129,7 @@
                         <a href="https://www.youtube.com/playlist?list=@playlist.PlaylistId" target="_blank">
                             <img src="@playlist.Thumbnails.Medium" alt="@playlist.Title" />
                             <h4>@playlist.Title</h4>
-                            <p>@playlist.Description</p>
+                           @*  <p>@playlist.Description</p> *@
                         </a>
                     </li>
                 }
@@ -141,7 +141,7 @@
         </ul>
     </div>
 
-    <div class="section">
+   @*  <div class="section">
         <h3>Live Broadcast</h3>
         @if (Model.LiveBroadcastDetails != null)
         {
@@ -157,5 +157,5 @@
         {
             <p>No live broadcast available.</p>
         }
-    </div>
+    </div> *@
 </div>
