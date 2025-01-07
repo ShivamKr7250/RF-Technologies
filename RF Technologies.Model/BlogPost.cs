@@ -24,7 +24,7 @@ namespace RF_Technologies.Model
         public string Title { get; set; }
 
         [Required]
-        [StringLength(200)]
+        [StringLength(400)]
         public string ShortDescription { get; set; }
 
         [NotMapped]

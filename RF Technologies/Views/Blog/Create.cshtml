@@ -8,77 +8,115 @@
     <h1 class="mb-4">Create Blog Post</h1>
 
     <form method="post" asp-action="Create" enctype="multipart/form-data">
-
+        <!-- Blog Title -->
         <div class="mb-3">
             <label asp-for="BlogPost.Title" class="form-label">Title</label>
             <input asp-for="BlogPost.Title" class="form-control" type="text" name="BlogPost.Title" />
-            <span asp-validation-for="BlogPost.Title" />
+            <span asp-validation-for="BlogPost.Title" class="text-danger"></span>
         </div>
 
+        <!-- Short Description -->
         <div class="mb-3">
             <label asp-for="BlogPost.ShortDescription" class="form-label">Short Description</label>
             <input type="hidden" asp-for="BlogPost.ShortDescription" name="BlogPost.ShortDescription" />
             <div id="shortDescriptionEditor" class="form-control" style="height: 150px;"></div>
-            <span asp-validation-for="BlogPost.ShortDescription" />
+            <small id="shortDescriptionCounter" class="text-muted">0/200 characters</small>
+            <span asp-validation-for="BlogPost.ShortDescription" class="text-danger"></span>
         </div>
 
+        <!-- Content -->
         <div class="mb-3">
             <label asp-for="BlogPost.Content" class="form-label">Content</label>
             <input type="hidden" asp-for="BlogPost.Content" name="BlogPost.Content" />
-            <span asp-validation-for="BlogPost.Content" />
             <div id="contentEditor" class="form-control" style="height: 300px;"></div>
+            <small id="contentCounter" class="text-muted">0/4000 characters</small>
+            <span asp-validation-for="BlogPost.Content" class="text-danger"></span>
         </div>
 
+        <!-- Category -->
         <div class="mb-3">
             <label asp-for="BlogPost.CategoryId" class="form-label">Category</label>
             <select asp-for="BlogPost.CategoryId" class="form-control" asp-items="Model.CategoryList">
                 <option value="">-- Select a category --</option>
             </select>
+            <span asp-validation-for="BlogPost.CategoryId" class="text-danger"></span>
         </div>
 
+        <!-- Tags -->
         <div class="mb-3">
             <label asp-for="Tags" class="form-label">Tags</label>
             <input asp-for="BlogPost.Tags" class="form-control" type="text" name="BlogPost.Tags" />
+            <span asp-validation-for="BlogPost.Tags" class="text-danger"></span>
         </div>
 
+        <!-- Blog Thumbnail -->
         <div class="mb-3">
             <label asp-for="BlogPost.Image" class="form-label">Blog Thumbnail</label>
             <input asp-for="BlogPost.Image" class="form-control" type="file" name="BlogPost.Image" />
+            <span asp-validation-for="BlogPost.Image" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
-<!-- Initialize Quill editor -->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script>
-    const shortDescriptionEditor = new Quill('#shortDescriptionEditor', {
-        modules: {
-            toolbar: [
-                ['bold', 'italic'],
-                ['link', 'blockquote', 'code-block', 'image'],
-                [{ list: 'ordered' }, { list: 'bullet' }],
-            ],
-        },
-        theme: 'snow',
-    });
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <!-- Quill.js Scripts -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-    const contentEditor = new Quill('#contentEditor', {
-        modules: {
-            toolbar: [
-                ['bold', 'italic'],
-                ['link', 'blockquote', 'code-block', 'image'],
-                [{ list: 'ordered' }, { list: 'bullet' }],
-            ],
-        },
-        theme: 'snow',
-    });
+    <script>
+        // Initialize Quill Editors
+        const shortDescriptionEditor = new Quill('#shortDescriptionEditor', {
+            modules: { toolbar: [['bold', 'italic'], ['link', { list: 'ordered' }, { list: 'bullet' }]] },
+            theme: 'snow',
+            placeholder: 'Enter a short description...',
+        });
 
-    // Sync Quill editors with hidden input fields on form submit
-    document.querySelector('form').onsubmit = function () {
-        document.querySelector('input[name="BlogPost.ShortDescription"]').value = shortDescriptionEditor.root.innerHTML;
-        document.querySelector('input[name="BlogPost.Content"]').value = contentEditor.root.innerHTML;
-    };
-</script>
+        const contentEditor = new Quill('#contentEditor', {
+            modules: { toolbar: [['bold', 'italic'], ['link', { list: 'ordered' }, { list: 'bullet' }]] },
+            theme: 'snow',
+            placeholder: 'Write your blog content here...',
+        });
+
+        // Character counters
+        function updateCounter(editor, counterElement, maxLength) {
+            const length = editor.getText().trim().length;
+            counterElement.textContent = `${length}/${maxLength} characters`;
+        }
+
+        shortDescriptionEditor.on('text-change', function () {
+            updateCounter(shortDescriptionEditor, document.getElementById('shortDescriptionCounter'), 300);
+        });
+
+        contentEditor.on('text-change', function () {
+            updateCounter(contentEditor, document.getElementById('contentCounter'), 4000);
+        });
+
+        // Sync Editors and Validate on Submit
+        document.querySelector('form').addEventListener('submit', function (event) {
+            const shortDescription = shortDescriptionEditor.root.innerHTML.trim();
+            const content = contentEditor.root.innerHTML.trim();
+
+            // Validation
+            if (shortDescriptionEditor.getText().trim().length > 300) {
+                alert('Short Description exceeds the maximum length of 200 characters.');
+                event.preventDefault();
+                return;
+            }
+
+            if (contentEditor.getText().trim().length > 4000) {
+                alert('Content exceeds the maximum length of 4000 characters.');
+                event.preventDefault();
+                return;
+            }
+
+            document.querySelector('input[name="BlogPost.ShortDescription"]').value = shortDescription;
+            document.querySelector('input[name="BlogPost.Content"]').value = content;
+
+            // Disable submit button to prevent duplicate submissions
+            document.querySelector('button[type="submit"]').disabled = true;
+        });
+    </script>
+}
