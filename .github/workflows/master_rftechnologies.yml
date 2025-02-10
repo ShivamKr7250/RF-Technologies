@@ -12,24 +12,25 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: read #This is required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
-          include-prerelease: true
 
       - name: Build with dotnet
         run: dotnet build "RF Technologies/RF Technologies.sln" --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish "RF Technologies/RF Technologies.sln" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish "RF Technologies/RF Technologies.sln" -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
@@ -40,18 +41,28 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: .net-app
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_06CC2255B8E84DC3BED1B5E78AF40093 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9728C8DED8D642019F8A6FA98266F0D5 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_FE6EDF2ADD6546BBBB1FCDA34A5AD012 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'rftechnologies'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BA5E2675B8E641658B3B3331984D32EE }}
           package: .
+          
