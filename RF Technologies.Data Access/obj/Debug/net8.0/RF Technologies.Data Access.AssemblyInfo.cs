@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RF Technologies.Data Access")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+808194e690a49ded97276f21e7375f0e429ec17f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c6e0603ea8be71ca74e6b5399ee5b6c9614ae3e")]
 [assembly: System.Reflection.AssemblyProductAttribute("RF Technologies.Data Access")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RF Technologies.Data Access")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
