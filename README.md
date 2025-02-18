@@ -6,7 +6,7 @@ This project is an Internship Management System built using ASP.NET Core MVC and
 
 - **User Roles:**
   - **Admin:** Manages the entire system, including users, and internship offers.
-  - **Student:** Registers for internships and views internship offers.
+  - **Student:** Registers for  internships and views internship offers.
 
 - **Functionalities:**
   - User authentication and authorization.
