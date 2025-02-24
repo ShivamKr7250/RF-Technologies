@@ -63,7 +63,7 @@ This project is an Internship Management System built using ASP.NET Core MVC and
 
 ## Contributing
 
-Feel free to fork this repository, propose changes, and submit pull requests.
+Feel free to fork this repository, propose changes, & submit pull requests.
 
 ## License
 
