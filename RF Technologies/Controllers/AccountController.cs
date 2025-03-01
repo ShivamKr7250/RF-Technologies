@@ -117,7 +117,7 @@ namespace RF_Technologies.Controllers
                     // Generate email confirmation token
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //var confirmationLink = $"https://rftechnologies.cloud/Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
-                   var confirmationLink = $"http://rftechnologies.azurewebsites.net//Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
+                   var confirmationLink = $"https://rftechnologies.azurewebsites.net//Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
 
                     // Send email
                     await SendEmailConfirmationAsync(user.Email, confirmationLink);
