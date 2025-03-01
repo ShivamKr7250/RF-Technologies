@@ -10,6 +10,7 @@ This project is an Internship Management System built using ASP.NET Core MVC and
 
 - **Functionalities:**
   - User authentication and authorization.
+  - 
   - CRUD operations for managing users, and students.
   - Internship application and placement management by students.
 
