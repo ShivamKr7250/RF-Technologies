@@ -2270,7 +2270,7 @@
         },
         "runtime": {
           "RF Technologies.Model.dll": {
-            "assemblyVersion": "1.0.0",
+            "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
@@ -2281,7 +2281,7 @@
         },
         "runtime": {
           "RF Technologies.Utility.dll": {
-            "assemblyVersion": "1.0.0",
+            "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
