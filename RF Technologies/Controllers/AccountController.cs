@@ -96,7 +96,10 @@ namespace RF_Technologies.Controllers
                     Email = registerVM.Email,
                     PhoneNumber = registerVM.PhoneNumber,
                     NormalizedEmail = registerVM.Email.ToUpper(),
-                    EmailConfirmed = false,
+
+                    // 1. SET THIS TO TRUE TO BYPASS CONFIRMATION
+                    EmailConfirmed = true,
+
                     UserName = registerVM.Email,
                     CreatedAt = DateTime.Now
                 };
@@ -114,16 +117,25 @@ namespace RF_Technologies.Controllers
                         await _userManager.AddToRoleAsync(user, SD.Role_Student);
                     }
 
-                    // Generate email confirmation token
+                    // --- EMAIL CONFIRMATION LOGIC COMMENTED OUT ---
+                    /*
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var confirmationLink = $"https://rftechnologies.cloud/Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
-                    var confirmationLink = $"https://rftechnologies.azurewebsites.net//Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
-
-                    // Send email
+                    var confirmationLink = $"https://rftechnologies.cloud/Account/ConfirmEmail?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
                     await SendEmailConfirmationAsync(user.Email, confirmationLink);
-
-                    // Return to confirmation required view
                     return View("EmailConfirmationRequired");
+                    */
+                    // ----------------------------------------------
+
+                    // 2. AUTOMATICALLY SIGN THE USER IN
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    // 3. REDIRECT THEM TO THE HOME PAGE OR PREVIOUS URL
+                    if (!string.IsNullOrEmpty(registerVM.RedirectUrl) && Url.IsLocalUrl(registerVM.RedirectUrl))
+                    {
+                        return Redirect(registerVM.RedirectUrl);
+                    }
+
+                    return RedirectToAction("Index", "Home");
                 }
 
                 foreach (var error in result.Errors)
@@ -375,12 +387,12 @@ namespace RF_Technologies.Controllers
             string wwwRootPath = _webHostEnvironment.WebRootPath;
             string previousImagePath = user.ProfilePicture;
 
+            // Handle Image Upload
             if (userModel.Image != null)
             {
                 // Generate a unique filename for the new image
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(userModel.Image.FileName);
-                string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"images\userPhoto");
-
+                string imagePath = Path.Combine(wwwRootPath, @"images\userPhoto");
 
                 // Create the directory if it doesn't exist
                 if (!Directory.Exists(imagePath))
@@ -391,7 +403,7 @@ namespace RF_Technologies.Controllers
                 // Delete the previous image if it exists
                 if (!string.IsNullOrEmpty(previousImagePath) && !previousImagePath.StartsWith("https://"))
                 {
-                    string previousImageFullPath = Path.Combine(wwwRootPath, previousImagePath.Replace('/', Path.DirectorySeparatorChar));
+                    string previousImageFullPath = Path.Combine(wwwRootPath, previousImagePath.TrimStart('\\'));
                     if (System.IO.File.Exists(previousImageFullPath))
                     {
                         System.IO.File.Delete(previousImageFullPath);
@@ -400,24 +412,32 @@ namespace RF_Technologies.Controllers
 
                 // Save the new image
                 string newImageFullPath = Path.Combine(imagePath, fileName);
-                using var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create);
-
-                userModel.Image.CopyTo(fileStream);
+                using var fileStream = new FileStream(newImageFullPath, FileMode.Create);
+                await userModel.Image.CopyToAsync(fileStream); // Changed to async
 
                 user.ProfilePicture = @"\images\userPhoto\" + fileName;
             }
-            else
-            {
-                user.ProfilePicture = "https://placehold.co/600x400";
-            }
+            // Note: The 'else' block assigning the placeholder is removed. 
+            // If they don't upload a new image, we just keep the old one!
 
+            // Map all standard and new fields
             user.Name = userModel.Name;
             user.Bio = userModel.Bio;
             user.PhoneNumber = userModel.PhoneNumber;
-            // Update other fields if needed
+
+            // --- New Fields Mapped Below ---
+            user.DateOfBirth = userModel.DateOfBirth;
+            user.CollegeName = userModel.CollegeName;
+            user.Education = userModel.Education;
+            user.Domain = userModel.Domain;
+            user.Skill = userModel.Skill;
+            user.GitHub = userModel.GitHub;
+            user.Linkedin = userModel.Linkedin;
+
+            // Update and Save
             _unitOfWork.User.Update(user);
             _unitOfWork.Save();
-            TempData["success"] = "The Profile has been Updated successfully.";
+            TempData["success"] = "Your profile has been updated successfully.";
 
             return RedirectToAction("UserProfile", new { userId = user.Id });
         }

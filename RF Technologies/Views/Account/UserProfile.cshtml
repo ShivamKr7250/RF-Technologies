@@ -1,130 +1,229 @@
 ﻿@model ApplicationUser
 
-<!-- Include Cropper.js CSS and JS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
 <style>
     body {
-        background: rgb(99, 39, 120);
+        background-color: #f4f7f6;
         margin-top: 7rem;
     }
 
-    .form-control:focus {
-        box-shadow: none;
-        border-color: #BA68C8;
-    }
-
-    .profile-button {
-        background: rgb(99, 39, 120);
-        box-shadow: none;
+    .profile-card {
         border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
 
-        .profile-button:hover {
-            background: #682773;
-        }
-
-        .profile-button:focus {
-            background: #682773;
-            box-shadow: none;
-        }
-
-        .profile-button:active {
-            background: #682773;
-            box-shadow: none;
-        }
-
-    .back:hover {
-        color: #682773;
-        cursor: pointer;
+    .profile-header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+        border-radius: 15px 15px 0 0;
+        padding: 2rem;
+        position: relative;
     }
 
-    .labels {
-        font-size: 11px;
+    .profile-img-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        margin-top: -75px;
+        border-radius: 50%;
+        background: white;
+        padding: 5px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .add-experience:hover {
-        background: #BA68C8;
-        color: #fff;
-        cursor: pointer;
-        border: solid 1px #BA68C8;
-    }
-
-    .file-upload {
-        display: none;
-    }
-
-    .upload-button {
-        cursor: pointer;
-        color: #682773;
-        margin-top: -30px;
-        margin-left: 120px;
-    }
-
-    #image-preview {
+    .profile-img {
         width: 100%;
-        max-height: 300px;
+        height: 100%;
         object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .upload-overlay {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: #0d6efd;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        border: 3px solid white;
+    }
+
+        .upload-overlay:hover {
+            background: #0b5ed7;
+        }
+
+    .form-floating > label {
+        color: #6c757d;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #495057;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        margin-top: 30px;
     }
 
     .cropper-container {
         max-width: 100%;
         max-height: 400px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    #image-preview {
+        max-width: 100%;
+        display: block;
     }
 </style>
 
-<div class="container rounded bg-white mt-5 mb-5">
+<div class="container mb-5">
     <form asp-action="UserProfile" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="ProfilePicture" id="profile-picture-url" />
 
-        <div class="row">
-            <div class="col-md-3 border-right">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" width="150px" src="@Model.ProfilePicture" id="profile-image-preview" />
-                    <span class="font-weight-bold">@Model.Name</span>
-                    <span class="text-black-50">@Model.Email</span>
-                    <span> </span>
-                </div>
-            </div>
-            <div class="col-md-5 border-right">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Profile Settings</h4>
+        <div class="row justify-content-center">
+            <div class="col-xl-9">
+                <div class="card profile-card">
+
+                    <div class="profile-header text-center pb-5">
+                        <h3 class="fw-bold mb-0">My Profile</h3>
+                        <p class="mb-0 text-light opacity-75">Manage your personal and professional details</p>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12">
-                            <label class="labels">Name</label>
-                            <input type="text" class="form-control" placeholder="first name" asp-for="Name" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
+
+                    <div class="profile-img-container">
+                        <img src="@(string.IsNullOrEmpty(Model.ProfilePicture) ? "https://placehold.co/150x150" : Model.ProfilePicture)" id="profile-image-preview" class="profile-img" alt="Profile Picture" />
+
+                        <input asp-for="Image" type="file" id="file-input" class="d-none" accept="image/png, image/jpeg, image/jpg" />
+
+                        <label for="file-input" class="upload-overlay" title="Change Profile Picture">
+                            <i class="bi bi-camera-fill"></i>
+                        </label>
+                    </div>
+
+                    <div class="card-body px-md-5 pb-md-5 pt-4">
+                        <div class="text-center mb-4">
+                            <h4 class="fw-bold text-dark mb-0">@Model.Name</h4>
+                            <p class="text-muted">@Model.Email</p>
                         </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12">
-                            <label asp-for="ProfilePicture" class="labels">Profile Picture</label>
-                            <input asp-for="Image" type="file" id="file-input" class="form-control" />
-                            <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+
+                        <div id="cropper-wrapper" class="mb-4 text-center" style="display: none;">
+                            <h6 class="text-primary fw-bold mb-3">Crop Your Image</h6>
+                            <div id="cropper-container" class="cropper-container mx-auto">
+                                <img id="image-preview" />
+                            </div>
+                            <button type="button" class="btn btn-primary rounded-pill px-4 mt-3" id="crop-button">Apply Crop <i class="bi bi-check2 ms-1"></i></button>
+                            <button type="button" class="btn btn-light rounded-pill px-4 mt-3 ms-2" id="cancel-crop-button">Cancel</button>
                         </div>
-                    </div>
-                    <div id="cropper-container" class="cropper-container mt-3" style="display: none;">
-                        <img id="image-preview" />
-                        <button type="button" class="btn btn-primary" id="crop-button">Crop</button>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <label class="labels">Mobile Number</label>
-                            <input type="tel" class="form-control" placeholder="enter phone number" asp-for="PhoneNumber" />
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+                        <h5 class="section-title">Personal Information</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingName" placeholder="Full Name" asp-for="Name" />
+                                    <label for="floatingName">Full Name</label>
+                                    <span asp-validation-for="Name" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="floatingPhone" placeholder="Mobile Number" asp-for="PhoneNumber" />
+                                    <label for="floatingPhone">Mobile Number</label>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="floatingDOB" asp-for="DateOfBirth" />
+                                    <label for="floatingDOB">Date of Birth</label>
+                                    <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="floatingBio" placeholder="Tell us about yourself" style="height: 100px" asp-for="Bio"></textarea>
+                                    <label for="floatingBio">Bio / About Me</label>
+                                    <span asp-validation-for="Bio" class="text-danger small"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-12">
-                            <label class="labels">Bio</label>
-                            <textarea class="form-control" placeholder="Enter Details about Yourself" asp-for="Bio"></textarea>
-                            <span asp-validation-for="Bio" class="text-danger"></span>
+
+                        <h5 class="section-title">Academic Background</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingCollege" placeholder="College Name" asp-for="CollegeName" />
+                                    <label for="floatingCollege">College/University Name</label>
+                                    <span asp-validation-for="CollegeName" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingCourse" placeholder="Course Name" asp-for="Education" />
+                                    <label for="floatingCourse">Course / Degree (e.g., B.Tech, BCA)</label>
+                                    <span asp-validation-for="Education" class="text-danger small"></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-5 text-center">
-                        <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+
+                        <h5 class="section-title">Professional Profile</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingDomain" asp-for="Domain">
+                                        <option value="" disabled>Select Domain</option>
+                                        <option value="Full Stack">Full Stack</option>
+                                        <option value="Frontend">Frontend</option>
+                                        <option value="Backend">Backend</option>
+                                        <option value="Mobile Application">Mobile Application</option>
+                                        <option value="Cloud">Cloud</option>
+                                    </select>
+                                    <label for="floatingDomain">Primary Domain</label>
+                                    <span asp-validation-for="Domain" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingSkills" placeholder="Skills" asp-for="Skill" />
+                                    <label for="floatingSkills">Key Skills (e.g., C#, React, SQL)</label>
+                                    <span asp-validation-for="Skill" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="url" class="form-control" id="floatingGithub" placeholder="GitHub URL" asp-for="GitHub" />
+                                    <label for="floatingGithub"><i class="bi bi-github me-1"></i> GitHub Profile Link</label>
+                                    <span asp-validation-for="GitHub" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="url" class="form-control" id="floatingLinkedin" placeholder="LinkedIn URL" asp-for="Linkedin" />
+                                    <label for="floatingLinkedin"><i class="bi bi-linkedin text-primary me-1"></i> LinkedIn Profile Link</label>
+                                    <span asp-validation-for="Linkedin" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 text-end border-top pt-4">
+                            <a asp-action="Index" asp-controller="Home" class="btn btn-light px-4 me-2">Cancel</a>
+                            <button class="btn btn-primary px-5 rounded-pill shadow-sm fw-bold" type="submit">Save Changes</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -133,33 +232,33 @@
 </div>
 
 @section Scripts {
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
+    <partial name="_ValidationScriptsPartial" />
 
     <script>
         let cropper;
+        const wrapper = document.getElementById('cropper-wrapper');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const profileImagePreview = document.getElementById('profile-image-preview');
 
-        document.getElementById('file-input').addEventListener('change', function (event) {
+        fileInput.addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (event) {
-                    document.getElementById('image-preview').src = event.target.result;
-                    document.getElementById('cropper-container').style.display = 'block';
+                    imagePreview.src = event.target.result;
+                    wrapper.style.display = 'block';
 
                     if (cropper) {
                         cropper.destroy();
                     }
 
-                    const image = document.getElementById('image-preview');
-                    cropper = new Cropper(image, {
+                    cropper = new Cropper(imagePreview, {
                         aspectRatio: 1,
                         viewMode: 1,
-                        minContainerWidth: 400,
-                        minContainerHeight: 400,
-                        minCropBoxWidth: 150,
-                        minCropBoxHeight: 150,
+                        minContainerWidth: 300,
+                        minContainerHeight: 300,
+                        autoCropArea: 1,
                     });
                 };
                 reader.readAsDataURL(file);
@@ -167,15 +266,14 @@
         });
 
         document.getElementById('crop-button').addEventListener('click', function () {
+            if (!cropper) return;
+
             const croppedCanvas = cropper.getCroppedCanvas({
-                width: 150,
-                height: 150,
+                width: 200,
+                height: 200,
             });
 
             croppedCanvas.toBlob(function (blob) {
-                const fileInput = document.getElementById('file-input');
-                const file = new File([blob], 'profile-picture.png', { type: 'image/png' });
-
                 // Update hidden input for form submission
                 const reader = new FileReader();
                 reader.onloadend = function () {
@@ -183,9 +281,20 @@
                 };
                 reader.readAsDataURL(blob);
 
-                document.getElementById('cropper-container').style.display = 'none';
-                document.getElementById('profile-image-preview').src = URL.createObjectURL(file);
+                // Update UI
+                wrapper.style.display = 'none';
+                profileImagePreview.src = URL.createObjectURL(blob);
+
+                // We keep the original file input intact so the backend gets the file
+                // if you are handling file uploads normally, but since your backend
+                // uses the base64 string, this handles the visual update smoothly.
             });
+        });
+
+        document.getElementById('cancel-crop-button').addEventListener('click', function() {
+            wrapper.style.display = 'none';
+            fileInput.value = ''; // Reset the file input
+            if(cropper) { cropper.destroy(); }
         });
     </script>
 }

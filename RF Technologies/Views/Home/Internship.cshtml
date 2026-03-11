@@ -1,236 +1,274 @@
-﻿<!-- Internship Program Section -->
-<section id="internship-program" class="about section">
+﻿<style>
+    /* Custom Styling for the Internship Page */
+    .internship-hero {
+        background: linear-gradient(to right, #f8f9fa, #ffffff);
+        border-radius: 20px;
+    }
 
+    .track-card {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 15px;
+        background: #fff;
+    }
+
+        .track-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: #0d6efd;
+        }
+
+    .icon-box {
+        width: 60px;
+        height: 60px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 2rem 1rem;
+        transition: transform 0.3s ease;
+        border-bottom: 4px solid transparent;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .tech-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        background-color: #f1f3f5;
+        color: #495057;
+        padding: 0.4em 0.8em;
+        border-radius: 50rem;
+        margin-right: 0.3rem;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+    }
+</style>
+
+<section id="internship-program" class="section pt-5 mt-5">
     <div class="container" data-aos="fade-up">
-        <div class="row gx-0">
-
-            <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                <img src="~/assets/img/about.jpg" class="img-fluid" alt="Internship Program">
-            </div>
+        <div class="row gx-5 align-items-center internship-hero p-4 p-md-5 shadow-sm">
 
             <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                <div class="content">
-                    <h3>Internship Program</h3>
-                    <h2>Explore Exciting Opportunities with Us!</h2>
-                    <p>
-                        Join our internship program to gain hands-on experience in [industry/company field]. We offer a supportive environment where you can learn and grow under the guidance of industry experts. Whether you're a student or recent graduate, this program is designed to help you develop valuable skills and kickstart your career.
-                    </p>
-                    <div class="text-center text-lg-start">
-                        <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
-                            <span>Learn More</span>
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </div>
+                <span class="text-primary fw-bold text-uppercase tracking-wide mb-2">RF Technologies Internship</span>
+                <h1 class="display-5 fw-bold mb-4">Step Out of the Classroom. <br /><span class="text-primary">Build Real Software.</span></h1>
+                <p class="lead text-muted mb-4">
+                    Stop writing theoretical code. Join our 1-month intensive internship program to work on production-level projects, build a strong technical portfolio, and kickstart your career in tech under the guidance of industry experts.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="#internship-domains" class="btn btn-primary btn-lg rounded-pill px-4 shadow-sm">
+                        View Open Tracks <i class="bi bi-arrow-down ms-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mt-5 mt-lg-0 text-center" data-aos="zoom-out" data-aos-delay="200">
+                <img src="~/assets/img/about.jpg" class="img-fluid rounded-4 shadow" alt="Students coding at RF Technologies">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="stats" class="stats section bg-light py-5 my-5">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4 text-center">
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card shadow-sm" style="border-bottom-color: #0d6efd;">
+                    <i class="bi bi-mortarboard fs-1 text-primary mb-3 d-block"></i>
+                    <h2 data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter fw-bold mb-1">0</h2>
+                    <p class="text-muted fw-semibold mb-0">Registered Students</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card shadow-sm" style="border-bottom-color: #ee6c20;">
+                    <i class="bi bi-briefcase fs-1 mb-3 d-block" style="color: #ee6c20;"></i>
+                    <h2 data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="1" class="purecounter fw-bold mb-1">0</h2>
+                    <p class="text-muted fw-semibold mb-0">Internships Provided</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card shadow-sm" style="border-bottom-color: #15be56;">
+                    <i class="bi bi-clock-history fs-1 mb-3 d-block" style="color: #15be56;"></i>
+                    <h2 data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter fw-bold mb-1">0</h2>
+                    <p class="text-muted fw-semibold mb-0">Hours of Coding</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card shadow-sm" style="border-bottom-color: #bb0852;">
+                    <i class="bi bi-layers fs-1 mb-3 d-block" style="color: #bb0852;"></i>
+                    <h2 data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1" class="purecounter fw-bold mb-1">0</h2>
+                    <p class="text-muted fw-semibold mb-0">Specialized Domains</p>
                 </div>
             </div>
 
         </div>
     </div>
+</section>
 
-</section><!-- /Internship Program Section -->
-<!-- Stats Section -->
-<section id="stats" class="stats section">
-
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-            <div class="col-lg-3 col-md-6">
-                <div class="stats-item d-flex align-items-center w-100 h-100">
-                    <i class="bi bi-emoji-smile color-blue flex-shrink-0"></i>
-                    <div>
-                        <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
-                        <p>Registered Students</p>
-                    </div>
-                </div>
-            </div><!-- End Stats Item -->
-
-            <div class="col-lg-3 col-md-6">
-                <div class="stats-item d-flex align-items-center w-100 h-100">
-                    <i class="bi bi-journal-richtext color-orange flex-shrink-0" style="color: #ee6c20;"></i>
-                    <div>
-                        <span data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="1" class="purecounter"></span>
-                        <p>Internship Provided</p>
-                    </div>
-                </div>
-            </div><!-- End Stats Item -->
-
-            <div class="col-lg-3 col-md-6">
-                <div class="stats-item d-flex align-items-center w-100 h-100">
-                    <i class="bi bi-headset color-green flex-shrink-0" style="color: #15be56;"></i>
-                    <div>
-                        <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-                        <p>Total Hours Count </p>
-                    </div>
-                </div>
-            </div><!-- End Stats Item -->
-
-            <div class="col-lg-3 col-md-6">
-                <div class="stats-item d-flex align-items-center w-100 h-100">
-                    <i class="bi bi-people color-pink flex-shrink-0" style="color: #bb0852;"></i>
-                    <div>
-                        <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1" class="purecounter"></span>
-                        <p>Domains</p>
-                    </div>
-                </div>
-            </div><!-- End Stats Item -->
-
-        </div>
-
+<section id="internship-domains" class="section py-5">
+    <div class="container section-title text-center mb-5" data-aos="fade-up">
+        <h2 class="fw-bold">Choose Your Track</h2>
+        <p class="text-muted">Select a domain and start building your technical expertise.</p>
     </div>
 
-</section><!-- /Stats Section -->
-<!-- Internship Program Domains Section -->
-<section id="internship-domains" class="services section">
-
-    <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Internship Program Domains</h2>
-        <p>Explore Our Internship Opportunities</p>
-    </div><!-- End Section Title -->
-
     <div class="container">
-
         <div class="row gy-4">
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-item item-cyan position-relative">
-                    <i class="bi bi-laptop icon"></i>
-                    <h3>Web Development</h3>
-                    <p>Gain hands-on experience in building responsive and interactive websites using modern technologies.</p>
-                    <a asp-controller="Student" asp-action="StudentRegistration" class="read-more stretched-link"><span>Apply Now</span> <i class="bi bi-arrow-right"></i></a>
+                <div class="track-card p-4 h-100 position-relative">
+                    <div class="icon-box bg-primary bg-opacity-10 text-primary"><i class="bi bi-browser-chrome"></i></div>
+                    <h4 class="fw-bold">Web Development</h4>
+                    <p class="text-muted small mb-3">Master front-end and back-end integration. Build responsive, dynamic web applications from scratch.</p>
+                    <div class="mb-4">
+                        <span class="tech-badge">HTML/CSS</span> <span class="tech-badge">JavaScript</span> <span class="tech-badge">Bootstrap</span>
+                    </div>
+                    <a asp-controller="Student" asp-action="StudentRegistration" class="btn btn-outline-primary w-100 stretched-link fw-semibold">Apply Now</a>
                 </div>
-            </div><!-- End Service Item -->
+            </div>
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-item item-orange position-relative">
-                    <i class="bi bi-phone icon"></i>
-                    <h3>Mobile App Development</h3>
-                    <p>Learn to develop mobile applications for iOS and Android platforms, from concept to deployment.</p>
-                    <a asp-controller="Student" asp-action="StudentRegistration" class="read-more stretched-link"><span>Apply Now</span> <i class="bi bi-arrow-right"></i></a>
+                <div class="track-card p-4 h-100 position-relative">
+                    <div class="icon-box bg-warning bg-opacity-10 text-warning"><i class="bi bi-phone"></i></div>
+                    <h4 class="fw-bold">Mobile App Dev</h4>
+                    <p class="text-muted small mb-3">Design and deploy native-feeling mobile applications for Android and iOS using modern frameworks.</p>
+                    <div class="mb-4">
+                        <span class="tech-badge">Android</span> <span class="tech-badge">Flutter</span> <span class="tech-badge">React Native</span>
+                    </div>
+                    <a asp-controller="Student" asp-action="StudentRegistration" class="btn btn-outline-primary w-100 stretched-link fw-semibold">Apply Now</a>
                 </div>
-            </div><!-- End Service Item -->
+            </div>
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="service-item item-teal position-relative">
-                    <i class="bi bi-brain icon"></i>
-                    <h3>AI & Machine Learning</h3>
-                    <p>Explore the fascinating world of Artificial Intelligence and Machine Learning algorithms and applications.</p>
-                    <a asp-controller="Student" asp-action="StudentRegistration" class="read-more stretched-link"><span>Apply Now</span> <i class="bi bi-arrow-right"></i></a>
+                <div class="track-card p-4 h-100 position-relative">
+                    <div class="icon-box bg-info bg-opacity-10 text-info"><i class="bi bi-robot"></i></div>
+                    <h4 class="fw-bold">AI & Machine Learning</h4>
+                    <p class="text-muted small mb-3">Train models, clean data, and build predictive algorithms. Step into the future of intelligent software.</p>
+                    <div class="mb-4">
+                        <span class="tech-badge">Python</span> <span class="tech-badge">TensorFlow</span> <span class="tech-badge">Pandas</span>
+                    </div>
+                    <a asp-controller="Student" asp-action="StudentRegistration" class="btn btn-outline-primary w-100 stretched-link fw-semibold">Apply Now</a>
                 </div>
-            </div><!-- End Service Item -->
+            </div>
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="service-item item-red position-relative">
-                    <i class="bi bi-cloud icon"></i>
-                    <h3>Cloud Computing</h3>
-                    <p>Get hands-on experience with cloud platforms like AWS, Azure, or Google Cloud, and learn cloud-native development.</p>
-                    <a asp-controller="Student" asp-action="StudentRegistration" class="read-more stretched-link"><span>Apply Now</span> <i class="bi bi-arrow-right"></i></a>
+                <div class="track-card p-4 h-100 position-relative">
+                    <div class="icon-box bg-success bg-opacity-10 text-success"><i class="bi bi-cloud-check"></i></div>
+                    <h4 class="fw-bold">Cloud Computing</h4>
+                    <p class="text-muted small mb-3">Learn to deploy, manage, and scale applications on industry-leading cloud infrastructure.</p>
+                    <div class="mb-4">
+                        <span class="tech-badge">AWS</span> <span class="tech-badge">Azure</span> <span class="tech-badge">Docker</span>
+                    </div>
+                    <a asp-controller="Student" asp-action="StudentRegistration" class="btn btn-outline-primary w-100 stretched-link fw-semibold">Apply Now</a>
                 </div>
-            </div><!-- End Service Item -->
+            </div>
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                <div class="service-item item-indigo position-relative">
-                    <i class="bi bi-window icon"></i>
-                    <h3>Desktop App Development</h3>
-                    <p>Develop desktop applications using frameworks like Electron or Java Swing for cross-platform usability.</p>
-                    <a asp-controller="Student" asp-action="StudentRegistration" class="read-more stretched-link"><span>Apply Now</span> <i class="bi bi-arrow-right"></i></a>
+                <div class="track-card p-4 h-100 position-relative">
+                    <div class="icon-box bg-secondary bg-opacity-10 text-secondary"><i class="bi bi-pc-display"></i></div>
+                    <h4 class="fw-bold">Desktop App Dev</h4>
+                    <p class="text-muted small mb-3">Engineer robust, standalone software for Windows, macOS, or cross-platform environments.</p>
+                    <div class="mb-4">
+                        <span class="tech-badge">C# .NET</span> <span class="tech-badge">Java</span> <span class="tech-badge">Electron</span>
+                    </div>
+                    <a asp-controller="Student" asp-action="StudentRegistration" class="btn btn-outline-primary w-100 stretched-link fw-semibold">Apply Now</a>
                 </div>
-            </div><!-- End Service Item -->
+            </div>
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-                <div class="service-item item-pink position-relative">
-                    <i class="bi bi-server icon"></i>
-                    <h3>Web API Development</h3>
-                    <p>Learn to design and implement robust and scalable web APIs using frameworks like Django, Flask, or Express.js.</p>
-                    <a asp-controller="Student" asp-action="StudentRegistration" class="read-more stretched-link"><span>Apply Now</span> <i class="bi bi-arrow-right"></i></a>
+                <div class="track-card p-4 h-100 position-relative">
+                    <div class="icon-box bg-danger bg-opacity-10 text-danger"><i class="bi bi-hdd-network"></i></div>
+                    <h4 class="fw-bold">Web API Development</h4>
+                    <p class="text-muted small mb-3">Build the backbone of modern apps. Create secure, RESTful APIs that connect databases to front-ends.</p>
+                    <div class="mb-4">
+                        <span class="tech-badge">ASP.NET Core</span> <span class="tech-badge">Node.js</span> <span class="tech-badge">SQL</span>
+                    </div>
+                    <a asp-controller="Student" asp-action="StudentRegistration" class="btn btn-outline-primary w-100 stretched-link fw-semibold">Apply Now</a>
                 </div>
-            </div><!-- End Service Item -->
+            </div>
 
         </div>
-
     </div>
+</section>
 
-</section><!-- /Internship Program Domains Section -->
-<!-- FAQ Section -->
-<section id="faq" class="faq section">
-
-    <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>F.A.Q</h2>
-        <p>Frequently Asked Questions</p>
-    </div><!-- End Section Title -->
+<section id="faq" class="faq section bg-light py-5">
+    <div class="container section-title text-center mb-5" data-aos="fade-up">
+        <h2 class="fw-bold">Frequently Asked Questions</h2>
+        <p class="text-muted">Everything you need to know about joining the RF Technologies team.</p>
+    </div>
 
     <div class="container">
+        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-8">
+                <div class="accordion shadow-sm rounded" id="internshipFAQ">
 
-        <div class="row">
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="faq-container">
-
-                    <div class="faq-item faq-active">
-                        <h3>What is the duration of the internship?</h3>
-                        <div class="faq-content">
-                            <p>The duration of the internship is 1 month.</p>
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                What is the duration of the internship?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#internshipFAQ">
+                            <div class="accordion-body text-muted">
+                                The duration of the internship is exactly <strong>1 month</strong>. It is designed to be highly intensive and focused on practical output.
+                            </div>
                         </div>
-                        <i class="faq-toggle bi bi-chevron-right"></i>
-                    </div><!-- End Faq item-->
+                    </div>
 
-                    <div class="faq-item">
-                        <h3>Is the internship paid or unpaid?</h3>
-                        <div class="faq-content">
-                            <p>The internship is unpaid. However, you need to pay a convenience fee of 99 INR at the time of submission.</p>
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Is the internship paid or unpaid?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#internshipFAQ">
+                            <div class="accordion-body text-muted">
+                                The internship itself is unpaid as it focuses heavily on mentorship and learning. However, there is a one-time convenience and processing fee of <strong>₹99 INR</strong> required at the time of final submission.
+                            </div>
                         </div>
-                        <i class="faq-toggle bi bi-chevron-right"></i>
-                    </div><!-- End Faq item-->
+                    </div>
 
-                    <div class="faq-item">
-                        <h3>What are the domains offered in the internship program?</h3>
-                        <div class="faq-content">
-                            <p>We offer internships in the following domains: Web Development, Mobile App Development, AI & Machine Learning, Cloud Computing, Desktop App Development, and Web API Development.</p>
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Do I need prior experience to apply?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#internshipFAQ">
+                            <div class="accordion-body text-muted">
+                                No prior professional experience is mandatory. We evaluate candidates based on their enthusiasm to learn and their foundational knowledge. Whether you are a beginner or an intermediate coder, we have projects suited to your level.
+                            </div>
                         </div>
-                        <i class="faq-toggle bi bi-chevron-right"></i>
-                    </div><!-- End Faq item-->
+                    </div>
+
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Will I receive a certificate?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#internshipFAQ">
+                            <div class="accordion-body text-muted">
+                                Yes. Upon successful completion of your assigned projects and the 1-month tenure, you will receive a verifiable <strong>Certificate of Completion</strong> from RF Technologies, which you can showcase on your resume and LinkedIn profile.
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-
-            </div><!-- End Faq Column-->
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-
-                <div class="faq-container">
-
-                    <div class="faq-item">
-                        <h3>Do I need any prior experience to apply for the internship?</h3>
-                        <div class="faq-content">
-                            <p>While prior experience is beneficial, it is not mandatory. We welcome applications from both beginners and those with some experience.</p>
-                        </div>
-                        <i class="faq-toggle bi bi-chevron-right"></i>
-                    </div><!-- End Faq item-->
-
-                    <div class="faq-item">
-                        <h3>How can I apply for the internship?</h3>
-                        <div class="faq-content">
-                            <p>You can apply for the internship by clicking on the "Apply Now" button in the respective internship domain section and filling out the application form.</p>
-                        </div>
-                        <i class="faq-toggle bi bi-chevron-right"></i>
-                    </div><!-- End Faq item-->
-
-                    <div class="faq-item">
-                        <h3>Will I receive a certificate after completing the internship?</h3>
-                        <div class="faq-content">
-                            <p>Yes, you will receive a certificate of completion after successfully completing the internship program.</p>
-                        </div>
-                        <i class="faq-toggle bi bi-chevron-right"></i>
-                    </div><!-- End Faq item-->
-
-                </div>
-
-            </div><!-- End Faq Column-->
-
+            </div>
         </div>
-
     </div>
-
-</section><!-- /Faq Section -->
+</section>

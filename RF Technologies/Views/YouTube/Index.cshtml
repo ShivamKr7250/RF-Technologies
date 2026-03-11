@@ -5,157 +5,196 @@
 }
 
 <style>
-    .channel-header {
+    /* Custom Styling to supplement Bootstrap */
+    .yt-hero {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 15px;
+        padding: 3rem 2rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .yt-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .stat-box {
+        background: #fff;
+        border-radius: 10px;
+        padding: 1rem;
         text-align: center;
-        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        border-bottom: 3px solid #ff0000;
     }
 
-        .channel-header h2 {
-            font-size: 2em;
-            margin: 10px 0;
-        }
-
-    .channel-stats {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 30px;
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #212529;
+        margin-bottom: 0;
     }
 
-        .channel-stats p {
-            font-size: 1.2em;
-            margin: 5px 0;
-        }
-
-    .section {
-        margin-bottom: 40px;
+    .stat-label {
+        font-size: 0.85rem;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-        .section h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-
-    .video-list, .playlist-list {
-        list-style-type: none;
-        padding: 0;
-    }
-
-        .video-list li, .playlist-list li {
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-        }
-
-    .embed-responsive {
-        width: 320px;
-        height: 180px;
+    .yt-card {
+        border: none;
+        border-radius: 12px;
         overflow: hidden;
-        flex-shrink: 0;
-    }
-
-    .embed-responsive-item {
-        width: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.06);
         height: 100%;
-        border: 0;
     }
 
-    .video-title {
-        font-size: 1.1em;
-        margin-left: 20px;
-    }
-
-    .about-section {
-        margin: 20px auto;
-        text-align: center;
-    }
-
-        .about-section p {
-            font-size: 1.2em;
+        .yt-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
         }
+
+        .yt-card .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            /* Limit title to 2 lines */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+    .playlist-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .section-title {
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background-color: #ff0000;
+            border-radius: 2px;
+        }
+
+    .playlist-link {
+        text-decoration: none;
+        color: inherit;
+    }
 </style>
 
-<div class="container pt-4" style="margin-top: 7rem;">
-    <div class="channel-header">
-        <h2>@Model.ChannelTitle</h2>
-        <div>
-            <img src="@Model.ChannelThumbnails.Default" alt="Channel Thumbnail" />
-        </div>
-        @* <p>@Model.Description</p> *@
-        <div class="channel-stats">
-            <p>Subscribers: @Model.SubscriberCount</p>
-            <p>Total Views: @Model.TotalViews</p>
-            <p>Videos: @Model.VideoCount</p>
+<div class="container pt-4" style="margin-top: 6rem; margin-bottom: 4rem;">
+
+    <div class="yt-hero mb-5 text-center text-md-start">
+        <div class="row align-items-center">
+            <div class="col-md-auto text-center mb-4 mb-md-0">
+                <img src="@Model.ChannelThumbnails.Default" alt="@Model.ChannelTitle" class="yt-avatar" />
+            </div>
+            <div class="col-md">
+                <h2 class="fw-bold mb-2">@Model.ChannelTitle</h2>
+                <p class="text-muted mb-4">Welcome to @Model.ChannelTitle! Stay tuned and subscribe for the latest updates. @Model.Keywords</p>
+
+                <div class="row g-3">
+                    <div class="col-6 col-md-4">
+                        <div class="stat-box">
+                            <p class="stat-value">@Model.SubscriberCount</p>
+                            <span class="stat-label">Subscribers</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="stat-box">
+                            <p class="stat-value">@Model.TotalViews</p>
+                            <span class="stat-label">Views</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="stat-box">
+                            <p class="stat-value">@Model.VideoCount</p>
+                            <span class="stat-label">Videos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="about-section">
-        <p>Welcome to @Model.ChannelTitle! Stay tuned and subscribe for the latest updates.@Model.Keywords</p>
-    </div>
+    <div class="mb-5">
+        <h3 class="section-title">Latest Videos</h3>
 
-    <div class="section">
-        <h1>Latest Videos</h1>
-        <ul class="video-list">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @if (Model.Videos != null && Model.Videos.Any())
             {
                 @foreach (var video in Model.Videos)
                 {
-                    <li>
-                        <div class="embed-responsive">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@video.VideoId" allowfullscreen></iframe>
+                    <div class="col">
+                        <div class="card yt-card">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/@video.VideoId" allowfullscreen style="border:0;"></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title" title="@video.Title">@video.Title</h4>
+                                <p class="card-text text-muted small mb-0">
+                                    <i class="bi bi-calendar3 me-1"></i> Published: @video.PublishedAt?.ToString("MMM dd, yyyy")
+                                </p>
+                            </div>
                         </div>
-                        <div class="video-title">
-                            <h4>@video.Title</h4>
-                            @* <p>@video.Description</p> *@
-                            <p>Published: @video.PublishedAt?.ToString("MMM dd, yyyy")</p>
-                        </div>
-                    </li>
+                    </div>
                 }
             }
             else
             {
-                <p>No videos available.</p>
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">No videos available at the moment.</div>
+                </div>
             }
-        </ul>
+        </div>
     </div>
 
-    <div class="section">
-        <h1>Playlists</h1>
-        <ul class="playlist-list">
+    <div class="mb-5">
+        <h3 class="section-title">Playlists</h3>
+
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
             @if (Model.Playlists != null && Model.Playlists.Any())
             {
                 @foreach (var playlist in Model.Playlists)
                 {
-                    <li>
-                        <a href="https://www.youtube.com/playlist?list=@playlist.PlaylistId" target="_blank">
-                            <img src="@playlist.Thumbnails.Medium" alt="@playlist.Title" />
-                            <h4>@playlist.Title</h4>
-                           @*  <p>@playlist.Description</p> *@
+                    <div class="col">
+                        <a href="https://www.youtube.com/playlist?list=@playlist.PlaylistId" target="_blank" class="playlist-link">
+                            <div class="card yt-card">
+                                <img src="@playlist.Thumbnails.Medium" class="card-img-top playlist-img" alt="@playlist.Title" />
+                                <div class="card-body">
+                                    <h4 class="card-title text-center mb-0">@playlist.Title</h4>
+                                </div>
+                            </div>
                         </a>
-                    </li>
+                    </div>
                 }
             }
             else
             {
-                <p>No playlists available.</p>
+                <div class="col-12">
+                    <div class="alert alert-light border" role="alert">No playlists available.</div>
+                </div>
             }
-        </ul>
+        </div>
     </div>
 
-   @*  <div class="section">
-        <h3>Live Broadcast</h3>
-        @if (Model.LiveBroadcastDetails != null)
-        {
-            <div>
-                <h4>@Model.LiveBroadcastDetails.Title</h4>
-                <p>@Model.LiveBroadcastDetails.Description</p>
-                <p>Scheduled Start: @Model.LiveBroadcastDetails.ScheduledStartTime?.ToString("MMM dd, yyyy hh:mm tt")</p>
-                <p>Actual Start: @Model.LiveBroadcastDetails.ActualStartTime?.ToString("MMM dd, yyyy hh:mm tt")</p>
-                <p>Status: @Model.LiveBroadcastDetails.StreamStatus</p>
-            </div>
-        }
-        else
-        {
-            <p>No live broadcast available.</p>
-        }
-    </div> *@
 </div>

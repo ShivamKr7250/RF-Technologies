@@ -1,131 +1,181 @@
 ﻿@using RF_Technologies.Model
 @model RegistrationForm
 
-<section class="h-100 bg-dark">
-    <div class="container py-5 h-100">
+<style>
+    .registration-container {
+        background-color: #f4f7f6;
+        min-height: 100vh;
+        padding-top: 6rem;
+        padding-bottom: 4rem;
+    }
+
+    .registration-card {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .registration-sidebar {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+        padding: 4rem 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .form-floating > label {
+        color: #6c757d;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+</style>
+
+<section class="registration-container">
+    <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col">
-                <form method="post">
-                    <input asp-for="ID" hidden />
-                    <div class="card card-registration my-4">
-                        <div class="row g-0">
-                            <div class="col-xl-6 d-none d-xl-block">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
-                                     alt="Sample photo" class="img-fluid"
-                                     style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
-                            </div>
-                            <div class="col-xl-6">
-                                <div asp-validation-summary="All"></div>
-                                <input asp-for="UserId" hidden />
-                                <div class="card-body p-md-5 text-black">
-                                    <h3 class="mb-5 text-uppercase">Student registration form</h3>
+            <div class="col-xl-10">
 
+                <div class="card registration-card">
+                    <div class="row g-0">
+
+                        <div class="col-lg-5 d-none d-lg-flex registration-sidebar">
+                            <h2 class="fw-bold mb-4">Kickstart Your Tech Career</h2>
+                            <p class="lead mb-4">Join our intensive 1-month internship program to build real-world applications and enhance your technical portfolio.</p>
+
+                            <ul class="list-unstyled mt-3">
+                                <li class="mb-3"><i class="bi bi-check-circle-fill me-2 text-warning"></i> Work on Live Projects</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill me-2 text-warning"></i> Industry Expert Mentorship</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill me-2 text-warning"></i> Certificate of Completion</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-7">
+                            <div class="card-body p-md-5">
+                                <h3 class="mb-4 fw-bold text-dark">Internship Application</h3>
+                                <p class="text-muted mb-4 pb-2 border-bottom">Please fill out the details below accurately.</p>
+
+                                <form method="post">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                                    <input asp-for="ID" hidden />
+                                    <input asp-for="UserId" hidden />
+
+                                    <h6 class="text-primary fw-bold mb-3">Personal Details</h6>
                                     <div class="row">
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline">
-                                                <label class="form-label" for="form3Example1m">Name</label>
-                                                <input asp-for="Name" type="text" id="form3Example1m" class="form-control form-control-lg" />
-                                       
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input asp-for="Name" type="text" class="form-control" id="floatingName" placeholder="Full Name" />
+                                                <label for="floatingName">Full Name</label>
+                                                <span asp-validation-for="Name" class="text-danger small"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline">
-                                                <label class="form-label" for="form3Example1n">Email</label>
-                                                <input asp-for="Email" type="text" id="form3Example1n" class="form-control form-control-lg" />
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input asp-for="Email" type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" />
+                                                <label for="floatingEmail">Email Address</label>
+                                                <span asp-validation-for="Email" class="text-danger small"></span>
                                             </div>
                                         </div>
                                     </div>
 
+                                    <div class="row mb-4">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <div class="form-floating">
+                                                <input asp-for="ContactNo" type="tel" class="form-control" id="floatingPhone" placeholder="Phone Number" />
+                                                <label for="floatingPhone">Contact No.</label>
+                                                <span asp-validation-for="ContactNo" class="text-danger small"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="DateOfBirth" type="date" class="form-control" id="floatingDOB" />
+                                                <label for="floatingDOB">Date of Birth</label>
+                                                <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h6 class="text-primary fw-bold mb-3">Academic Info</h6>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <div class="form-floating">
+                                                <input asp-for="CollegeName" type="text" class="form-control" id="floatingCollege" placeholder="College Name" />
+                                                <label for="floatingCollege">College Name</label>
+                                                <span asp-validation-for="CollegeName" class="text-danger small"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="Education" type="text" class="form-control" id="floatingCourse" placeholder="B.Tech, BCA, etc." />
+                                                <label for="floatingCourse">Course / Degree</label>
+                                                <span asp-validation-for="Education" class="text-danger small"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h6 class="text-primary fw-bold mb-3">Technical Profile</h6>
                                     <div class="row">
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline">
-                                                <label class="form-label" for="form3Example1m1">GitHub Link</label>
-                                                <input asp-for="GitHub" type="text" id="form3Example1m1" class="form-control form-control-lg" />
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input asp-for="GitHub" type="url" class="form-control" id="floatingGithub" placeholder="https://github.com/..." />
+                                                <label for="floatingGithub">GitHub URL</label>
+                                                <span asp-validation-for="GitHub" class="text-danger small"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline">
-                                                <label class="form-label" for="form3Example1n1">Linkedin Link</label>
-                                                <input asp-for="Linkedin" type="text" id="form3Example1n1" class="form-control form-control-lg" />
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input asp-for="Linkedin" type="url" class="form-control" id="floatingLinkedIn" placeholder="https://linkedin.com/..." />
+                                                <label for="floatingLinkedIn">LinkedIn URL</label>
+                                                <span asp-validation-for="Linkedin" class="text-danger small"></span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example8">Skill</label>
-                                        <input asp-for="Skill" type="text" id="form3Example8" class="form-control form-control-lg" />
-                                    </div>
-
-                                    <div class="form-outline mb-4">
-                                        <div class="col-md-12 mb-8">
-                                            <label asp-for="Domain" class="form-label">Select Domain</label>
-                                            <select asp-for="Domain" class="form-control form-control-lg" data-mdb-select-init>
-                                                <option value="" disabled selected>--Select Domain--</option>
-                                                <option value="Full Stack">Full Stack</option>
-                                                <option value="Frontend">Frontend</option>
-                                                <option value="Backend">Backend</option>
-                                                <option value="Mobile Application">Mobile Application</option>
-                                                <option value="Cloud">Cloud</option>
-                                            </select>
-                                            <span asp-validation-for="Domain" class="text-danger"></span>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <div class="form-floating">
+                                                <select asp-for="Domain" class="form-select" id="floatingDomain">
+                                                    <option value="" disabled selected>Select a track</option>
+                                                    <option value="Full Stack">Full Stack Development</option>
+                                                    <option value="Frontend">Frontend Development</option>
+                                                    <option value="Backend">Backend Development</option>
+                                                    <option value="Mobile Application">Mobile App Development</option>
+                                                    <option value="Cloud">Cloud Computing</option>
+                                                </select>
+                                                <label for="floatingDomain">Internship Domain</label>
+                                                <span asp-validation-for="Domain" class="text-danger small"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="Skill" type="text" class="form-control" id="floatingSkills" placeholder="C#, React, etc." />
+                                                <label for="floatingSkills">Primary Skills</label>
+                                                <span asp-validation-for="Skill" class="text-danger small"></span>
+                                            </div>
                                         </div>
                                     </div>
 
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example9">DOB</label>
-                                        <input asp-for="DateOfBirth" type="date" id="form3Example9" class="form-control form-control-lg" />
-                                        
+                                    <div class="d-grid mt-5">
+                                        <button type="submit" class="btn btn-primary btn-lg py-3 fw-bold rounded-pill shadow-sm">
+                                            Submit Application <i class="bi bi-send ms-2"></i>
+                                        </button>
                                     </div>
 
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example90">Contact No</label>
-                                        <input asp-for="ContactNo" type="text" id="form3Example90" class="form-control form-control-lg" />
-                                        
-                                    </div>
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example99">Course Name</label>
-                                        <input asp-for="Education" type="text" id="form3Example99" class="form-control form-control-lg" />
-                                        
-                                    </div>
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example97">College Name</label>
-                                        <input asp-for="CollegeName" type="text" id="form3Example97" class="form-control form-control-lg" />
-                                        
-                                    </div>
-
-                                    <div class="d-flex justify-content-end pt-3">
-                                        @*  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-lg">Reset all</button> *@
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Submit form</button>
-                                    </div>
-
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
+
             </div>
         </div>
     </div>
 </section>
 
-<style>
-    .card-registration .select-input.form-control[readonly]:not([disabled]) {
-        font-size: 1rem;
-        line-height: 2.15;
-        padding-left: .75em;
-        padding-right: .75em;
-    }
-
-    .card-registration .select-arrow {
-        top: 13px;
-    }
-</style>
-
 @section Scripts {
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
+    <partial name="_ValidationScriptsPartial" />
 }
